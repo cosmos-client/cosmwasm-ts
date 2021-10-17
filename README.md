@@ -1,11 +1,11 @@
-# @cosmos-client/liquidity
+# @cosmos-client/cosmwasm
 
-REST API client for Cosmos SDK Liquidity module.
+REST API client for Cosmos SDK CosmWasm module.
 
 ## Install
 
 ```shell
-npm install @cosmos-client/liquidity
+npm install @cosmos-client/cosmwasm
 ```
 
 ## Examples
