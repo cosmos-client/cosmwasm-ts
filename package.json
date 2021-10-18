@@ -1,7 +1,7 @@
 {
   "name": "@cosmos-client/cosmwasm",
   "description": "REST API client for Cosmos SDK CosmWasm module",
-  "version": "0.20.0",
+  "version": "0.20.1",
   "author": "CauchyE, Inc.",
   "bugs": {
     "url": "https://github.com/cosmos-client/cosmwasm-ts/issues"

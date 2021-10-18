@@ -1,2 +1,2 @@
-export * as liquidityproto from './proto';
+export * as cosmwasmproto from './proto';
 export * from './rest';
