@@ -52,11 +52,17 @@ describe('wasm', () => {
     console.log(account);
 
     // build tx
+    const initMsg = JSON.stringify({
+      arbiter: 'ununifi1a8jcsmla6heu99ldtazc27dna4qcd4jygsthx6',
+      recipient: 'ununifi1d6zd6awgjxuwrf4y863c9stz9m0eec4ghfy24c',
+    });
+    console.log(initMsg);
     const msgInstantiateContract = new cosmwasmclient.proto.cosmwasm.wasm.v1.MsgInstantiateContract({
       sender: senderAddress.toString(),
       admin: senderAddress.toString(),
       code_id: Long.fromNumber(1),
       label: 'instantiate-contract-test',
+      msg: new TextEncoder().encode(initMsg),
       funds: [{ amount: '100', denom: 'uguu' }],
     });
 
