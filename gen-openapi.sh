@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
 # npm i -g swagger-combine
+git submodule update --init --recursive
 
 rm -r swagger.yaml
 rm -r ./proto
 rm -r ./proto-thirdparty
 
 # Copy proto
-cp -r ~/chain/proto ./proto
-cp -r ~/chain/third_party/proto ./proto-thirdparty
+cp -r ./chain/proto ./proto
+cp -r ./chain/third_party/proto ./proto-thirdparty
 
 mkdir -p ./tmp-swagger-gen
 proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
@@ -34,13 +35,13 @@ swagger-combine ./configs/config.json -o ./tmp-swagger-gen/swagger.yaml -f yaml 
 cp ./tmp-swagger-gen/swagger.yaml ./swagger.yaml
 
 # clean swagger files
-rm -r ./proto
-rm -r ./proto-thirdparty
-rm -r ./tmp-swagger-gen
+# rm -r ./proto
+# rm -r ./proto-thirdparty
+# rm -r ./tmp-swagger-gen
 
-# generate openapi
-docker run --rm \
-  -v ${PWD}:/local openapitools/openapi-generator-cli generate \
-  -g typescript-axios -i /local/swagger.yaml -o /local/src/openapi/
+# # generate openapi
+# docker run --rm \
+#   -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+#   -g typescript-axios -i /local/swagger.yaml -o /local/src/openapi/
 
-rm swagger.yaml
+# rm swagger.yaml

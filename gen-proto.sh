@@ -3,8 +3,8 @@ git submodule update --init --recursive
 
 rm -r ./proto
 rm -r ./proto-thirdparty
-cp -r ~/chain/proto ./proto
-cp -r ~/chain/third_party/proto ./proto-thirdparty
+cp -r ./chain/proto ./proto
+cp -r ./chain/third_party/proto ./proto-thirdparty
 
 proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 proto_files=()
