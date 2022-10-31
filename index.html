@@ -116,7 +116,7 @@
         const msgInstantiateContract = new cosmwasmclient.proto.cosmwasm.wasm.v1.MsgInstantiateContract({
           sender: senderAccAddressString,
           admin: senderAccAddressString,
-          code_id: Long.fromNumber(1),
+          code_id: Long.fromString('1'),
           label: 'instantiate-contract-test',
           msg: new TextEncoder().encode(initMsg),
           funds: [{ amount: '100', denom: 'uguu' }],
