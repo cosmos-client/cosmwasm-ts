@@ -1,5 +1,5 @@
 import { cosmwasm } from '../../proto';
-import { cosmosclient } from '@cosmos-client/core';
+import cosmosclient from '@cosmos-client/core';
 
 export * as wasm from './module';
 

@@ -35,13 +35,13 @@ swagger-combine ./configs/config.json -o ./tmp-swagger-gen/swagger.yaml -f yaml 
 cp ./tmp-swagger-gen/swagger.yaml ./swagger.yaml
 
 # clean swagger files
-# rm -r ./proto
-# rm -r ./proto-thirdparty
-# rm -r ./tmp-swagger-gen
+rm -r ./proto
+rm -r ./proto-thirdparty
+rm -r ./tmp-swagger-gen
 
-# # generate openapi
-# docker run --rm \
-#   -v ${PWD}:/local openapitools/openapi-generator-cli generate \
-#   -g typescript-axios -i /local/swagger.yaml -o /local/src/openapi/
+# generate openapi
+docker run --rm \
+  -v ${PWD}:/local openapitools/openapi-generator-cli generate \
+  -g typescript-axios -i /local/swagger.yaml -o /local/src/openapi/
 
-# rm swagger.yaml
+rm swagger.yaml

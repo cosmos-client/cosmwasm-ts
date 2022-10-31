@@ -11,6 +11,7 @@
     "plugin:import/warnings",
     "plugin:import/typescript",
     ".eslintrc.jest.json",
-    ".eslintrc.typescript.json"
+    ".eslintrc.typescript.json",
+    "prettier"
   ]
 }
