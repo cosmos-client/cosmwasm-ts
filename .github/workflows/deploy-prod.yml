@@ -1,9 +1,6 @@
-name: CD prod
+name: CD cosmwasm-client npm publish
 
-on:
-  release:
-    types:
-      - created
+on: [workflow_dispatch]
 
 jobs:
   build:
@@ -19,7 +16,7 @@ jobs:
         uses: actions/setup-node@v1
         with:
           node-version: ${{ matrix.node-version }}
-          registry-url: "https://registry.npmjs.org"
+          registry-url: 'https://registry.npmjs.org'
       - uses: actions/cache@v1
         with:
           path: ~/.npm

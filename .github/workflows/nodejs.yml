@@ -1,6 +1,7 @@
-name: Node.js CI
+name: Node.js CI cosmwasm-client
 
-on: pull_request
+on:
+  pull_request:
 
 jobs:
   build:
