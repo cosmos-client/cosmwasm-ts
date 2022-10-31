@@ -1356,6 +1356,9 @@ export namespace cosmwasm {
 
                 /** CodeInfoResponse data_hash */
                 data_hash?: (Uint8Array|null);
+
+                /** CodeInfoResponse instantiate_permission */
+                instantiate_permission?: (cosmwasm.wasm.v1.IAccessConfig|null);
             }
 
             /** Represents a CodeInfoResponse. */
@@ -1375,6 +1378,9 @@ export namespace cosmwasm {
 
                 /** CodeInfoResponse data_hash. */
                 public data_hash: Uint8Array;
+
+                /** CodeInfoResponse instantiate_permission. */
+                public instantiate_permission?: (cosmwasm.wasm.v1.IAccessConfig|null);
 
                 /**
                  * Encodes the specified CodeInfoResponse message. Does not implicitly {@link cosmwasm.wasm.v1.CodeInfoResponse.verify|verify} messages.
@@ -2061,9 +2067,6 @@ export namespace cosmwasm {
 
                 /** Params instantiate_default_permission */
                 instantiate_default_permission?: (cosmwasm.wasm.v1.AccessType|null);
-
-                /** Params max_wasm_code_size */
-                max_wasm_code_size?: (Long|null);
             }
 
             /** Represents a Params. */
@@ -2080,9 +2083,6 @@ export namespace cosmwasm {
 
                 /** Params instantiate_default_permission. */
                 public instantiate_default_permission: cosmwasm.wasm.v1.AccessType;
-
-                /** Params max_wasm_code_size. */
-                public max_wasm_code_size: Long;
 
                 /**
                  * Encodes the specified Params message. Does not implicitly {@link cosmwasm.wasm.v1.Params.verify|verify} messages.
@@ -4610,9 +4610,6 @@ export namespace cosmwasm {
                 /** MigrateContractProposal description */
                 description?: (string|null);
 
-                /** MigrateContractProposal run_as */
-                run_as?: (string|null);
-
                 /** MigrateContractProposal contract */
                 contract?: (string|null);
 
@@ -4637,9 +4634,6 @@ export namespace cosmwasm {
 
                 /** MigrateContractProposal description. */
                 public description: string;
-
-                /** MigrateContractProposal run_as. */
-                public run_as: string;
 
                 /** MigrateContractProposal contract. */
                 public contract: string;
@@ -4709,6 +4703,220 @@ export namespace cosmwasm {
 
                 /**
                  * Converts this MigrateContractProposal to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of a SudoContractProposal. */
+            interface ISudoContractProposal {
+
+                /** SudoContractProposal title */
+                title?: (string|null);
+
+                /** SudoContractProposal description */
+                description?: (string|null);
+
+                /** SudoContractProposal contract */
+                contract?: (string|null);
+
+                /** SudoContractProposal msg */
+                msg?: (Uint8Array|null);
+            }
+
+            /** Represents a SudoContractProposal. */
+            class SudoContractProposal implements ISudoContractProposal {
+
+                /**
+                 * Constructs a new SudoContractProposal.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: cosmwasm.wasm.v1.ISudoContractProposal);
+
+                /** SudoContractProposal title. */
+                public title: string;
+
+                /** SudoContractProposal description. */
+                public description: string;
+
+                /** SudoContractProposal contract. */
+                public contract: string;
+
+                /** SudoContractProposal msg. */
+                public msg: Uint8Array;
+
+                /**
+                 * Encodes the specified SudoContractProposal message. Does not implicitly {@link cosmwasm.wasm.v1.SudoContractProposal.verify|verify} messages.
+                 * @param message SudoContractProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: cosmwasm.wasm.v1.ISudoContractProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified SudoContractProposal message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.SudoContractProposal.verify|verify} messages.
+                 * @param message SudoContractProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: cosmwasm.wasm.v1.ISudoContractProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes a SudoContractProposal message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns SudoContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): cosmwasm.wasm.v1.SudoContractProposal;
+
+                /**
+                 * Decodes a SudoContractProposal message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns SudoContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): cosmwasm.wasm.v1.SudoContractProposal;
+
+                /**
+                 * Verifies a SudoContractProposal message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates a SudoContractProposal message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns SudoContractProposal
+                 */
+                public static fromObject(object: { [k: string]: any }): cosmwasm.wasm.v1.SudoContractProposal;
+
+                /**
+                 * Creates a plain object from a SudoContractProposal message. Also converts values to other types if specified.
+                 * @param message SudoContractProposal
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: cosmwasm.wasm.v1.SudoContractProposal, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this SudoContractProposal to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an ExecuteContractProposal. */
+            interface IExecuteContractProposal {
+
+                /** ExecuteContractProposal title */
+                title?: (string|null);
+
+                /** ExecuteContractProposal description */
+                description?: (string|null);
+
+                /** ExecuteContractProposal run_as */
+                run_as?: (string|null);
+
+                /** ExecuteContractProposal contract */
+                contract?: (string|null);
+
+                /** ExecuteContractProposal msg */
+                msg?: (Uint8Array|null);
+
+                /** ExecuteContractProposal funds */
+                funds?: (cosmos.base.v1beta1.ICoin[]|null);
+            }
+
+            /** Represents an ExecuteContractProposal. */
+            class ExecuteContractProposal implements IExecuteContractProposal {
+
+                /**
+                 * Constructs a new ExecuteContractProposal.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: cosmwasm.wasm.v1.IExecuteContractProposal);
+
+                /** ExecuteContractProposal title. */
+                public title: string;
+
+                /** ExecuteContractProposal description. */
+                public description: string;
+
+                /** ExecuteContractProposal run_as. */
+                public run_as: string;
+
+                /** ExecuteContractProposal contract. */
+                public contract: string;
+
+                /** ExecuteContractProposal msg. */
+                public msg: Uint8Array;
+
+                /** ExecuteContractProposal funds. */
+                public funds: cosmos.base.v1beta1.ICoin[];
+
+                /**
+                 * Encodes the specified ExecuteContractProposal message. Does not implicitly {@link cosmwasm.wasm.v1.ExecuteContractProposal.verify|verify} messages.
+                 * @param message ExecuteContractProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: cosmwasm.wasm.v1.IExecuteContractProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified ExecuteContractProposal message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.ExecuteContractProposal.verify|verify} messages.
+                 * @param message ExecuteContractProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: cosmwasm.wasm.v1.IExecuteContractProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an ExecuteContractProposal message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns ExecuteContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): cosmwasm.wasm.v1.ExecuteContractProposal;
+
+                /**
+                 * Decodes an ExecuteContractProposal message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns ExecuteContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): cosmwasm.wasm.v1.ExecuteContractProposal;
+
+                /**
+                 * Verifies an ExecuteContractProposal message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an ExecuteContractProposal message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns ExecuteContractProposal
+                 */
+                public static fromObject(object: { [k: string]: any }): cosmwasm.wasm.v1.ExecuteContractProposal;
+
+                /**
+                 * Creates a plain object from an ExecuteContractProposal message. Also converts values to other types if specified.
+                 * @param message ExecuteContractProposal
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: cosmwasm.wasm.v1.ExecuteContractProposal, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this ExecuteContractProposal to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
@@ -5095,6 +5303,190 @@ export namespace cosmwasm {
 
                 /**
                  * Converts this UnpinCodesProposal to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an AccessConfigUpdate. */
+            interface IAccessConfigUpdate {
+
+                /** AccessConfigUpdate code_id */
+                code_id?: (Long|null);
+
+                /** AccessConfigUpdate instantiate_permission */
+                instantiate_permission?: (cosmwasm.wasm.v1.IAccessConfig|null);
+            }
+
+            /** Represents an AccessConfigUpdate. */
+            class AccessConfigUpdate implements IAccessConfigUpdate {
+
+                /**
+                 * Constructs a new AccessConfigUpdate.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: cosmwasm.wasm.v1.IAccessConfigUpdate);
+
+                /** AccessConfigUpdate code_id. */
+                public code_id: Long;
+
+                /** AccessConfigUpdate instantiate_permission. */
+                public instantiate_permission?: (cosmwasm.wasm.v1.IAccessConfig|null);
+
+                /**
+                 * Encodes the specified AccessConfigUpdate message. Does not implicitly {@link cosmwasm.wasm.v1.AccessConfigUpdate.verify|verify} messages.
+                 * @param message AccessConfigUpdate message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: cosmwasm.wasm.v1.IAccessConfigUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified AccessConfigUpdate message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.AccessConfigUpdate.verify|verify} messages.
+                 * @param message AccessConfigUpdate message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: cosmwasm.wasm.v1.IAccessConfigUpdate, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an AccessConfigUpdate message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns AccessConfigUpdate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): cosmwasm.wasm.v1.AccessConfigUpdate;
+
+                /**
+                 * Decodes an AccessConfigUpdate message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns AccessConfigUpdate
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): cosmwasm.wasm.v1.AccessConfigUpdate;
+
+                /**
+                 * Verifies an AccessConfigUpdate message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an AccessConfigUpdate message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns AccessConfigUpdate
+                 */
+                public static fromObject(object: { [k: string]: any }): cosmwasm.wasm.v1.AccessConfigUpdate;
+
+                /**
+                 * Creates a plain object from an AccessConfigUpdate message. Also converts values to other types if specified.
+                 * @param message AccessConfigUpdate
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: cosmwasm.wasm.v1.AccessConfigUpdate, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this AccessConfigUpdate to JSON.
+                 * @returns JSON object
+                 */
+                public toJSON(): { [k: string]: any };
+            }
+
+            /** Properties of an UpdateInstantiateConfigProposal. */
+            interface IUpdateInstantiateConfigProposal {
+
+                /** UpdateInstantiateConfigProposal title */
+                title?: (string|null);
+
+                /** UpdateInstantiateConfigProposal description */
+                description?: (string|null);
+
+                /** UpdateInstantiateConfigProposal access_config_updates */
+                access_config_updates?: (cosmwasm.wasm.v1.IAccessConfigUpdate[]|null);
+            }
+
+            /** Represents an UpdateInstantiateConfigProposal. */
+            class UpdateInstantiateConfigProposal implements IUpdateInstantiateConfigProposal {
+
+                /**
+                 * Constructs a new UpdateInstantiateConfigProposal.
+                 * @param [properties] Properties to set
+                 */
+                constructor(properties?: cosmwasm.wasm.v1.IUpdateInstantiateConfigProposal);
+
+                /** UpdateInstantiateConfigProposal title. */
+                public title: string;
+
+                /** UpdateInstantiateConfigProposal description. */
+                public description: string;
+
+                /** UpdateInstantiateConfigProposal access_config_updates. */
+                public access_config_updates: cosmwasm.wasm.v1.IAccessConfigUpdate[];
+
+                /**
+                 * Encodes the specified UpdateInstantiateConfigProposal message. Does not implicitly {@link cosmwasm.wasm.v1.UpdateInstantiateConfigProposal.verify|verify} messages.
+                 * @param message UpdateInstantiateConfigProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encode(message: cosmwasm.wasm.v1.IUpdateInstantiateConfigProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Encodes the specified UpdateInstantiateConfigProposal message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.UpdateInstantiateConfigProposal.verify|verify} messages.
+                 * @param message UpdateInstantiateConfigProposal message or plain object to encode
+                 * @param [writer] Writer to encode to
+                 * @returns Writer
+                 */
+                public static encodeDelimited(message: cosmwasm.wasm.v1.IUpdateInstantiateConfigProposal, writer?: $protobuf.Writer): $protobuf.Writer;
+
+                /**
+                 * Decodes an UpdateInstantiateConfigProposal message from the specified reader or buffer.
+                 * @param reader Reader or buffer to decode from
+                 * @param [length] Message length if known beforehand
+                 * @returns UpdateInstantiateConfigProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decode(reader: ($protobuf.Reader|Uint8Array), length?: number): cosmwasm.wasm.v1.UpdateInstantiateConfigProposal;
+
+                /**
+                 * Decodes an UpdateInstantiateConfigProposal message from the specified reader or buffer, length delimited.
+                 * @param reader Reader or buffer to decode from
+                 * @returns UpdateInstantiateConfigProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                public static decodeDelimited(reader: ($protobuf.Reader|Uint8Array)): cosmwasm.wasm.v1.UpdateInstantiateConfigProposal;
+
+                /**
+                 * Verifies an UpdateInstantiateConfigProposal message.
+                 * @param message Plain object to verify
+                 * @returns `null` if valid, otherwise the reason why it is not
+                 */
+                public static verify(message: { [k: string]: any }): (string|null);
+
+                /**
+                 * Creates an UpdateInstantiateConfigProposal message from a plain object. Also converts values to their respective internal types.
+                 * @param object Plain object
+                 * @returns UpdateInstantiateConfigProposal
+                 */
+                public static fromObject(object: { [k: string]: any }): cosmwasm.wasm.v1.UpdateInstantiateConfigProposal;
+
+                /**
+                 * Creates a plain object from an UpdateInstantiateConfigProposal message. Also converts values to other types if specified.
+                 * @param message UpdateInstantiateConfigProposal
+                 * @param [options] Conversion options
+                 * @returns Plain object
+                 */
+                public static toObject(message: cosmwasm.wasm.v1.UpdateInstantiateConfigProposal, options?: $protobuf.IConversionOptions): { [k: string]: any };
+
+                /**
+                 * Converts this UpdateInstantiateConfigProposal to JSON.
                  * @returns JSON object
                  */
                 public toJSON(): { [k: string]: any };
@@ -8637,6 +9029,9 @@ export namespace cosmos {
 
                     /** PageRequest count_total */
                     count_total?: (boolean|null);
+
+                    /** PageRequest reverse */
+                    reverse?: (boolean|null);
                 }
 
                 /** Represents a PageRequest. */
@@ -8659,6 +9054,9 @@ export namespace cosmos {
 
                     /** PageRequest count_total. */
                     public count_total: boolean;
+
+                    /** PageRequest reverse. */
+                    public reverse: boolean;
 
                     /**
                      * Encodes the specified PageRequest message. Does not implicitly {@link cosmos.base.query.v1beta1.PageRequest.verify|verify} messages.
