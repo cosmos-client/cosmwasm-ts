@@ -1,3 +1,0 @@
-[submodule "chain"]
-	path = chain
-	url = https://github.com/CosmWasm/wasmd.git
