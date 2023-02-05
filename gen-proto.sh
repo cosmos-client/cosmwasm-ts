@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
-git submodule update --init --recursive
 
-rm -r ./proto
+rm -r ./tmp-proto
 rm -r ./proto-thirdparty
-cp -r ./chain/proto ./proto
-cp -r ./chain/third_party/proto ./proto-thirdparty
 
-proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
+mkdir ./tmp-proto ./proto-thirdparty
+
+buf export buf.build/cosmwasm/wasmd --exclude-imports --output ./tmp-proto
+buf export buf.build/cosmwasm/wasmd --output ./proto-thirdparty
+
+proto_dirs=$(find ./tmp-proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 proto_files=()
 
 for dir in $proto_dirs; do
@@ -19,7 +21,7 @@ npx pbjs \
   --force-long \
   --keep-case \
   --no-create \
-  --path=./proto/ \
+  --path=./tmp-proto/ \
   --path=./proto-thirdparty/ \
   --root="@cosmos-client/cosmwasm" \
   ${proto_files[@]}
@@ -32,7 +34,7 @@ npx pbjs \
   --force-long \
   --keep-case \
   --no-create \
-  --path=./proto/ \
+  --path=./tmp-proto/ \
   --path=./proto-thirdparty/ \
   --root="@cosmos-client/cosmwasm" \
   ${proto_files[@]}
@@ -41,5 +43,5 @@ npx pbts \
   -o ./src/proto.d.ts \
   ./src/proto.js
 
-rm -r ./proto
+rm -r ./tmp-proto
 rm -r ./proto-thirdparty
