@@ -13,13 +13,15 @@
  */
 
 
-import { Configuration } from './configuration';
-import globalAxios, { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import type { Configuration } from './configuration';
+import type { AxiosPromise, AxiosInstance, AxiosRequestConfig } from 'axios';
+import globalAxios from 'axios';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { DUMMY_BASE_URL, assertParamExists, setApiKeyToObject, setBasicAuthToObject, setBearerAuthToObject, setOAuthToObject, setSearchParams, serializeDataIfNeeded, toPathString, createRequestFunction } from './common';
+import type { RequestArgs } from './base';
 // @ts-ignore
-import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from './base';
+import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError } from './base';
 
 /**
  * 
@@ -32,7 +34,7 @@ export interface CodeInfoResponseContainsCodeMetaDataFromCodeInfo {
      * @type {string}
      * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfo
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {string}
@@ -44,13 +46,13 @@ export interface CodeInfoResponseContainsCodeMetaDataFromCodeInfo {
      * @type {string}
      * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfo
      */
-    'data_hash'?: string;
+    'dataHash'?: string;
     /**
      * 
      * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission}
      * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfo
      */
-    'instantiate_permission'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
+    'instantiatePermission'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
 }
 /**
  * AccessConfig access control type.
@@ -59,7 +61,7 @@ export interface CodeInfoResponseContainsCodeMetaDataFromCodeInfo {
  */
 export interface CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission {
     /**
-     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to an address  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted
+     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to a single address Deprecated: use AccessTypeAnyOfAddresses instead  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted  - ACCESS_TYPE_ANY_OF_ADDRESSES: AccessTypeAnyOfAddresses allow any of the addresses
      * @type {string}
      * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission
      */
@@ -70,13 +72,20 @@ export interface CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePerm
      * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission
      */
     'address'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission
+     */
+    'addresses'?: Array<string>;
 }
 
 export const CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermissionPermissionEnum = {
     Unspecified: 'ACCESS_TYPE_UNSPECIFIED',
     Nobody: 'ACCESS_TYPE_NOBODY',
     OnlyAddress: 'ACCESS_TYPE_ONLY_ADDRESS',
-    Everybody: 'ACCESS_TYPE_EVERYBODY'
+    Everybody: 'ACCESS_TYPE_EVERYBODY',
+    AnyOfAddresses: 'ACCESS_TYPE_ANY_OF_ADDRESSES'
 } as const;
 
 export type CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermissionPermissionEnum = typeof CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermissionPermissionEnum[keyof typeof CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermissionPermissionEnum];
@@ -87,12 +96,6 @@ export type CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermissio
  * @interface CodesDefaultResponse
  */
 export interface CodesDefaultResponse {
-    /**
-     * 
-     * @type {string}
-     * @memberof CodesDefaultResponse
-     */
-    'error'?: string;
     /**
      * 
      * @type {number}
@@ -107,29 +110,10 @@ export interface CodesDefaultResponse {
     'message'?: string;
     /**
      * 
-     * @type {Array<CodesDefaultResponseDetailsInner>}
+     * @type {Array<{ [key: string]: object; }>}
      * @memberof CodesDefaultResponse
      */
-    'details'?: Array<CodesDefaultResponseDetailsInner>;
-}
-/**
- * `Any` contains an arbitrary serialized protocol buffer message along with a URL that describes the type of the serialized message.  Protobuf library provides support to pack/unpack Any values in the form of utility functions or additional generated methods of the Any type.  Example 1: Pack and unpack a message in C++.      Foo foo = ...;     Any any;     any.PackFrom(foo);     ...     if (any.UnpackTo(&foo)) {       ...     }  Example 2: Pack and unpack a message in Java.      Foo foo = ...;     Any any = Any.pack(foo);     ...     if (any.is(Foo.class)) {       foo = any.unpack(Foo.class);     }   Example 3: Pack and unpack a message in Python.      foo = Foo(...)     any = Any()     any.Pack(foo)     ...     if any.Is(Foo.DESCRIPTOR):       any.Unpack(foo)       ...   Example 4: Pack and unpack a message in Go       foo := &pb.Foo{...}      any, err := ptypes.MarshalAny(foo)      ...      foo := &pb.Foo{}      if err := ptypes.UnmarshalAny(any, foo); err != nil {        ...      }  The pack methods provided by protobuf library will by default use \'type.googleapis.com/full.type.name\' as the type URL and the unpack methods only use the fully qualified type name after the last \'/\' in the type URL, for example \"foo.bar.com/x/y.z\" will yield type name \"y.z\".   JSON ==== The JSON representation of an `Any` value uses the regular representation of the deserialized, embedded message, with an additional field `@type` which contains the type URL. Example:      package google.profile;     message Person {       string first_name = 1;       string last_name = 2;     }      {       \"@type\": \"type.googleapis.com/google.profile.Person\",       \"firstName\": <string>,       \"lastName\": <string>     }  If the embedded message type is well-known and has a custom JSON representation, that representation will be embedded adding a field `value` which holds the custom JSON in addition to the `@type` field. Example (for message [google.protobuf.Duration][]):      {       \"@type\": \"type.googleapis.com/google.protobuf.Duration\",       \"value\": \"1.212s\"     }
- * @export
- * @interface CodesDefaultResponseDetailsInner
- */
-export interface CodesDefaultResponseDetailsInner {
-    /**
-     * A URL/resource name that uniquely identifies the type of the serialized protocol buffer message. This string must contain at least one \"/\" character. The last segment of the URL\'s path must represent the fully qualified name of the type (as in `path/google.protobuf.Duration`). The name should be in a canonical form (e.g., leading \".\" is not accepted).  In practice, teams usually precompile into the binary all types that they expect it to use in the context of Any. However, for URLs which use the scheme `http`, `https`, or no scheme, one can optionally set up a type server that maps type URLs to message definitions as follows:  * If no scheme is provided, `https` is assumed. * An HTTP GET on the URL must yield a [google.protobuf.Type][]   value in binary format, or produce an error. * Applications are allowed to cache lookup results based on the   URL, or have them precompiled into a binary to avoid any   lookup. Therefore, binary compatibility needs to be preserved   on changes to types. (Use versioned type names to manage   breaking changes.)  Note: this functionality is not currently available in the official protobuf release, and it is not used for type URLs beginning with type.googleapis.com.  Schemes other than `http`, `https` (or the empty scheme) might be used with implementation specific semantics.
-     * @type {string}
-     * @memberof CodesDefaultResponseDetailsInner
-     */
-    'type_url'?: string;
-    /**
-     * Must be a valid serialized protocol buffer of the above specified type.
-     * @type {string}
-     * @memberof CodesDefaultResponseDetailsInner
-     */
-    'value'?: string;
+    'details'?: Array<{ [key: string]: object; }>;
 }
 /**
  * 
@@ -142,7 +126,7 @@ export interface ContractInfoStoresAWASMContractInstance {
      * @type {string}
      * @memberof ContractInfoStoresAWASMContractInstance
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {string}
@@ -163,23 +147,123 @@ export interface ContractInfoStoresAWASMContractInstance {
     'label'?: string;
     /**
      * 
-     * @type {CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting}
+     * @type {ContractInfoStoresAWASMContractInstanceCreated}
      * @memberof ContractInfoStoresAWASMContractInstance
      */
-    'created'?: CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting;
+    'created'?: ContractInfoStoresAWASMContractInstanceCreated;
     /**
      * 
      * @type {string}
      * @memberof ContractInfoStoresAWASMContractInstance
      */
-    'ibc_port_id'?: string;
+    'ibcPortId'?: string;
     /**
-     * 
-     * @type {CodesDefaultResponseDetailsInner}
+     * `Any` contains an arbitrary serialized protocol buffer message along with a URL that describes the type of the serialized message.  Protobuf library provides support to pack/unpack Any values in the form of utility functions or additional generated methods of the Any type.  Example 1: Pack and unpack a message in C++.      Foo foo = ...;     Any any;     any.PackFrom(foo);     ...     if (any.UnpackTo(&foo)) {       ...     }  Example 2: Pack and unpack a message in Java.      Foo foo = ...;     Any any = Any.pack(foo);     ...     if (any.is(Foo.class)) {       foo = any.unpack(Foo.class);     }  Example 3: Pack and unpack a message in Python.      foo = Foo(...)     any = Any()     any.Pack(foo)     ...     if any.Is(Foo.DESCRIPTOR):       any.Unpack(foo)       ...  Example 4: Pack and unpack a message in Go       foo := &pb.Foo{...}      any, err := anypb.New(foo)      if err != nil {        ...      }      ...      foo := &pb.Foo{}      if err := any.UnmarshalTo(foo); err != nil {        ...      }  The pack methods provided by protobuf library will by default use \'type.googleapis.com/full.type.name\' as the type URL and the unpack methods only use the fully qualified type name after the last \'/\' in the type URL, for example \"foo.bar.com/x/y.z\" will yield type name \"y.z\".   JSON  The JSON representation of an `Any` value uses the regular representation of the deserialized, embedded message, with an additional field `@type` which contains the type URL. Example:      package google.profile;     message Person {       string first_name = 1;       string last_name = 2;     }      {       \"@type\": \"type.googleapis.com/google.profile.Person\",       \"firstName\": <string>,       \"lastName\": <string>     }  If the embedded message type is well-known and has a custom JSON representation, that representation will be embedded adding a field `value` which holds the custom JSON in addition to the `@type` field. Example (for message [google.protobuf.Duration][]):      {       \"@type\": \"type.googleapis.com/google.protobuf.Duration\",       \"value\": \"1.212s\"     }
+     * @type {{ [key: string]: object; }}
      * @memberof ContractInfoStoresAWASMContractInstance
      */
-    'extension'?: CodesDefaultResponseDetailsInner;
+    'extension'?: { [key: string]: object; };
 }
+/**
+ * Created Tx position when the contract was instantiated.
+ * @export
+ * @interface ContractInfoStoresAWASMContractInstanceCreated
+ */
+export interface ContractInfoStoresAWASMContractInstanceCreated {
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractInfoStoresAWASMContractInstanceCreated
+     */
+    'blockHeight'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractInfoStoresAWASMContractInstanceCreated
+     */
+    'txIndex'?: string;
+}
+/**
+ * QueryContractsByCreatorResponse is the response type for the Query/ContractsByCreator RPC method.
+ * @export
+ * @interface ContractsByCreator200Response
+ */
+export interface ContractsByCreator200Response {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof ContractsByCreator200Response
+     */
+    'contractAddresses'?: Array<string>;
+    /**
+     * 
+     * @type {ContractsByCreator200ResponsePagination}
+     * @memberof ContractsByCreator200Response
+     */
+    'pagination'?: ContractsByCreator200ResponsePagination;
+}
+/**
+ * Pagination defines the pagination in the response.
+ * @export
+ * @interface ContractsByCreator200ResponsePagination
+ */
+export interface ContractsByCreator200ResponsePagination {
+    /**
+     * next_key is the key to be passed to PageRequest.key to query the next page most efficiently. It will be empty if there are no more results.
+     * @type {string}
+     * @memberof ContractsByCreator200ResponsePagination
+     */
+    'nextKey'?: string;
+    /**
+     * 
+     * @type {string}
+     * @memberof ContractsByCreator200ResponsePagination
+     */
+    'total'?: string;
+}
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @export
+ * @interface CosmWasmParams200Response
+ */
+export interface CosmWasmParams200Response {
+    /**
+     * 
+     * @type {CosmWasmParams200ResponseParams}
+     * @memberof CosmWasmParams200Response
+     */
+    'params'?: CosmWasmParams200ResponseParams;
+}
+/**
+ * params defines the parameters of the module.
+ * @export
+ * @interface CosmWasmParams200ResponseParams
+ */
+export interface CosmWasmParams200ResponseParams {
+    /**
+     * 
+     * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission}
+     * @memberof CosmWasmParams200ResponseParams
+     */
+    'codeUploadAccess'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
+    /**
+     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to a single address Deprecated: use AccessTypeAnyOfAddresses instead  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted  - ACCESS_TYPE_ANY_OF_ADDRESSES: AccessTypeAnyOfAddresses allow any of the addresses
+     * @type {string}
+     * @memberof CosmWasmParams200ResponseParams
+     */
+    'instantiateDefaultPermission'?: CosmWasmParams200ResponseParamsInstantiateDefaultPermissionEnum;
+}
+
+export const CosmWasmParams200ResponseParamsInstantiateDefaultPermissionEnum = {
+    Unspecified: 'ACCESS_TYPE_UNSPECIFIED',
+    Nobody: 'ACCESS_TYPE_NOBODY',
+    OnlyAddress: 'ACCESS_TYPE_ONLY_ADDRESS',
+    Everybody: 'ACCESS_TYPE_EVERYBODY',
+    AnyOfAddresses: 'ACCESS_TYPE_ANY_OF_ADDRESSES'
+} as const;
+
+export type CosmWasmParams200ResponseParamsInstantiateDefaultPermissionEnum = typeof CosmWasmParams200ResponseParamsInstantiateDefaultPermissionEnum[keyof typeof CosmWasmParams200ResponseParamsInstantiateDefaultPermissionEnum];
+
 /**
  * message SomeRequest {          Foo some_parameter = 1;          PageRequest pagination = 2;  }
  * @export
@@ -209,7 +293,7 @@ export interface CosmosBaseQueryV1beta1PageRequest {
      * @type {boolean}
      * @memberof CosmosBaseQueryV1beta1PageRequest
      */
-    'count_total'?: boolean;
+    'countTotal'?: boolean;
     /**
      * reverse is set to true if results are to be returned in the descending order.  Since: cosmos-sdk 0.43
      * @type {boolean}
@@ -224,11 +308,11 @@ export interface CosmosBaseQueryV1beta1PageRequest {
  */
 export interface CosmosBaseQueryV1beta1PageResponse {
     /**
-     * 
+     * next_key is the key to be passed to PageRequest.key to query the next page most efficiently. It will be empty if there are no more results.
      * @type {string}
      * @memberof CosmosBaseQueryV1beta1PageResponse
      */
-    'next_key'?: string;
+    'nextKey'?: string;
     /**
      * 
      * @type {string}
@@ -247,13 +331,13 @@ export interface CosmwasmWasmV1AbsoluteTxPosition {
      * @type {string}
      * @memberof CosmwasmWasmV1AbsoluteTxPosition
      */
-    'block_height'?: string;
+    'blockHeight'?: string;
     /**
      * 
      * @type {string}
      * @memberof CosmwasmWasmV1AbsoluteTxPosition
      */
-    'tx_index'?: string;
+    'txIndex'?: string;
 }
 /**
  * AccessConfig access control type.
@@ -262,7 +346,7 @@ export interface CosmwasmWasmV1AbsoluteTxPosition {
  */
 export interface CosmwasmWasmV1AccessConfig {
     /**
-     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to an address  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted
+     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to a single address Deprecated: use AccessTypeAnyOfAddresses instead  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted  - ACCESS_TYPE_ANY_OF_ADDRESSES: AccessTypeAnyOfAddresses allow any of the addresses
      * @type {string}
      * @memberof CosmwasmWasmV1AccessConfig
      */
@@ -273,19 +357,26 @@ export interface CosmwasmWasmV1AccessConfig {
      * @memberof CosmwasmWasmV1AccessConfig
      */
     'address'?: string;
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CosmwasmWasmV1AccessConfig
+     */
+    'addresses'?: Array<string>;
 }
 
 export const CosmwasmWasmV1AccessConfigPermissionEnum = {
     Unspecified: 'ACCESS_TYPE_UNSPECIFIED',
     Nobody: 'ACCESS_TYPE_NOBODY',
     OnlyAddress: 'ACCESS_TYPE_ONLY_ADDRESS',
-    Everybody: 'ACCESS_TYPE_EVERYBODY'
+    Everybody: 'ACCESS_TYPE_EVERYBODY',
+    AnyOfAddresses: 'ACCESS_TYPE_ANY_OF_ADDRESSES'
 } as const;
 
 export type CosmwasmWasmV1AccessConfigPermissionEnum = typeof CosmwasmWasmV1AccessConfigPermissionEnum[keyof typeof CosmwasmWasmV1AccessConfigPermissionEnum];
 
 /**
- * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to an address  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted
+ * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to a single address Deprecated: use AccessTypeAnyOfAddresses instead  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted  - ACCESS_TYPE_ANY_OF_ADDRESSES: AccessTypeAnyOfAddresses allow any of the addresses
  * @export
  * @enum {string}
  */
@@ -294,7 +385,8 @@ export const CosmwasmWasmV1AccessType = {
     Unspecified: 'ACCESS_TYPE_UNSPECIFIED',
     Nobody: 'ACCESS_TYPE_NOBODY',
     OnlyAddress: 'ACCESS_TYPE_ONLY_ADDRESS',
-    Everybody: 'ACCESS_TYPE_EVERYBODY'
+    Everybody: 'ACCESS_TYPE_EVERYBODY',
+    AnyOfAddresses: 'ACCESS_TYPE_ANY_OF_ADDRESSES'
 } as const;
 
 export type CosmwasmWasmV1AccessType = typeof CosmwasmWasmV1AccessType[keyof typeof CosmwasmWasmV1AccessType];
@@ -311,7 +403,7 @@ export interface CosmwasmWasmV1CodeInfoResponse {
      * @type {string}
      * @memberof CosmwasmWasmV1CodeInfoResponse
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {string}
@@ -323,13 +415,13 @@ export interface CosmwasmWasmV1CodeInfoResponse {
      * @type {string}
      * @memberof CosmwasmWasmV1CodeInfoResponse
      */
-    'data_hash'?: string;
+    'dataHash'?: string;
     /**
      * 
      * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission}
      * @memberof CosmwasmWasmV1CodeInfoResponse
      */
-    'instantiate_permission'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
+    'instantiatePermission'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
 }
 /**
  * ContractCodeHistoryEntry metadata to a contract.
@@ -348,7 +440,7 @@ export interface CosmwasmWasmV1ContractCodeHistoryEntry {
      * @type {string}
      * @memberof CosmwasmWasmV1ContractCodeHistoryEntry
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {QueryContractHistoryResponseIsTheResponseTypeForTheQueryContractHistoryRPCMethodEntriesInnerUpdated}
@@ -399,7 +491,7 @@ export interface CosmwasmWasmV1ContractInfo {
      * @type {string}
      * @memberof CosmwasmWasmV1ContractInfo
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {string}
@@ -420,22 +512,22 @@ export interface CosmwasmWasmV1ContractInfo {
     'label'?: string;
     /**
      * 
-     * @type {CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting}
+     * @type {ContractInfoStoresAWASMContractInstanceCreated}
      * @memberof CosmwasmWasmV1ContractInfo
      */
-    'created'?: CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting;
+    'created'?: ContractInfoStoresAWASMContractInstanceCreated;
     /**
      * 
      * @type {string}
      * @memberof CosmwasmWasmV1ContractInfo
      */
-    'ibc_port_id'?: string;
+    'ibcPortId'?: string;
     /**
-     * 
-     * @type {CodesDefaultResponseDetailsInner}
+     * `Any` contains an arbitrary serialized protocol buffer message along with a URL that describes the type of the serialized message.  Protobuf library provides support to pack/unpack Any values in the form of utility functions or additional generated methods of the Any type.  Example 1: Pack and unpack a message in C++.      Foo foo = ...;     Any any;     any.PackFrom(foo);     ...     if (any.UnpackTo(&foo)) {       ...     }  Example 2: Pack and unpack a message in Java.      Foo foo = ...;     Any any = Any.pack(foo);     ...     if (any.is(Foo.class)) {       foo = any.unpack(Foo.class);     }  Example 3: Pack and unpack a message in Python.      foo = Foo(...)     any = Any()     any.Pack(foo)     ...     if any.Is(Foo.DESCRIPTOR):       any.Unpack(foo)       ...  Example 4: Pack and unpack a message in Go       foo := &pb.Foo{...}      any, err := anypb.New(foo)      if err != nil {        ...      }      ...      foo := &pb.Foo{}      if err := any.UnmarshalTo(foo); err != nil {        ...      }  The pack methods provided by protobuf library will by default use \'type.googleapis.com/full.type.name\' as the type URL and the unpack methods only use the fully qualified type name after the last \'/\' in the type URL, for example \"foo.bar.com/x/y.z\" will yield type name \"y.z\".   JSON  The JSON representation of an `Any` value uses the regular representation of the deserialized, embedded message, with an additional field `@type` which contains the type URL. Example:      package google.profile;     message Person {       string first_name = 1;       string last_name = 2;     }      {       \"@type\": \"type.googleapis.com/google.profile.Person\",       \"firstName\": <string>,       \"lastName\": <string>     }  If the embedded message type is well-known and has a custom JSON representation, that representation will be embedded adding a field `value` which holds the custom JSON in addition to the `@type` field. Example (for message [google.protobuf.Duration][]):      {       \"@type\": \"type.googleapis.com/google.protobuf.Duration\",       \"value\": \"1.212s\"     }
+     * @type {{ [key: string]: object; }}
      * @memberof CosmwasmWasmV1ContractInfo
      */
-    'extension'?: CodesDefaultResponseDetailsInner;
+    'extension'?: { [key: string]: object; };
 }
 /**
  * 
@@ -456,6 +548,36 @@ export interface CosmwasmWasmV1Model {
      */
     'value'?: string;
 }
+/**
+ * Params defines the set of wasm parameters.
+ * @export
+ * @interface CosmwasmWasmV1Params
+ */
+export interface CosmwasmWasmV1Params {
+    /**
+     * 
+     * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission}
+     * @memberof CosmwasmWasmV1Params
+     */
+    'codeUploadAccess'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfoInstantiatePermission;
+    /**
+     * - ACCESS_TYPE_UNSPECIFIED: AccessTypeUnspecified placeholder for empty value  - ACCESS_TYPE_NOBODY: AccessTypeNobody forbidden  - ACCESS_TYPE_ONLY_ADDRESS: AccessTypeOnlyAddress restricted to a single address Deprecated: use AccessTypeAnyOfAddresses instead  - ACCESS_TYPE_EVERYBODY: AccessTypeEverybody unrestricted  - ACCESS_TYPE_ANY_OF_ADDRESSES: AccessTypeAnyOfAddresses allow any of the addresses
+     * @type {string}
+     * @memberof CosmwasmWasmV1Params
+     */
+    'instantiateDefaultPermission'?: CosmwasmWasmV1ParamsInstantiateDefaultPermissionEnum;
+}
+
+export const CosmwasmWasmV1ParamsInstantiateDefaultPermissionEnum = {
+    Unspecified: 'ACCESS_TYPE_UNSPECIFIED',
+    Nobody: 'ACCESS_TYPE_NOBODY',
+    OnlyAddress: 'ACCESS_TYPE_ONLY_ADDRESS',
+    Everybody: 'ACCESS_TYPE_EVERYBODY',
+    AnyOfAddresses: 'ACCESS_TYPE_ANY_OF_ADDRESSES'
+} as const;
+
+export type CosmwasmWasmV1ParamsInstantiateDefaultPermissionEnum = typeof CosmwasmWasmV1ParamsInstantiateDefaultPermissionEnum[keyof typeof CosmwasmWasmV1ParamsInstantiateDefaultPermissionEnum];
+
 /**
  * 
  * @export
@@ -486,7 +608,7 @@ export interface CosmwasmWasmV1QueryCodeResponse {
      * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfo}
      * @memberof CosmwasmWasmV1QueryCodeResponse
      */
-    'code_info'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfo;
+    'codeInfo'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfo;
     /**
      * 
      * @type {string}
@@ -505,7 +627,7 @@ export interface CosmwasmWasmV1QueryCodesResponse {
      * @type {Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>}
      * @memberof CosmwasmWasmV1QueryCodesResponse
      */
-    'code_infos'?: Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>;
+    'codeInfos'?: Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>;
     /**
      * 
      * @type {QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination}
@@ -549,7 +671,7 @@ export interface CosmwasmWasmV1QueryContractInfoResponse {
      * @type {ContractInfoStoresAWASMContractInstance}
      * @memberof CosmwasmWasmV1QueryContractInfoResponse
      */
-    'contract_info'?: ContractInfoStoresAWASMContractInstance;
+    'contractInfo'?: ContractInfoStoresAWASMContractInstance;
 }
 /**
  * 
@@ -571,6 +693,38 @@ export interface CosmwasmWasmV1QueryContractsByCodeResponse {
     'pagination'?: QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination;
 }
 /**
+ * QueryContractsByCreatorResponse is the response type for the Query/ContractsByCreator RPC method.
+ * @export
+ * @interface CosmwasmWasmV1QueryContractsByCreatorResponse
+ */
+export interface CosmwasmWasmV1QueryContractsByCreatorResponse {
+    /**
+     * 
+     * @type {Array<string>}
+     * @memberof CosmwasmWasmV1QueryContractsByCreatorResponse
+     */
+    'contractAddresses'?: Array<string>;
+    /**
+     * 
+     * @type {ContractsByCreator200ResponsePagination}
+     * @memberof CosmwasmWasmV1QueryContractsByCreatorResponse
+     */
+    'pagination'?: ContractsByCreator200ResponsePagination;
+}
+/**
+ * QueryParamsResponse is the response type for the Query/Params RPC method.
+ * @export
+ * @interface CosmwasmWasmV1QueryParamsResponse
+ */
+export interface CosmwasmWasmV1QueryParamsResponse {
+    /**
+     * 
+     * @type {CosmWasmParams200ResponseParams}
+     * @memberof CosmwasmWasmV1QueryParamsResponse
+     */
+    'params'?: CosmWasmParams200ResponseParams;
+}
+/**
  * 
  * @export
  * @interface CosmwasmWasmV1QueryPinnedCodesResponse
@@ -581,7 +735,7 @@ export interface CosmwasmWasmV1QueryPinnedCodesResponse {
      * @type {Array<string>}
      * @memberof CosmwasmWasmV1QueryPinnedCodesResponse
      */
-    'code_ids'?: Array<string>;
+    'codeIds'?: Array<string>;
     /**
      * 
      * @type {QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination}
@@ -616,73 +770,44 @@ export interface CosmwasmWasmV1QuerySmartContractStateResponse {
     'data'?: string;
 }
 /**
- * AbsoluteTxPosition is a unique transaction position that allows for global ordering of transactions.
- * @export
- * @interface CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting
- */
-export interface CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting {
-    /**
-     * 
-     * @type {string}
-     * @memberof CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting
-     */
-    'block_height'?: string;
-    /**
-     * 
-     * @type {string}
-     * @memberof CreatedTxPositionWhenTheContractWasInstantiatedThisDataShouldKeptInternalAndNotBeExposedViaQueryResultsJustUseForSorting
-     */
-    'tx_index'?: string;
-}
-/**
- * `Any` contains an arbitrary serialized protocol buffer message along with a URL that describes the type of the serialized message.  Protobuf library provides support to pack/unpack Any values in the form of utility functions or additional generated methods of the Any type.  Example 1: Pack and unpack a message in C++.      Foo foo = ...;     Any any;     any.PackFrom(foo);     ...     if (any.UnpackTo(&foo)) {       ...     }  Example 2: Pack and unpack a message in Java.      Foo foo = ...;     Any any = Any.pack(foo);     ...     if (any.is(Foo.class)) {       foo = any.unpack(Foo.class);     }   Example 3: Pack and unpack a message in Python.      foo = Foo(...)     any = Any()     any.Pack(foo)     ...     if any.Is(Foo.DESCRIPTOR):       any.Unpack(foo)       ...   Example 4: Pack and unpack a message in Go       foo := &pb.Foo{...}      any, err := ptypes.MarshalAny(foo)      ...      foo := &pb.Foo{}      if err := ptypes.UnmarshalAny(any, foo); err != nil {        ...      }  The pack methods provided by protobuf library will by default use \'type.googleapis.com/full.type.name\' as the type URL and the unpack methods only use the fully qualified type name after the last \'/\' in the type URL, for example \"foo.bar.com/x/y.z\" will yield type name \"y.z\".   JSON ==== The JSON representation of an `Any` value uses the regular representation of the deserialized, embedded message, with an additional field `@type` which contains the type URL. Example:      package google.profile;     message Person {       string first_name = 1;       string last_name = 2;     }      {       \"@type\": \"type.googleapis.com/google.profile.Person\",       \"firstName\": <string>,       \"lastName\": <string>     }  If the embedded message type is well-known and has a custom JSON representation, that representation will be embedded adding a field `value` which holds the custom JSON in addition to the `@type` field. Example (for message [google.protobuf.Duration][]):      {       \"@type\": \"type.googleapis.com/google.protobuf.Duration\",       \"value\": \"1.212s\"     }
+ * `Any` contains an arbitrary serialized protocol buffer message along with a URL that describes the type of the serialized message.  Protobuf library provides support to pack/unpack Any values in the form of utility functions or additional generated methods of the Any type.  Example 1: Pack and unpack a message in C++.      Foo foo = ...;     Any any;     any.PackFrom(foo);     ...     if (any.UnpackTo(&foo)) {       ...     }  Example 2: Pack and unpack a message in Java.      Foo foo = ...;     Any any = Any.pack(foo);     ...     if (any.is(Foo.class)) {       foo = any.unpack(Foo.class);     }  Example 3: Pack and unpack a message in Python.      foo = Foo(...)     any = Any()     any.Pack(foo)     ...     if any.Is(Foo.DESCRIPTOR):       any.Unpack(foo)       ...  Example 4: Pack and unpack a message in Go       foo := &pb.Foo{...}      any, err := anypb.New(foo)      if err != nil {        ...      }      ...      foo := &pb.Foo{}      if err := any.UnmarshalTo(foo); err != nil {        ...      }  The pack methods provided by protobuf library will by default use \'type.googleapis.com/full.type.name\' as the type URL and the unpack methods only use the fully qualified type name after the last \'/\' in the type URL, for example \"foo.bar.com/x/y.z\" will yield type name \"y.z\".   JSON  The JSON representation of an `Any` value uses the regular representation of the deserialized, embedded message, with an additional field `@type` which contains the type URL. Example:      package google.profile;     message Person {       string first_name = 1;       string last_name = 2;     }      {       \"@type\": \"type.googleapis.com/google.profile.Person\",       \"firstName\": <string>,       \"lastName\": <string>     }  If the embedded message type is well-known and has a custom JSON representation, that representation will be embedded adding a field `value` which holds the custom JSON in addition to the `@type` field. Example (for message [google.protobuf.Duration][]):      {       \"@type\": \"type.googleapis.com/google.protobuf.Duration\",       \"value\": \"1.212s\"     }
  * @export
  * @interface GoogleProtobufAny
  */
 export interface GoogleProtobufAny {
+    [key: string]: object | any;
+
     /**
      * A URL/resource name that uniquely identifies the type of the serialized protocol buffer message. This string must contain at least one \"/\" character. The last segment of the URL\'s path must represent the fully qualified name of the type (as in `path/google.protobuf.Duration`). The name should be in a canonical form (e.g., leading \".\" is not accepted).  In practice, teams usually precompile into the binary all types that they expect it to use in the context of Any. However, for URLs which use the scheme `http`, `https`, or no scheme, one can optionally set up a type server that maps type URLs to message definitions as follows:  * If no scheme is provided, `https` is assumed. * An HTTP GET on the URL must yield a [google.protobuf.Type][]   value in binary format, or produce an error. * Applications are allowed to cache lookup results based on the   URL, or have them precompiled into a binary to avoid any   lookup. Therefore, binary compatibility needs to be preserved   on changes to types. (Use versioned type names to manage   breaking changes.)  Note: this functionality is not currently available in the official protobuf release, and it is not used for type URLs beginning with type.googleapis.com.  Schemes other than `http`, `https` (or the empty scheme) might be used with implementation specific semantics.
      * @type {string}
      * @memberof GoogleProtobufAny
      */
-    'type_url'?: string;
-    /**
-     * Must be a valid serialized protocol buffer of the above specified type.
-     * @type {string}
-     * @memberof GoogleProtobufAny
-     */
-    'value'?: string;
+    '@type'?: string;
 }
 /**
  * 
  * @export
- * @interface GrpcGatewayRuntimeError
+ * @interface GoogleRpcStatus
  */
-export interface GrpcGatewayRuntimeError {
-    /**
-     * 
-     * @type {string}
-     * @memberof GrpcGatewayRuntimeError
-     */
-    'error'?: string;
+export interface GoogleRpcStatus {
     /**
      * 
      * @type {number}
-     * @memberof GrpcGatewayRuntimeError
+     * @memberof GoogleRpcStatus
      */
     'code'?: number;
     /**
      * 
      * @type {string}
-     * @memberof GrpcGatewayRuntimeError
+     * @memberof GoogleRpcStatus
      */
     'message'?: string;
     /**
      * 
-     * @type {Array<CodesDefaultResponseDetailsInner>}
-     * @memberof GrpcGatewayRuntimeError
+     * @type {Array<{ [key: string]: object; }>}
+     * @memberof GoogleRpcStatus
      */
-    'details'?: Array<CodesDefaultResponseDetailsInner>;
+    'details'?: Array<{ [key: string]: object; }>;
 }
 /**
  * 
@@ -733,7 +858,7 @@ export interface QueryCodeResponseIsTheResponseTypeForTheQueryCodeRPCMethod {
      * @type {CodeInfoResponseContainsCodeMetaDataFromCodeInfo}
      * @memberof QueryCodeResponseIsTheResponseTypeForTheQueryCodeRPCMethod
      */
-    'code_info'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfo;
+    'codeInfo'?: CodeInfoResponseContainsCodeMetaDataFromCodeInfo;
     /**
      * 
      * @type {string}
@@ -752,7 +877,7 @@ export interface QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethod {
      * @type {Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>}
      * @memberof QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethod
      */
-    'code_infos'?: Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>;
+    'codeInfos'?: Array<CodeInfoResponseContainsCodeMetaDataFromCodeInfo>;
     /**
      * 
      * @type {QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination}
@@ -767,11 +892,11 @@ export interface QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethod {
  */
 export interface QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination {
     /**
-     * 
+     * next_key is the key to be passed to PageRequest.key to query the next page most efficiently. It will be empty if there are no more results.
      * @type {string}
      * @memberof QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination
      */
-    'next_key'?: string;
+    'nextKey'?: string;
     /**
      * 
      * @type {string}
@@ -815,7 +940,7 @@ export interface QueryContractHistoryResponseIsTheResponseTypeForTheQueryContrac
      * @type {string}
      * @memberof QueryContractHistoryResponseIsTheResponseTypeForTheQueryContractHistoryRPCMethodEntriesInner
      */
-    'code_id'?: string;
+    'codeId'?: string;
     /**
      * 
      * @type {QueryContractHistoryResponseIsTheResponseTypeForTheQueryContractHistoryRPCMethodEntriesInnerUpdated}
@@ -850,13 +975,13 @@ export interface QueryContractHistoryResponseIsTheResponseTypeForTheQueryContrac
      * @type {string}
      * @memberof QueryContractHistoryResponseIsTheResponseTypeForTheQueryContractHistoryRPCMethodEntriesInnerUpdated
      */
-    'block_height'?: string;
+    'blockHeight'?: string;
     /**
      * 
      * @type {string}
      * @memberof QueryContractHistoryResponseIsTheResponseTypeForTheQueryContractHistoryRPCMethodEntriesInnerUpdated
      */
-    'tx_index'?: string;
+    'txIndex'?: string;
 }
 /**
  * 
@@ -875,7 +1000,7 @@ export interface QueryContractInfoResponseIsTheResponseTypeForTheQueryContractIn
      * @type {ContractInfoStoresAWASMContractInstance}
      * @memberof QueryContractInfoResponseIsTheResponseTypeForTheQueryContractInfoRPCMethod
      */
-    'contract_info'?: ContractInfoStoresAWASMContractInstance;
+    'contractInfo'?: ContractInfoStoresAWASMContractInstance;
 }
 /**
  * 
@@ -907,7 +1032,7 @@ export interface QueryPinnedCodesResponseIsTheResponseTypeForTheQueryPinnedCodes
      * @type {Array<string>}
      * @memberof QueryPinnedCodesResponseIsTheResponseTypeForTheQueryPinnedCodesRPCMethod
      */
-    'code_ids'?: Array<string>;
+    'codeIds'?: Array<string>;
     /**
      * 
      * @type {QueryCodesResponseIsTheResponseTypeForTheQueryCodesRPCMethodPagination}
@@ -989,7 +1114,7 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (paginationCountTotal !== undefined) {
-                localVarQueryParameter['pagination.count_total'] = paginationCountTotal;
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
             }
 
             if (paginationReverse !== undefined) {
@@ -1010,15 +1135,15 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @summary Code gets the binary code and metadata for a singe wasm code
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
         code: async (codeId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'codeId' is not null or undefined
             assertParamExists('code', 'codeId', codeId)
-            const localVarPath = `/cosmwasm/wasm/v1/code/{code_id}`
-                .replace(`{${"code_id"}}`, encodeURIComponent(String(codeId)));
+            const localVarPath = `/cosmwasm/wasm/v1/code/{codeId}`
+                .replace(`{${"codeId"}}`, encodeURIComponent(String(codeId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1078,7 +1203,7 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (paginationCountTotal !== undefined) {
-                localVarQueryParameter['pagination.count_total'] = paginationCountTotal;
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
             }
 
             if (paginationReverse !== undefined) {
@@ -1137,7 +1262,7 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (paginationCountTotal !== undefined) {
-                localVarQueryParameter['pagination.count_total'] = paginationCountTotal;
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
             }
 
             if (paginationReverse !== undefined) {
@@ -1192,7 +1317,7 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
         /**
          * 
          * @summary ContractsByCode lists all smart contracts for a code id
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
          * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
          * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
@@ -1204,8 +1329,8 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
         contractsByCode: async (codeId: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'codeId' is not null or undefined
             assertParamExists('contractsByCode', 'codeId', codeId)
-            const localVarPath = `/cosmwasm/wasm/v1/code/{code_id}/contracts`
-                .replace(`{${"code_id"}}`, encodeURIComponent(String(codeId)));
+            const localVarPath = `/cosmwasm/wasm/v1/code/{codeId}/contracts`
+                .replace(`{${"codeId"}}`, encodeURIComponent(String(codeId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1230,12 +1355,101 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (paginationCountTotal !== undefined) {
-                localVarQueryParameter['pagination.count_total'] = paginationCountTotal;
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
             }
 
             if (paginationReverse !== undefined) {
                 localVarQueryParameter['pagination.reverse'] = paginationReverse;
             }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary ContractsByCreator gets the contracts by creator
+         * @param {string} creatorAddress CreatorAddress is the address of contract creator
+         * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
+         * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
+         * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
+         * @param {boolean} [paginationCountTotal] count_total is set to true  to indicate that the result set should include a count of the total number of items available for pagination in UIs. count_total is only respected when offset is used. It is ignored when key is set.
+         * @param {boolean} [paginationReverse] reverse is set to true if results are to be returned in the descending order.  Since: cosmos-sdk 0.43
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        contractsByCreator: async (creatorAddress: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'creatorAddress' is not null or undefined
+            assertParamExists('contractsByCreator', 'creatorAddress', creatorAddress)
+            const localVarPath = `/cosmwasm/wasm/v1/contracts/creator/{creatorAddress}`
+                .replace(`{${"creatorAddress"}}`, encodeURIComponent(String(creatorAddress)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            if (paginationKey !== undefined) {
+                localVarQueryParameter['pagination.key'] = paginationKey;
+            }
+
+            if (paginationOffset !== undefined) {
+                localVarQueryParameter['pagination.offset'] = paginationOffset;
+            }
+
+            if (paginationLimit !== undefined) {
+                localVarQueryParameter['pagination.limit'] = paginationLimit;
+            }
+
+            if (paginationCountTotal !== undefined) {
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
+            }
+
+            if (paginationReverse !== undefined) {
+                localVarQueryParameter['pagination.reverse'] = paginationReverse;
+            }
+
+
+    
+            setSearchParams(localVarUrlObj, localVarQueryParameter);
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: toPathString(localVarUrlObj),
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary Params gets the module params
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cosmWasmParams: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/cosmwasm/wasm/v1/codes/params`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+
+            const localVarRequestOptions = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
 
 
     
@@ -1285,7 +1499,7 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             }
 
             if (paginationCountTotal !== undefined) {
-                localVarQueryParameter['pagination.count_total'] = paginationCountTotal;
+                localVarQueryParameter['pagination.countTotal'] = paginationCountTotal;
             }
 
             if (paginationReverse !== undefined) {
@@ -1316,9 +1530,9 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             assertParamExists('rawContractState', 'address', address)
             // verify required parameter 'queryData' is not null or undefined
             assertParamExists('rawContractState', 'queryData', queryData)
-            const localVarPath = `/cosmwasm/wasm/v1/contract/{address}/raw/{query_data}`
+            const localVarPath = `/cosmwasm/wasm/v1/contract/{address}/raw/{queryData}`
                 .replace(`{${"address"}}`, encodeURIComponent(String(address)))
-                .replace(`{${"query_data"}}`, encodeURIComponent(String(queryData)));
+                .replace(`{${"queryData"}}`, encodeURIComponent(String(queryData)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1354,9 +1568,9 @@ export const QueryApiAxiosParamCreator = function (configuration?: Configuration
             assertParamExists('smartContractState', 'address', address)
             // verify required parameter 'queryData' is not null or undefined
             assertParamExists('smartContractState', 'queryData', queryData)
-            const localVarPath = `/cosmwasm/wasm/v1/contract/{address}/smart/{query_data}`
+            const localVarPath = `/cosmwasm/wasm/v1/contract/{address}/smart/{queryData}`
                 .replace(`{${"address"}}`, encodeURIComponent(String(address)))
-                .replace(`{${"query_data"}}`, encodeURIComponent(String(queryData)));
+                .replace(`{${"queryData"}}`, encodeURIComponent(String(queryData)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, DUMMY_BASE_URL);
             let baseOptions;
@@ -1408,7 +1622,7 @@ export const QueryApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary Code gets the binary code and metadata for a singe wasm code
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1461,7 +1675,7 @@ export const QueryApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary ContractsByCode lists all smart contracts for a code id
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
          * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
          * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
@@ -1472,6 +1686,32 @@ export const QueryApiFp = function(configuration?: Configuration) {
          */
         async contractsByCode(codeId: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<QueryContractsByCodeResponseIsTheResponseTypeForTheQueryContractsByCodeRPCMethod>> {
             const localVarAxiosArgs = await localVarAxiosParamCreator.contractsByCode(codeId, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary ContractsByCreator gets the contracts by creator
+         * @param {string} creatorAddress CreatorAddress is the address of contract creator
+         * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
+         * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
+         * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
+         * @param {boolean} [paginationCountTotal] count_total is set to true  to indicate that the result set should include a count of the total number of items available for pagination in UIs. count_total is only respected when offset is used. It is ignored when key is set.
+         * @param {boolean} [paginationReverse] reverse is set to true if results are to be returned in the descending order.  Since: cosmos-sdk 0.43
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async contractsByCreator(creatorAddress: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<ContractsByCreator200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.contractsByCreator(creatorAddress, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options);
+            return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
+        },
+        /**
+         * 
+         * @summary Params gets the module params
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async cosmWasmParams(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => AxiosPromise<CosmWasmParams200Response>> {
+            const localVarAxiosArgs = await localVarAxiosParamCreator.cosmWasmParams(options);
             return createRequestFunction(localVarAxiosArgs, globalAxios, BASE_PATH, configuration);
         },
         /**
@@ -1541,7 +1781,7 @@ export const QueryApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary Code gets the binary code and metadata for a singe wasm code
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -1590,7 +1830,7 @@ export const QueryApiFactory = function (configuration?: Configuration, basePath
         /**
          * 
          * @summary ContractsByCode lists all smart contracts for a code id
-         * @param {string} codeId 
+         * @param {string} codeId grpc-gateway_out does not support Go style CodID
          * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
          * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
          * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
@@ -1601,6 +1841,30 @@ export const QueryApiFactory = function (configuration?: Configuration, basePath
          */
         contractsByCode(codeId: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: any): AxiosPromise<QueryContractsByCodeResponseIsTheResponseTypeForTheQueryContractsByCodeRPCMethod> {
             return localVarFp.contractsByCode(codeId, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary ContractsByCreator gets the contracts by creator
+         * @param {string} creatorAddress CreatorAddress is the address of contract creator
+         * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
+         * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
+         * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
+         * @param {boolean} [paginationCountTotal] count_total is set to true  to indicate that the result set should include a count of the total number of items available for pagination in UIs. count_total is only respected when offset is used. It is ignored when key is set.
+         * @param {boolean} [paginationReverse] reverse is set to true if results are to be returned in the descending order.  Since: cosmos-sdk 0.43
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        contractsByCreator(creatorAddress: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: any): AxiosPromise<ContractsByCreator200Response> {
+            return localVarFp.contractsByCreator(creatorAddress, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary Params gets the module params
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        cosmWasmParams(options?: any): AxiosPromise<CosmWasmParams200Response> {
+            return localVarFp.cosmWasmParams(options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1668,7 +1932,7 @@ export class QueryApi extends BaseAPI {
     /**
      * 
      * @summary Code gets the binary code and metadata for a singe wasm code
-     * @param {string} codeId 
+     * @param {string} codeId grpc-gateway_out does not support Go style CodID
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof QueryApi
@@ -1725,7 +1989,7 @@ export class QueryApi extends BaseAPI {
     /**
      * 
      * @summary ContractsByCode lists all smart contracts for a code id
-     * @param {string} codeId 
+     * @param {string} codeId grpc-gateway_out does not support Go style CodID
      * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
      * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
      * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
@@ -1737,6 +2001,34 @@ export class QueryApi extends BaseAPI {
      */
     public contractsByCode(codeId: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: AxiosRequestConfig) {
         return QueryApiFp(this.configuration).contractsByCode(codeId, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary ContractsByCreator gets the contracts by creator
+     * @param {string} creatorAddress CreatorAddress is the address of contract creator
+     * @param {string} [paginationKey] key is a value returned in PageResponse.next_key to begin querying the next page most efficiently. Only one of offset or key should be set.
+     * @param {string} [paginationOffset] offset is a numeric offset that can be used when key is unavailable. It is less efficient than using key. Only one of offset or key should be set.
+     * @param {string} [paginationLimit] limit is the total number of results to be returned in the result page. If left empty it will default to a value to be set by each app.
+     * @param {boolean} [paginationCountTotal] count_total is set to true  to indicate that the result set should include a count of the total number of items available for pagination in UIs. count_total is only respected when offset is used. It is ignored when key is set.
+     * @param {boolean} [paginationReverse] reverse is set to true if results are to be returned in the descending order.  Since: cosmos-sdk 0.43
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof QueryApi
+     */
+    public contractsByCreator(creatorAddress: string, paginationKey?: string, paginationOffset?: string, paginationLimit?: string, paginationCountTotal?: boolean, paginationReverse?: boolean, options?: AxiosRequestConfig) {
+        return QueryApiFp(this.configuration).contractsByCreator(creatorAddress, paginationKey, paginationOffset, paginationLimit, paginationCountTotal, paginationReverse, options).then((request) => request(this.axios, this.basePath));
+    }
+
+    /**
+     * 
+     * @summary Params gets the module params
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof QueryApi
+     */
+    public cosmWasmParams(options?: AxiosRequestConfig) {
+        return QueryApiFp(this.configuration).cosmWasmParams(options).then((request) => request(this.axios, this.basePath));
     }
 
     /**

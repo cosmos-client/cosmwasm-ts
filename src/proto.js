@@ -34,6 +34,1779 @@ export const cosmwasm = $root.cosmwasm = (() => {
              */
             const v1 = {};
 
+            v1.ContractExecutionAuthorization = (function() {
+
+                /**
+                 * Properties of a ContractExecutionAuthorization.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IContractExecutionAuthorization
+                 * @property {Array.<cosmwasm.wasm.v1.IContractGrant>|null} [grants] ContractExecutionAuthorization grants
+                 */
+
+                /**
+                 * Constructs a new ContractExecutionAuthorization.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a ContractExecutionAuthorization.
+                 * @implements IContractExecutionAuthorization
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IContractExecutionAuthorization=} [properties] Properties to set
+                 */
+                function ContractExecutionAuthorization(properties) {
+                    this.grants = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ContractExecutionAuthorization grants.
+                 * @member {Array.<cosmwasm.wasm.v1.IContractGrant>} grants
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @instance
+                 */
+                ContractExecutionAuthorization.prototype.grants = $util.emptyArray;
+
+                /**
+                 * Encodes the specified ContractExecutionAuthorization message. Does not implicitly {@link cosmwasm.wasm.v1.ContractExecutionAuthorization.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractExecutionAuthorization} message ContractExecutionAuthorization message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractExecutionAuthorization.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.grants != null && message.grants.length)
+                        for (let i = 0; i < message.grants.length; ++i)
+                            $root.cosmwasm.wasm.v1.ContractGrant.encode(message.grants[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ContractExecutionAuthorization message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.ContractExecutionAuthorization.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractExecutionAuthorization} message ContractExecutionAuthorization message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractExecutionAuthorization.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ContractExecutionAuthorization message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.ContractExecutionAuthorization} ContractExecutionAuthorization
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractExecutionAuthorization.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.ContractExecutionAuthorization();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.grants && message.grants.length))
+                                message.grants = [];
+                            message.grants.push($root.cosmwasm.wasm.v1.ContractGrant.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ContractExecutionAuthorization message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.ContractExecutionAuthorization} ContractExecutionAuthorization
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractExecutionAuthorization.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ContractExecutionAuthorization message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ContractExecutionAuthorization.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.grants != null && message.hasOwnProperty("grants")) {
+                        if (!Array.isArray(message.grants))
+                            return "grants: array expected";
+                        for (let i = 0; i < message.grants.length; ++i) {
+                            let error = $root.cosmwasm.wasm.v1.ContractGrant.verify(message.grants[i]);
+                            if (error)
+                                return "grants." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a ContractExecutionAuthorization message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.ContractExecutionAuthorization} ContractExecutionAuthorization
+                 */
+                ContractExecutionAuthorization.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.ContractExecutionAuthorization)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.ContractExecutionAuthorization();
+                    if (object.grants) {
+                        if (!Array.isArray(object.grants))
+                            throw TypeError(".cosmwasm.wasm.v1.ContractExecutionAuthorization.grants: array expected");
+                        message.grants = [];
+                        for (let i = 0; i < object.grants.length; ++i) {
+                            if (typeof object.grants[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.ContractExecutionAuthorization.grants: object expected");
+                            message.grants[i] = $root.cosmwasm.wasm.v1.ContractGrant.fromObject(object.grants[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ContractExecutionAuthorization message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.ContractExecutionAuthorization} message ContractExecutionAuthorization
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ContractExecutionAuthorization.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.grants = [];
+                    if (message.grants && message.grants.length) {
+                        object.grants = [];
+                        for (let j = 0; j < message.grants.length; ++j)
+                            object.grants[j] = $root.cosmwasm.wasm.v1.ContractGrant.toObject(message.grants[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this ContractExecutionAuthorization to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.ContractExecutionAuthorization
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ContractExecutionAuthorization.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ContractExecutionAuthorization;
+            })();
+
+            v1.ContractMigrationAuthorization = (function() {
+
+                /**
+                 * Properties of a ContractMigrationAuthorization.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IContractMigrationAuthorization
+                 * @property {Array.<cosmwasm.wasm.v1.IContractGrant>|null} [grants] ContractMigrationAuthorization grants
+                 */
+
+                /**
+                 * Constructs a new ContractMigrationAuthorization.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a ContractMigrationAuthorization.
+                 * @implements IContractMigrationAuthorization
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IContractMigrationAuthorization=} [properties] Properties to set
+                 */
+                function ContractMigrationAuthorization(properties) {
+                    this.grants = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ContractMigrationAuthorization grants.
+                 * @member {Array.<cosmwasm.wasm.v1.IContractGrant>} grants
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @instance
+                 */
+                ContractMigrationAuthorization.prototype.grants = $util.emptyArray;
+
+                /**
+                 * Encodes the specified ContractMigrationAuthorization message. Does not implicitly {@link cosmwasm.wasm.v1.ContractMigrationAuthorization.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractMigrationAuthorization} message ContractMigrationAuthorization message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractMigrationAuthorization.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.grants != null && message.grants.length)
+                        for (let i = 0; i < message.grants.length; ++i)
+                            $root.cosmwasm.wasm.v1.ContractGrant.encode(message.grants[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ContractMigrationAuthorization message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.ContractMigrationAuthorization.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractMigrationAuthorization} message ContractMigrationAuthorization message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractMigrationAuthorization.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ContractMigrationAuthorization message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.ContractMigrationAuthorization} ContractMigrationAuthorization
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractMigrationAuthorization.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.ContractMigrationAuthorization();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.grants && message.grants.length))
+                                message.grants = [];
+                            message.grants.push($root.cosmwasm.wasm.v1.ContractGrant.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ContractMigrationAuthorization message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.ContractMigrationAuthorization} ContractMigrationAuthorization
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractMigrationAuthorization.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ContractMigrationAuthorization message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ContractMigrationAuthorization.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.grants != null && message.hasOwnProperty("grants")) {
+                        if (!Array.isArray(message.grants))
+                            return "grants: array expected";
+                        for (let i = 0; i < message.grants.length; ++i) {
+                            let error = $root.cosmwasm.wasm.v1.ContractGrant.verify(message.grants[i]);
+                            if (error)
+                                return "grants." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a ContractMigrationAuthorization message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.ContractMigrationAuthorization} ContractMigrationAuthorization
+                 */
+                ContractMigrationAuthorization.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.ContractMigrationAuthorization)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.ContractMigrationAuthorization();
+                    if (object.grants) {
+                        if (!Array.isArray(object.grants))
+                            throw TypeError(".cosmwasm.wasm.v1.ContractMigrationAuthorization.grants: array expected");
+                        message.grants = [];
+                        for (let i = 0; i < object.grants.length; ++i) {
+                            if (typeof object.grants[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.ContractMigrationAuthorization.grants: object expected");
+                            message.grants[i] = $root.cosmwasm.wasm.v1.ContractGrant.fromObject(object.grants[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ContractMigrationAuthorization message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @static
+                 * @param {cosmwasm.wasm.v1.ContractMigrationAuthorization} message ContractMigrationAuthorization
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ContractMigrationAuthorization.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.grants = [];
+                    if (message.grants && message.grants.length) {
+                        object.grants = [];
+                        for (let j = 0; j < message.grants.length; ++j)
+                            object.grants[j] = $root.cosmwasm.wasm.v1.ContractGrant.toObject(message.grants[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this ContractMigrationAuthorization to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.ContractMigrationAuthorization
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ContractMigrationAuthorization.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ContractMigrationAuthorization;
+            })();
+
+            v1.ContractGrant = (function() {
+
+                /**
+                 * Properties of a ContractGrant.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IContractGrant
+                 * @property {string|null} [contract] ContractGrant contract
+                 * @property {google.protobuf.IAny|null} [limit] ContractGrant limit
+                 * @property {google.protobuf.IAny|null} [filter] ContractGrant filter
+                 */
+
+                /**
+                 * Constructs a new ContractGrant.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a ContractGrant.
+                 * @implements IContractGrant
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IContractGrant=} [properties] Properties to set
+                 */
+                function ContractGrant(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * ContractGrant contract.
+                 * @member {string} contract
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @instance
+                 */
+                ContractGrant.prototype.contract = "";
+
+                /**
+                 * ContractGrant limit.
+                 * @member {google.protobuf.IAny|null|undefined} limit
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @instance
+                 */
+                ContractGrant.prototype.limit = null;
+
+                /**
+                 * ContractGrant filter.
+                 * @member {google.protobuf.IAny|null|undefined} filter
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @instance
+                 */
+                ContractGrant.prototype.filter = null;
+
+                /**
+                 * Encodes the specified ContractGrant message. Does not implicitly {@link cosmwasm.wasm.v1.ContractGrant.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractGrant} message ContractGrant message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractGrant.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.contract != null && Object.hasOwnProperty.call(message, "contract"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.contract);
+                    if (message.limit != null && Object.hasOwnProperty.call(message, "limit"))
+                        $root.google.protobuf.Any.encode(message.limit, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    if (message.filter != null && Object.hasOwnProperty.call(message, "filter"))
+                        $root.google.protobuf.Any.encode(message.filter, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified ContractGrant message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.ContractGrant.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IContractGrant} message ContractGrant message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                ContractGrant.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a ContractGrant message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.ContractGrant} ContractGrant
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractGrant.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.ContractGrant();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.contract = reader.string();
+                            break;
+                        case 2:
+                            message.limit = $root.google.protobuf.Any.decode(reader, reader.uint32());
+                            break;
+                        case 3:
+                            message.filter = $root.google.protobuf.Any.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a ContractGrant message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.ContractGrant} ContractGrant
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                ContractGrant.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a ContractGrant message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                ContractGrant.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.contract != null && message.hasOwnProperty("contract"))
+                        if (!$util.isString(message.contract))
+                            return "contract: string expected";
+                    if (message.limit != null && message.hasOwnProperty("limit")) {
+                        let error = $root.google.protobuf.Any.verify(message.limit);
+                        if (error)
+                            return "limit." + error;
+                    }
+                    if (message.filter != null && message.hasOwnProperty("filter")) {
+                        let error = $root.google.protobuf.Any.verify(message.filter);
+                        if (error)
+                            return "filter." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a ContractGrant message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.ContractGrant} ContractGrant
+                 */
+                ContractGrant.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.ContractGrant)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.ContractGrant();
+                    if (object.contract != null)
+                        message.contract = String(object.contract);
+                    if (object.limit != null) {
+                        if (typeof object.limit !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.ContractGrant.limit: object expected");
+                        message.limit = $root.google.protobuf.Any.fromObject(object.limit);
+                    }
+                    if (object.filter != null) {
+                        if (typeof object.filter !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.ContractGrant.filter: object expected");
+                        message.filter = $root.google.protobuf.Any.fromObject(object.filter);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a ContractGrant message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @static
+                 * @param {cosmwasm.wasm.v1.ContractGrant} message ContractGrant
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                ContractGrant.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.contract = "";
+                        object.limit = null;
+                        object.filter = null;
+                    }
+                    if (message.contract != null && message.hasOwnProperty("contract"))
+                        object.contract = message.contract;
+                    if (message.limit != null && message.hasOwnProperty("limit"))
+                        object.limit = $root.google.protobuf.Any.toObject(message.limit, options);
+                    if (message.filter != null && message.hasOwnProperty("filter"))
+                        object.filter = $root.google.protobuf.Any.toObject(message.filter, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this ContractGrant to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.ContractGrant
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                ContractGrant.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return ContractGrant;
+            })();
+
+            v1.MaxCallsLimit = (function() {
+
+                /**
+                 * Properties of a MaxCallsLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMaxCallsLimit
+                 * @property {Long|null} [remaining] MaxCallsLimit remaining
+                 */
+
+                /**
+                 * Constructs a new MaxCallsLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MaxCallsLimit.
+                 * @implements IMaxCallsLimit
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMaxCallsLimit=} [properties] Properties to set
+                 */
+                function MaxCallsLimit(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * MaxCallsLimit remaining.
+                 * @member {Long} remaining
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @instance
+                 */
+                MaxCallsLimit.prototype.remaining = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * Encodes the specified MaxCallsLimit message. Does not implicitly {@link cosmwasm.wasm.v1.MaxCallsLimit.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMaxCallsLimit} message MaxCallsLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MaxCallsLimit.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.remaining != null && Object.hasOwnProperty.call(message, "remaining"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.remaining);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MaxCallsLimit message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MaxCallsLimit.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMaxCallsLimit} message MaxCallsLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MaxCallsLimit.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MaxCallsLimit message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MaxCallsLimit} MaxCallsLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MaxCallsLimit.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MaxCallsLimit();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.remaining = reader.uint64();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MaxCallsLimit message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MaxCallsLimit} MaxCallsLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MaxCallsLimit.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MaxCallsLimit message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MaxCallsLimit.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.remaining != null && message.hasOwnProperty("remaining"))
+                        if (!$util.isInteger(message.remaining) && !(message.remaining && $util.isInteger(message.remaining.low) && $util.isInteger(message.remaining.high)))
+                            return "remaining: integer|Long expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a MaxCallsLimit message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MaxCallsLimit} MaxCallsLimit
+                 */
+                MaxCallsLimit.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MaxCallsLimit)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.MaxCallsLimit();
+                    if (object.remaining != null)
+                        if ($util.Long)
+                            (message.remaining = $util.Long.fromValue(object.remaining)).unsigned = true;
+                        else if (typeof object.remaining === "string")
+                            message.remaining = parseInt(object.remaining, 10);
+                        else if (typeof object.remaining === "number")
+                            message.remaining = object.remaining;
+                        else if (typeof object.remaining === "object")
+                            message.remaining = new $util.LongBits(object.remaining.low >>> 0, object.remaining.high >>> 0).toNumber(true);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a MaxCallsLimit message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MaxCallsLimit} message MaxCallsLimit
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MaxCallsLimit.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults)
+                        if ($util.Long) {
+                            let long = new $util.Long(0, 0, true);
+                            object.remaining = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.remaining = options.longs === String ? "0" : 0;
+                    if (message.remaining != null && message.hasOwnProperty("remaining"))
+                        if (typeof message.remaining === "number")
+                            object.remaining = options.longs === String ? String(message.remaining) : message.remaining;
+                        else
+                            object.remaining = options.longs === String ? $util.Long.prototype.toString.call(message.remaining) : options.longs === Number ? new $util.LongBits(message.remaining.low >>> 0, message.remaining.high >>> 0).toNumber(true) : message.remaining;
+                    return object;
+                };
+
+                /**
+                 * Converts this MaxCallsLimit to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MaxCallsLimit
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MaxCallsLimit.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MaxCallsLimit;
+            })();
+
+            v1.MaxFundsLimit = (function() {
+
+                /**
+                 * Properties of a MaxFundsLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMaxFundsLimit
+                 * @property {Array.<cosmos.base.v1beta1.ICoin>|null} [amounts] MaxFundsLimit amounts
+                 */
+
+                /**
+                 * Constructs a new MaxFundsLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MaxFundsLimit.
+                 * @implements IMaxFundsLimit
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMaxFundsLimit=} [properties] Properties to set
+                 */
+                function MaxFundsLimit(properties) {
+                    this.amounts = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * MaxFundsLimit amounts.
+                 * @member {Array.<cosmos.base.v1beta1.ICoin>} amounts
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @instance
+                 */
+                MaxFundsLimit.prototype.amounts = $util.emptyArray;
+
+                /**
+                 * Encodes the specified MaxFundsLimit message. Does not implicitly {@link cosmwasm.wasm.v1.MaxFundsLimit.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMaxFundsLimit} message MaxFundsLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MaxFundsLimit.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.amounts != null && message.amounts.length)
+                        for (let i = 0; i < message.amounts.length; ++i)
+                            $root.cosmos.base.v1beta1.Coin.encode(message.amounts[i], writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MaxFundsLimit message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MaxFundsLimit.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMaxFundsLimit} message MaxFundsLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MaxFundsLimit.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MaxFundsLimit message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MaxFundsLimit} MaxFundsLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MaxFundsLimit.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MaxFundsLimit();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.amounts && message.amounts.length))
+                                message.amounts = [];
+                            message.amounts.push($root.cosmos.base.v1beta1.Coin.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MaxFundsLimit message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MaxFundsLimit} MaxFundsLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MaxFundsLimit.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MaxFundsLimit message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MaxFundsLimit.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.amounts != null && message.hasOwnProperty("amounts")) {
+                        if (!Array.isArray(message.amounts))
+                            return "amounts: array expected";
+                        for (let i = 0; i < message.amounts.length; ++i) {
+                            let error = $root.cosmos.base.v1beta1.Coin.verify(message.amounts[i]);
+                            if (error)
+                                return "amounts." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a MaxFundsLimit message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MaxFundsLimit} MaxFundsLimit
+                 */
+                MaxFundsLimit.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MaxFundsLimit)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.MaxFundsLimit();
+                    if (object.amounts) {
+                        if (!Array.isArray(object.amounts))
+                            throw TypeError(".cosmwasm.wasm.v1.MaxFundsLimit.amounts: array expected");
+                        message.amounts = [];
+                        for (let i = 0; i < object.amounts.length; ++i) {
+                            if (typeof object.amounts[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.MaxFundsLimit.amounts: object expected");
+                            message.amounts[i] = $root.cosmos.base.v1beta1.Coin.fromObject(object.amounts[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a MaxFundsLimit message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MaxFundsLimit} message MaxFundsLimit
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MaxFundsLimit.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.amounts = [];
+                    if (message.amounts && message.amounts.length) {
+                        object.amounts = [];
+                        for (let j = 0; j < message.amounts.length; ++j)
+                            object.amounts[j] = $root.cosmos.base.v1beta1.Coin.toObject(message.amounts[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this MaxFundsLimit to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MaxFundsLimit
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MaxFundsLimit.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MaxFundsLimit;
+            })();
+
+            v1.CombinedLimit = (function() {
+
+                /**
+                 * Properties of a CombinedLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface ICombinedLimit
+                 * @property {Long|null} [calls_remaining] CombinedLimit calls_remaining
+                 * @property {Array.<cosmos.base.v1beta1.ICoin>|null} [amounts] CombinedLimit amounts
+                 */
+
+                /**
+                 * Constructs a new CombinedLimit.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a CombinedLimit.
+                 * @implements ICombinedLimit
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.ICombinedLimit=} [properties] Properties to set
+                 */
+                function CombinedLimit(properties) {
+                    this.amounts = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * CombinedLimit calls_remaining.
+                 * @member {Long} calls_remaining
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @instance
+                 */
+                CombinedLimit.prototype.calls_remaining = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * CombinedLimit amounts.
+                 * @member {Array.<cosmos.base.v1beta1.ICoin>} amounts
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @instance
+                 */
+                CombinedLimit.prototype.amounts = $util.emptyArray;
+
+                /**
+                 * Encodes the specified CombinedLimit message. Does not implicitly {@link cosmwasm.wasm.v1.CombinedLimit.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.ICombinedLimit} message CombinedLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                CombinedLimit.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.calls_remaining != null && Object.hasOwnProperty.call(message, "calls_remaining"))
+                        writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.calls_remaining);
+                    if (message.amounts != null && message.amounts.length)
+                        for (let i = 0; i < message.amounts.length; ++i)
+                            $root.cosmos.base.v1beta1.Coin.encode(message.amounts[i], writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified CombinedLimit message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.CombinedLimit.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.ICombinedLimit} message CombinedLimit message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                CombinedLimit.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a CombinedLimit message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.CombinedLimit} CombinedLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                CombinedLimit.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.CombinedLimit();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.calls_remaining = reader.uint64();
+                            break;
+                        case 2:
+                            if (!(message.amounts && message.amounts.length))
+                                message.amounts = [];
+                            message.amounts.push($root.cosmos.base.v1beta1.Coin.decode(reader, reader.uint32()));
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a CombinedLimit message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.CombinedLimit} CombinedLimit
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                CombinedLimit.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a CombinedLimit message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                CombinedLimit.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.calls_remaining != null && message.hasOwnProperty("calls_remaining"))
+                        if (!$util.isInteger(message.calls_remaining) && !(message.calls_remaining && $util.isInteger(message.calls_remaining.low) && $util.isInteger(message.calls_remaining.high)))
+                            return "calls_remaining: integer|Long expected";
+                    if (message.amounts != null && message.hasOwnProperty("amounts")) {
+                        if (!Array.isArray(message.amounts))
+                            return "amounts: array expected";
+                        for (let i = 0; i < message.amounts.length; ++i) {
+                            let error = $root.cosmos.base.v1beta1.Coin.verify(message.amounts[i]);
+                            if (error)
+                                return "amounts." + error;
+                        }
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a CombinedLimit message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.CombinedLimit} CombinedLimit
+                 */
+                CombinedLimit.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.CombinedLimit)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.CombinedLimit();
+                    if (object.calls_remaining != null)
+                        if ($util.Long)
+                            (message.calls_remaining = $util.Long.fromValue(object.calls_remaining)).unsigned = true;
+                        else if (typeof object.calls_remaining === "string")
+                            message.calls_remaining = parseInt(object.calls_remaining, 10);
+                        else if (typeof object.calls_remaining === "number")
+                            message.calls_remaining = object.calls_remaining;
+                        else if (typeof object.calls_remaining === "object")
+                            message.calls_remaining = new $util.LongBits(object.calls_remaining.low >>> 0, object.calls_remaining.high >>> 0).toNumber(true);
+                    if (object.amounts) {
+                        if (!Array.isArray(object.amounts))
+                            throw TypeError(".cosmwasm.wasm.v1.CombinedLimit.amounts: array expected");
+                        message.amounts = [];
+                        for (let i = 0; i < object.amounts.length; ++i) {
+                            if (typeof object.amounts[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.CombinedLimit.amounts: object expected");
+                            message.amounts[i] = $root.cosmos.base.v1beta1.Coin.fromObject(object.amounts[i]);
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a CombinedLimit message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @static
+                 * @param {cosmwasm.wasm.v1.CombinedLimit} message CombinedLimit
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                CombinedLimit.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.amounts = [];
+                    if (options.defaults)
+                        if ($util.Long) {
+                            let long = new $util.Long(0, 0, true);
+                            object.calls_remaining = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.calls_remaining = options.longs === String ? "0" : 0;
+                    if (message.calls_remaining != null && message.hasOwnProperty("calls_remaining"))
+                        if (typeof message.calls_remaining === "number")
+                            object.calls_remaining = options.longs === String ? String(message.calls_remaining) : message.calls_remaining;
+                        else
+                            object.calls_remaining = options.longs === String ? $util.Long.prototype.toString.call(message.calls_remaining) : options.longs === Number ? new $util.LongBits(message.calls_remaining.low >>> 0, message.calls_remaining.high >>> 0).toNumber(true) : message.calls_remaining;
+                    if (message.amounts && message.amounts.length) {
+                        object.amounts = [];
+                        for (let j = 0; j < message.amounts.length; ++j)
+                            object.amounts[j] = $root.cosmos.base.v1beta1.Coin.toObject(message.amounts[j], options);
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this CombinedLimit to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.CombinedLimit
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                CombinedLimit.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return CombinedLimit;
+            })();
+
+            v1.AllowAllMessagesFilter = (function() {
+
+                /**
+                 * Properties of an AllowAllMessagesFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IAllowAllMessagesFilter
+                 */
+
+                /**
+                 * Constructs a new AllowAllMessagesFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents an AllowAllMessagesFilter.
+                 * @implements IAllowAllMessagesFilter
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IAllowAllMessagesFilter=} [properties] Properties to set
+                 */
+                function AllowAllMessagesFilter(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Encodes the specified AllowAllMessagesFilter message. Does not implicitly {@link cosmwasm.wasm.v1.AllowAllMessagesFilter.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAllowAllMessagesFilter} message AllowAllMessagesFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AllowAllMessagesFilter.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified AllowAllMessagesFilter message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.AllowAllMessagesFilter.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAllowAllMessagesFilter} message AllowAllMessagesFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AllowAllMessagesFilter.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an AllowAllMessagesFilter message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.AllowAllMessagesFilter} AllowAllMessagesFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AllowAllMessagesFilter.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.AllowAllMessagesFilter();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an AllowAllMessagesFilter message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.AllowAllMessagesFilter} AllowAllMessagesFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AllowAllMessagesFilter.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an AllowAllMessagesFilter message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                AllowAllMessagesFilter.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an AllowAllMessagesFilter message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.AllowAllMessagesFilter} AllowAllMessagesFilter
+                 */
+                AllowAllMessagesFilter.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.AllowAllMessagesFilter)
+                        return object;
+                    return new $root.cosmwasm.wasm.v1.AllowAllMessagesFilter();
+                };
+
+                /**
+                 * Creates a plain object from an AllowAllMessagesFilter message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.AllowAllMessagesFilter} message AllowAllMessagesFilter
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                AllowAllMessagesFilter.toObject = function toObject() {
+                    return {};
+                };
+
+                /**
+                 * Converts this AllowAllMessagesFilter to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.AllowAllMessagesFilter
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                AllowAllMessagesFilter.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return AllowAllMessagesFilter;
+            })();
+
+            v1.AcceptedMessageKeysFilter = (function() {
+
+                /**
+                 * Properties of an AcceptedMessageKeysFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IAcceptedMessageKeysFilter
+                 * @property {Array.<string>|null} [keys] AcceptedMessageKeysFilter keys
+                 */
+
+                /**
+                 * Constructs a new AcceptedMessageKeysFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents an AcceptedMessageKeysFilter.
+                 * @implements IAcceptedMessageKeysFilter
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessageKeysFilter=} [properties] Properties to set
+                 */
+                function AcceptedMessageKeysFilter(properties) {
+                    this.keys = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * AcceptedMessageKeysFilter keys.
+                 * @member {Array.<string>} keys
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @instance
+                 */
+                AcceptedMessageKeysFilter.prototype.keys = $util.emptyArray;
+
+                /**
+                 * Encodes the specified AcceptedMessageKeysFilter message. Does not implicitly {@link cosmwasm.wasm.v1.AcceptedMessageKeysFilter.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessageKeysFilter} message AcceptedMessageKeysFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AcceptedMessageKeysFilter.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.keys != null && message.keys.length)
+                        for (let i = 0; i < message.keys.length; ++i)
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.keys[i]);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified AcceptedMessageKeysFilter message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.AcceptedMessageKeysFilter.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessageKeysFilter} message AcceptedMessageKeysFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AcceptedMessageKeysFilter.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an AcceptedMessageKeysFilter message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessageKeysFilter} AcceptedMessageKeysFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AcceptedMessageKeysFilter.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.AcceptedMessageKeysFilter();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.keys && message.keys.length))
+                                message.keys = [];
+                            message.keys.push(reader.string());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an AcceptedMessageKeysFilter message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessageKeysFilter} AcceptedMessageKeysFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AcceptedMessageKeysFilter.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an AcceptedMessageKeysFilter message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                AcceptedMessageKeysFilter.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.keys != null && message.hasOwnProperty("keys")) {
+                        if (!Array.isArray(message.keys))
+                            return "keys: array expected";
+                        for (let i = 0; i < message.keys.length; ++i)
+                            if (!$util.isString(message.keys[i]))
+                                return "keys: string[] expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates an AcceptedMessageKeysFilter message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessageKeysFilter} AcceptedMessageKeysFilter
+                 */
+                AcceptedMessageKeysFilter.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.AcceptedMessageKeysFilter)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.AcceptedMessageKeysFilter();
+                    if (object.keys) {
+                        if (!Array.isArray(object.keys))
+                            throw TypeError(".cosmwasm.wasm.v1.AcceptedMessageKeysFilter.keys: array expected");
+                        message.keys = [];
+                        for (let i = 0; i < object.keys.length; ++i)
+                            message.keys[i] = String(object.keys[i]);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an AcceptedMessageKeysFilter message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.AcceptedMessageKeysFilter} message AcceptedMessageKeysFilter
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                AcceptedMessageKeysFilter.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.keys = [];
+                    if (message.keys && message.keys.length) {
+                        object.keys = [];
+                        for (let j = 0; j < message.keys.length; ++j)
+                            object.keys[j] = message.keys[j];
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this AcceptedMessageKeysFilter to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessageKeysFilter
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                AcceptedMessageKeysFilter.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return AcceptedMessageKeysFilter;
+            })();
+
+            v1.AcceptedMessagesFilter = (function() {
+
+                /**
+                 * Properties of an AcceptedMessagesFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IAcceptedMessagesFilter
+                 * @property {Array.<Uint8Array>|null} [messages] AcceptedMessagesFilter messages
+                 */
+
+                /**
+                 * Constructs a new AcceptedMessagesFilter.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents an AcceptedMessagesFilter.
+                 * @implements IAcceptedMessagesFilter
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessagesFilter=} [properties] Properties to set
+                 */
+                function AcceptedMessagesFilter(properties) {
+                    this.messages = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * AcceptedMessagesFilter messages.
+                 * @member {Array.<Uint8Array>} messages
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @instance
+                 */
+                AcceptedMessagesFilter.prototype.messages = $util.emptyArray;
+
+                /**
+                 * Encodes the specified AcceptedMessagesFilter message. Does not implicitly {@link cosmwasm.wasm.v1.AcceptedMessagesFilter.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessagesFilter} message AcceptedMessagesFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AcceptedMessagesFilter.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.messages != null && message.messages.length)
+                        for (let i = 0; i < message.messages.length; ++i)
+                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.messages[i]);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified AcceptedMessagesFilter message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.AcceptedMessagesFilter.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IAcceptedMessagesFilter} message AcceptedMessagesFilter message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                AcceptedMessagesFilter.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an AcceptedMessagesFilter message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessagesFilter} AcceptedMessagesFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AcceptedMessagesFilter.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.AcceptedMessagesFilter();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.messages && message.messages.length))
+                                message.messages = [];
+                            message.messages.push(reader.bytes());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an AcceptedMessagesFilter message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessagesFilter} AcceptedMessagesFilter
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                AcceptedMessagesFilter.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an AcceptedMessagesFilter message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                AcceptedMessagesFilter.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.messages != null && message.hasOwnProperty("messages")) {
+                        if (!Array.isArray(message.messages))
+                            return "messages: array expected";
+                        for (let i = 0; i < message.messages.length; ++i)
+                            if (!(message.messages[i] && typeof message.messages[i].length === "number" || $util.isString(message.messages[i])))
+                                return "messages: buffer[] expected";
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates an AcceptedMessagesFilter message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.AcceptedMessagesFilter} AcceptedMessagesFilter
+                 */
+                AcceptedMessagesFilter.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.AcceptedMessagesFilter)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.AcceptedMessagesFilter();
+                    if (object.messages) {
+                        if (!Array.isArray(object.messages))
+                            throw TypeError(".cosmwasm.wasm.v1.AcceptedMessagesFilter.messages: array expected");
+                        message.messages = [];
+                        for (let i = 0; i < object.messages.length; ++i)
+                            if (typeof object.messages[i] === "string")
+                                $util.base64.decode(object.messages[i], message.messages[i] = $util.newBuffer($util.base64.length(object.messages[i])), 0);
+                            else if (object.messages[i].length)
+                                message.messages[i] = object.messages[i];
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an AcceptedMessagesFilter message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @static
+                 * @param {cosmwasm.wasm.v1.AcceptedMessagesFilter} message AcceptedMessagesFilter
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                AcceptedMessagesFilter.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.messages = [];
+                    if (message.messages && message.messages.length) {
+                        object.messages = [];
+                        for (let j = 0; j < message.messages.length; ++j)
+                            object.messages[j] = options.bytes === String ? $util.base64.encode(message.messages[j], 0, message.messages[j].length) : options.bytes === Array ? Array.prototype.slice.call(message.messages[j]) : message.messages[j];
+                    }
+                    return object;
+                };
+
+                /**
+                 * Converts this AcceptedMessagesFilter to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.AcceptedMessagesFilter
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                AcceptedMessagesFilter.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return AcceptedMessagesFilter;
+            })();
+
             v1.Query = (function() {
 
                 /**
@@ -346,6 +2119,72 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @instance
                  * @param {cosmwasm.wasm.v1.IQueryPinnedCodesRequest} request QueryPinnedCodesRequest message or plain object
                  * @returns {Promise<cosmwasm.wasm.v1.QueryPinnedCodesResponse>} Promise
+                 * @variation 2
+                 */
+
+                /**
+                 * Callback as used by {@link cosmwasm.wasm.v1.Query#params}.
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @typedef ParamsCallback
+                 * @type {function}
+                 * @param {Error|null} error Error, if any
+                 * @param {cosmwasm.wasm.v1.QueryParamsResponse} [response] QueryParamsResponse
+                 */
+
+                /**
+                 * Calls Params.
+                 * @function params
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IQueryParamsRequest} request QueryParamsRequest message or plain object
+                 * @param {cosmwasm.wasm.v1.Query.ParamsCallback} callback Node-style callback called with the error, if any, and QueryParamsResponse
+                 * @returns {undefined}
+                 * @variation 1
+                 */
+                Object.defineProperty(Query.prototype.params = function params(request, callback) {
+                    return this.rpcCall(params, $root.cosmwasm.wasm.v1.QueryParamsRequest, $root.cosmwasm.wasm.v1.QueryParamsResponse, request, callback);
+                }, "name", { value: "Params" });
+
+                /**
+                 * Calls Params.
+                 * @function params
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IQueryParamsRequest} request QueryParamsRequest message or plain object
+                 * @returns {Promise<cosmwasm.wasm.v1.QueryParamsResponse>} Promise
+                 * @variation 2
+                 */
+
+                /**
+                 * Callback as used by {@link cosmwasm.wasm.v1.Query#contractsByCreator}.
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @typedef ContractsByCreatorCallback
+                 * @type {function}
+                 * @param {Error|null} error Error, if any
+                 * @param {cosmwasm.wasm.v1.QueryContractsByCreatorResponse} [response] QueryContractsByCreatorResponse
+                 */
+
+                /**
+                 * Calls ContractsByCreator.
+                 * @function contractsByCreator
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorRequest} request QueryContractsByCreatorRequest message or plain object
+                 * @param {cosmwasm.wasm.v1.Query.ContractsByCreatorCallback} callback Node-style callback called with the error, if any, and QueryContractsByCreatorResponse
+                 * @returns {undefined}
+                 * @variation 1
+                 */
+                Object.defineProperty(Query.prototype.contractsByCreator = function contractsByCreator(request, callback) {
+                    return this.rpcCall(contractsByCreator, $root.cosmwasm.wasm.v1.QueryContractsByCreatorRequest, $root.cosmwasm.wasm.v1.QueryContractsByCreatorResponse, request, callback);
+                }, "name", { value: "ContractsByCreator" });
+
+                /**
+                 * Calls ContractsByCreator.
+                 * @function contractsByCreator
+                 * @memberof cosmwasm.wasm.v1.Query
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorRequest} request QueryContractsByCreatorRequest message or plain object
+                 * @returns {Promise<cosmwasm.wasm.v1.QueryContractsByCreatorResponse>} Promise
                  * @variation 2
                  */
 
@@ -4294,6 +6133,756 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 return QueryPinnedCodesResponse;
             })();
 
+            v1.QueryParamsRequest = (function() {
+
+                /**
+                 * Properties of a QueryParamsRequest.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IQueryParamsRequest
+                 */
+
+                /**
+                 * Constructs a new QueryParamsRequest.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a QueryParamsRequest.
+                 * @implements IQueryParamsRequest
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IQueryParamsRequest=} [properties] Properties to set
+                 */
+                function QueryParamsRequest(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Encodes the specified QueryParamsRequest message. Does not implicitly {@link cosmwasm.wasm.v1.QueryParamsRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryParamsRequest} message QueryParamsRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryParamsRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified QueryParamsRequest message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.QueryParamsRequest.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryParamsRequest} message QueryParamsRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryParamsRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a QueryParamsRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.QueryParamsRequest} QueryParamsRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryParamsRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.QueryParamsRequest();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a QueryParamsRequest message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.QueryParamsRequest} QueryParamsRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryParamsRequest.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a QueryParamsRequest message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                QueryParamsRequest.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a QueryParamsRequest message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.QueryParamsRequest} QueryParamsRequest
+                 */
+                QueryParamsRequest.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.QueryParamsRequest)
+                        return object;
+                    return new $root.cosmwasm.wasm.v1.QueryParamsRequest();
+                };
+
+                /**
+                 * Creates a plain object from a QueryParamsRequest message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.QueryParamsRequest} message QueryParamsRequest
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                QueryParamsRequest.toObject = function toObject() {
+                    return {};
+                };
+
+                /**
+                 * Converts this QueryParamsRequest to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.QueryParamsRequest
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                QueryParamsRequest.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return QueryParamsRequest;
+            })();
+
+            v1.QueryParamsResponse = (function() {
+
+                /**
+                 * Properties of a QueryParamsResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IQueryParamsResponse
+                 * @property {cosmwasm.wasm.v1.IParams|null} [params] QueryParamsResponse params
+                 */
+
+                /**
+                 * Constructs a new QueryParamsResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a QueryParamsResponse.
+                 * @implements IQueryParamsResponse
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IQueryParamsResponse=} [properties] Properties to set
+                 */
+                function QueryParamsResponse(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * QueryParamsResponse params.
+                 * @member {cosmwasm.wasm.v1.IParams|null|undefined} params
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @instance
+                 */
+                QueryParamsResponse.prototype.params = null;
+
+                /**
+                 * Encodes the specified QueryParamsResponse message. Does not implicitly {@link cosmwasm.wasm.v1.QueryParamsResponse.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryParamsResponse} message QueryParamsResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryParamsResponse.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.params != null && Object.hasOwnProperty.call(message, "params"))
+                        $root.cosmwasm.wasm.v1.Params.encode(message.params, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified QueryParamsResponse message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.QueryParamsResponse.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryParamsResponse} message QueryParamsResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryParamsResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a QueryParamsResponse message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.QueryParamsResponse} QueryParamsResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryParamsResponse.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.QueryParamsResponse();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.params = $root.cosmwasm.wasm.v1.Params.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a QueryParamsResponse message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.QueryParamsResponse} QueryParamsResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryParamsResponse.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a QueryParamsResponse message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                QueryParamsResponse.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.params != null && message.hasOwnProperty("params")) {
+                        let error = $root.cosmwasm.wasm.v1.Params.verify(message.params);
+                        if (error)
+                            return "params." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a QueryParamsResponse message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.QueryParamsResponse} QueryParamsResponse
+                 */
+                QueryParamsResponse.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.QueryParamsResponse)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.QueryParamsResponse();
+                    if (object.params != null) {
+                        if (typeof object.params !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.QueryParamsResponse.params: object expected");
+                        message.params = $root.cosmwasm.wasm.v1.Params.fromObject(object.params);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a QueryParamsResponse message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.QueryParamsResponse} message QueryParamsResponse
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                QueryParamsResponse.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults)
+                        object.params = null;
+                    if (message.params != null && message.hasOwnProperty("params"))
+                        object.params = $root.cosmwasm.wasm.v1.Params.toObject(message.params, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this QueryParamsResponse to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.QueryParamsResponse
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                QueryParamsResponse.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return QueryParamsResponse;
+            })();
+
+            v1.QueryContractsByCreatorRequest = (function() {
+
+                /**
+                 * Properties of a QueryContractsByCreatorRequest.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IQueryContractsByCreatorRequest
+                 * @property {string|null} [creator_address] QueryContractsByCreatorRequest creator_address
+                 * @property {cosmos.base.query.v1beta1.IPageRequest|null} [pagination] QueryContractsByCreatorRequest pagination
+                 */
+
+                /**
+                 * Constructs a new QueryContractsByCreatorRequest.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a QueryContractsByCreatorRequest.
+                 * @implements IQueryContractsByCreatorRequest
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorRequest=} [properties] Properties to set
+                 */
+                function QueryContractsByCreatorRequest(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * QueryContractsByCreatorRequest creator_address.
+                 * @member {string} creator_address
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @instance
+                 */
+                QueryContractsByCreatorRequest.prototype.creator_address = "";
+
+                /**
+                 * QueryContractsByCreatorRequest pagination.
+                 * @member {cosmos.base.query.v1beta1.IPageRequest|null|undefined} pagination
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @instance
+                 */
+                QueryContractsByCreatorRequest.prototype.pagination = null;
+
+                /**
+                 * Encodes the specified QueryContractsByCreatorRequest message. Does not implicitly {@link cosmwasm.wasm.v1.QueryContractsByCreatorRequest.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorRequest} message QueryContractsByCreatorRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryContractsByCreatorRequest.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.creator_address != null && Object.hasOwnProperty.call(message, "creator_address"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.creator_address);
+                    if (message.pagination != null && Object.hasOwnProperty.call(message, "pagination"))
+                        $root.cosmos.base.query.v1beta1.PageRequest.encode(message.pagination, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified QueryContractsByCreatorRequest message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.QueryContractsByCreatorRequest.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorRequest} message QueryContractsByCreatorRequest message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryContractsByCreatorRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a QueryContractsByCreatorRequest message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorRequest} QueryContractsByCreatorRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryContractsByCreatorRequest.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.QueryContractsByCreatorRequest();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.creator_address = reader.string();
+                            break;
+                        case 2:
+                            message.pagination = $root.cosmos.base.query.v1beta1.PageRequest.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a QueryContractsByCreatorRequest message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorRequest} QueryContractsByCreatorRequest
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryContractsByCreatorRequest.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a QueryContractsByCreatorRequest message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                QueryContractsByCreatorRequest.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.creator_address != null && message.hasOwnProperty("creator_address"))
+                        if (!$util.isString(message.creator_address))
+                            return "creator_address: string expected";
+                    if (message.pagination != null && message.hasOwnProperty("pagination")) {
+                        let error = $root.cosmos.base.query.v1beta1.PageRequest.verify(message.pagination);
+                        if (error)
+                            return "pagination." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a QueryContractsByCreatorRequest message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorRequest} QueryContractsByCreatorRequest
+                 */
+                QueryContractsByCreatorRequest.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.QueryContractsByCreatorRequest)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.QueryContractsByCreatorRequest();
+                    if (object.creator_address != null)
+                        message.creator_address = String(object.creator_address);
+                    if (object.pagination != null) {
+                        if (typeof object.pagination !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.QueryContractsByCreatorRequest.pagination: object expected");
+                        message.pagination = $root.cosmos.base.query.v1beta1.PageRequest.fromObject(object.pagination);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a QueryContractsByCreatorRequest message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @static
+                 * @param {cosmwasm.wasm.v1.QueryContractsByCreatorRequest} message QueryContractsByCreatorRequest
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                QueryContractsByCreatorRequest.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.creator_address = "";
+                        object.pagination = null;
+                    }
+                    if (message.creator_address != null && message.hasOwnProperty("creator_address"))
+                        object.creator_address = message.creator_address;
+                    if (message.pagination != null && message.hasOwnProperty("pagination"))
+                        object.pagination = $root.cosmos.base.query.v1beta1.PageRequest.toObject(message.pagination, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this QueryContractsByCreatorRequest to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorRequest
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                QueryContractsByCreatorRequest.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return QueryContractsByCreatorRequest;
+            })();
+
+            v1.QueryContractsByCreatorResponse = (function() {
+
+                /**
+                 * Properties of a QueryContractsByCreatorResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IQueryContractsByCreatorResponse
+                 * @property {Array.<string>|null} [contract_addresses] QueryContractsByCreatorResponse contract_addresses
+                 * @property {cosmos.base.query.v1beta1.IPageResponse|null} [pagination] QueryContractsByCreatorResponse pagination
+                 */
+
+                /**
+                 * Constructs a new QueryContractsByCreatorResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a QueryContractsByCreatorResponse.
+                 * @implements IQueryContractsByCreatorResponse
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorResponse=} [properties] Properties to set
+                 */
+                function QueryContractsByCreatorResponse(properties) {
+                    this.contract_addresses = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * QueryContractsByCreatorResponse contract_addresses.
+                 * @member {Array.<string>} contract_addresses
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @instance
+                 */
+                QueryContractsByCreatorResponse.prototype.contract_addresses = $util.emptyArray;
+
+                /**
+                 * QueryContractsByCreatorResponse pagination.
+                 * @member {cosmos.base.query.v1beta1.IPageResponse|null|undefined} pagination
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @instance
+                 */
+                QueryContractsByCreatorResponse.prototype.pagination = null;
+
+                /**
+                 * Encodes the specified QueryContractsByCreatorResponse message. Does not implicitly {@link cosmwasm.wasm.v1.QueryContractsByCreatorResponse.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorResponse} message QueryContractsByCreatorResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryContractsByCreatorResponse.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.contract_addresses != null && message.contract_addresses.length)
+                        for (let i = 0; i < message.contract_addresses.length; ++i)
+                            writer.uint32(/* id 1, wireType 2 =*/10).string(message.contract_addresses[i]);
+                    if (message.pagination != null && Object.hasOwnProperty.call(message, "pagination"))
+                        $root.cosmos.base.query.v1beta1.PageResponse.encode(message.pagination, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified QueryContractsByCreatorResponse message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.QueryContractsByCreatorResponse.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IQueryContractsByCreatorResponse} message QueryContractsByCreatorResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                QueryContractsByCreatorResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a QueryContractsByCreatorResponse message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorResponse} QueryContractsByCreatorResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryContractsByCreatorResponse.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.QueryContractsByCreatorResponse();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            if (!(message.contract_addresses && message.contract_addresses.length))
+                                message.contract_addresses = [];
+                            message.contract_addresses.push(reader.string());
+                            break;
+                        case 2:
+                            message.pagination = $root.cosmos.base.query.v1beta1.PageResponse.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a QueryContractsByCreatorResponse message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorResponse} QueryContractsByCreatorResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                QueryContractsByCreatorResponse.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a QueryContractsByCreatorResponse message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                QueryContractsByCreatorResponse.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.contract_addresses != null && message.hasOwnProperty("contract_addresses")) {
+                        if (!Array.isArray(message.contract_addresses))
+                            return "contract_addresses: array expected";
+                        for (let i = 0; i < message.contract_addresses.length; ++i)
+                            if (!$util.isString(message.contract_addresses[i]))
+                                return "contract_addresses: string[] expected";
+                    }
+                    if (message.pagination != null && message.hasOwnProperty("pagination")) {
+                        let error = $root.cosmos.base.query.v1beta1.PageResponse.verify(message.pagination);
+                        if (error)
+                            return "pagination." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a QueryContractsByCreatorResponse message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.QueryContractsByCreatorResponse} QueryContractsByCreatorResponse
+                 */
+                QueryContractsByCreatorResponse.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.QueryContractsByCreatorResponse)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.QueryContractsByCreatorResponse();
+                    if (object.contract_addresses) {
+                        if (!Array.isArray(object.contract_addresses))
+                            throw TypeError(".cosmwasm.wasm.v1.QueryContractsByCreatorResponse.contract_addresses: array expected");
+                        message.contract_addresses = [];
+                        for (let i = 0; i < object.contract_addresses.length; ++i)
+                            message.contract_addresses[i] = String(object.contract_addresses[i]);
+                    }
+                    if (object.pagination != null) {
+                        if (typeof object.pagination !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.QueryContractsByCreatorResponse.pagination: object expected");
+                        message.pagination = $root.cosmos.base.query.v1beta1.PageResponse.fromObject(object.pagination);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a QueryContractsByCreatorResponse message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.QueryContractsByCreatorResponse} message QueryContractsByCreatorResponse
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                QueryContractsByCreatorResponse.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.contract_addresses = [];
+                    if (options.defaults)
+                        object.pagination = null;
+                    if (message.contract_addresses && message.contract_addresses.length) {
+                        object.contract_addresses = [];
+                        for (let j = 0; j < message.contract_addresses.length; ++j)
+                            object.contract_addresses[j] = message.contract_addresses[j];
+                    }
+                    if (message.pagination != null && message.hasOwnProperty("pagination"))
+                        object.pagination = $root.cosmos.base.query.v1beta1.PageResponse.toObject(message.pagination, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this QueryContractsByCreatorResponse to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.QueryContractsByCreatorResponse
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                QueryContractsByCreatorResponse.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return QueryContractsByCreatorResponse;
+            })();
+
             /**
              * AccessType enum.
              * @name cosmwasm.wasm.v1.AccessType
@@ -4302,6 +6891,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
              * @property {number} ACCESS_TYPE_NOBODY=1 ACCESS_TYPE_NOBODY value
              * @property {number} ACCESS_TYPE_ONLY_ADDRESS=2 ACCESS_TYPE_ONLY_ADDRESS value
              * @property {number} ACCESS_TYPE_EVERYBODY=3 ACCESS_TYPE_EVERYBODY value
+             * @property {number} ACCESS_TYPE_ANY_OF_ADDRESSES=4 ACCESS_TYPE_ANY_OF_ADDRESSES value
              */
             v1.AccessType = (function() {
                 const valuesById = {}, values = Object.create(valuesById);
@@ -4309,6 +6899,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 values[valuesById[1] = "ACCESS_TYPE_NOBODY"] = 1;
                 values[valuesById[2] = "ACCESS_TYPE_ONLY_ADDRESS"] = 2;
                 values[valuesById[3] = "ACCESS_TYPE_EVERYBODY"] = 3;
+                values[valuesById[4] = "ACCESS_TYPE_ANY_OF_ADDRESSES"] = 4;
                 return values;
             })();
 
@@ -4438,6 +7029,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         case 1:
                         case 2:
                         case 3:
+                        case 4:
                             break;
                         }
                     return null;
@@ -4471,6 +7063,10 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     case "ACCESS_TYPE_EVERYBODY":
                     case 3:
                         message.value = 3;
+                        break;
+                    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+                    case 4:
+                        message.value = 4;
                         break;
                     }
                     return message;
@@ -4518,6 +7114,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @interface IAccessConfig
                  * @property {cosmwasm.wasm.v1.AccessType|null} [permission] AccessConfig permission
                  * @property {string|null} [address] AccessConfig address
+                 * @property {Array.<string>|null} [addresses] AccessConfig addresses
                  */
 
                 /**
@@ -4529,6 +7126,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @param {cosmwasm.wasm.v1.IAccessConfig=} [properties] Properties to set
                  */
                 function AccessConfig(properties) {
+                    this.addresses = [];
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -4552,6 +7150,14 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 AccessConfig.prototype.address = "";
 
                 /**
+                 * AccessConfig addresses.
+                 * @member {Array.<string>} addresses
+                 * @memberof cosmwasm.wasm.v1.AccessConfig
+                 * @instance
+                 */
+                AccessConfig.prototype.addresses = $util.emptyArray;
+
+                /**
                  * Encodes the specified AccessConfig message. Does not implicitly {@link cosmwasm.wasm.v1.AccessConfig.verify|verify} messages.
                  * @function encode
                  * @memberof cosmwasm.wasm.v1.AccessConfig
@@ -4567,6 +7173,9 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         writer.uint32(/* id 1, wireType 0 =*/8).int32(message.permission);
                     if (message.address != null && Object.hasOwnProperty.call(message, "address"))
                         writer.uint32(/* id 2, wireType 2 =*/18).string(message.address);
+                    if (message.addresses != null && message.addresses.length)
+                        for (let i = 0; i < message.addresses.length; ++i)
+                            writer.uint32(/* id 3, wireType 2 =*/26).string(message.addresses[i]);
                     return writer;
                 };
 
@@ -4606,6 +7215,11 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             break;
                         case 2:
                             message.address = reader.string();
+                            break;
+                        case 3:
+                            if (!(message.addresses && message.addresses.length))
+                                message.addresses = [];
+                            message.addresses.push(reader.string());
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -4650,11 +7264,19 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         case 1:
                         case 2:
                         case 3:
+                        case 4:
                             break;
                         }
                     if (message.address != null && message.hasOwnProperty("address"))
                         if (!$util.isString(message.address))
                             return "address: string expected";
+                    if (message.addresses != null && message.hasOwnProperty("addresses")) {
+                        if (!Array.isArray(message.addresses))
+                            return "addresses: array expected";
+                        for (let i = 0; i < message.addresses.length; ++i)
+                            if (!$util.isString(message.addresses[i]))
+                                return "addresses: string[] expected";
+                    }
                     return null;
                 };
 
@@ -4687,9 +7309,20 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     case 3:
                         message.permission = 3;
                         break;
+                    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+                    case 4:
+                        message.permission = 4;
+                        break;
                     }
                     if (object.address != null)
                         message.address = String(object.address);
+                    if (object.addresses) {
+                        if (!Array.isArray(object.addresses))
+                            throw TypeError(".cosmwasm.wasm.v1.AccessConfig.addresses: array expected");
+                        message.addresses = [];
+                        for (let i = 0; i < object.addresses.length; ++i)
+                            message.addresses[i] = String(object.addresses[i]);
+                    }
                     return message;
                 };
 
@@ -4706,6 +7339,8 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (!options)
                         options = {};
                     let object = {};
+                    if (options.arrays || options.defaults)
+                        object.addresses = [];
                     if (options.defaults) {
                         object.permission = options.enums === String ? "ACCESS_TYPE_UNSPECIFIED" : 0;
                         object.address = "";
@@ -4714,6 +7349,11 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         object.permission = options.enums === String ? $root.cosmwasm.wasm.v1.AccessType[message.permission] : message.permission;
                     if (message.address != null && message.hasOwnProperty("address"))
                         object.address = message.address;
+                    if (message.addresses && message.addresses.length) {
+                        object.addresses = [];
+                        for (let j = 0; j < message.addresses.length; ++j)
+                            object.addresses[j] = message.addresses[j];
+                    }
                     return object;
                 };
 
@@ -4876,6 +7516,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         case 1:
                         case 2:
                         case 3:
+                        case 4:
                             break;
                         }
                     return null;
@@ -4914,6 +7555,10 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     case "ACCESS_TYPE_EVERYBODY":
                     case 3:
                         message.instantiate_default_permission = 3;
+                        break;
+                    case "ACCESS_TYPE_ANY_OF_ADDRESSES":
+                    case 4:
+                        message.instantiate_default_permission = 4;
                         break;
                     }
                     return message;
@@ -6361,6 +9006,39 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  */
 
                 /**
+                 * Callback as used by {@link cosmwasm.wasm.v1.Msg#instantiateContract2}.
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @typedef InstantiateContract2Callback
+                 * @type {function}
+                 * @param {Error|null} error Error, if any
+                 * @param {cosmwasm.wasm.v1.MsgInstantiateContract2Response} [response] MsgInstantiateContract2Response
+                 */
+
+                /**
+                 * Calls InstantiateContract2.
+                 * @function instantiateContract2
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2} request MsgInstantiateContract2 message or plain object
+                 * @param {cosmwasm.wasm.v1.Msg.InstantiateContract2Callback} callback Node-style callback called with the error, if any, and MsgInstantiateContract2Response
+                 * @returns {undefined}
+                 * @variation 1
+                 */
+                Object.defineProperty(Msg.prototype.instantiateContract2 = function instantiateContract2(request, callback) {
+                    return this.rpcCall(instantiateContract2, $root.cosmwasm.wasm.v1.MsgInstantiateContract2, $root.cosmwasm.wasm.v1.MsgInstantiateContract2Response, request, callback);
+                }, "name", { value: "InstantiateContract2" });
+
+                /**
+                 * Calls InstantiateContract2.
+                 * @function instantiateContract2
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2} request MsgInstantiateContract2 message or plain object
+                 * @returns {Promise<cosmwasm.wasm.v1.MsgInstantiateContract2Response>} Promise
+                 * @variation 2
+                 */
+
+                /**
                  * Callback as used by {@link cosmwasm.wasm.v1.Msg#executeContract}.
                  * @memberof cosmwasm.wasm.v1.Msg
                  * @typedef ExecuteContractCallback
@@ -6489,6 +9167,39 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @instance
                  * @param {cosmwasm.wasm.v1.IMsgClearAdmin} request MsgClearAdmin message or plain object
                  * @returns {Promise<cosmwasm.wasm.v1.MsgClearAdminResponse>} Promise
+                 * @variation 2
+                 */
+
+                /**
+                 * Callback as used by {@link cosmwasm.wasm.v1.Msg#updateInstantiateConfig}.
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @typedef UpdateInstantiateConfigCallback
+                 * @type {function}
+                 * @param {Error|null} error Error, if any
+                 * @param {cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse} [response] MsgUpdateInstantiateConfigResponse
+                 */
+
+                /**
+                 * Calls UpdateInstantiateConfig.
+                 * @function updateInstantiateConfig
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfig} request MsgUpdateInstantiateConfig message or plain object
+                 * @param {cosmwasm.wasm.v1.Msg.UpdateInstantiateConfigCallback} callback Node-style callback called with the error, if any, and MsgUpdateInstantiateConfigResponse
+                 * @returns {undefined}
+                 * @variation 1
+                 */
+                Object.defineProperty(Msg.prototype.updateInstantiateConfig = function updateInstantiateConfig(request, callback) {
+                    return this.rpcCall(updateInstantiateConfig, $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfig, $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse, request, callback);
+                }, "name", { value: "UpdateInstantiateConfig" });
+
+                /**
+                 * Calls UpdateInstantiateConfig.
+                 * @function updateInstantiateConfig
+                 * @memberof cosmwasm.wasm.v1.Msg
+                 * @instance
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfig} request MsgUpdateInstantiateConfig message or plain object
+                 * @returns {Promise<cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse>} Promise
                  * @variation 2
                  */
 
@@ -6736,6 +9447,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @memberof cosmwasm.wasm.v1
                  * @interface IMsgStoreCodeResponse
                  * @property {Long|null} [code_id] MsgStoreCodeResponse code_id
+                 * @property {Uint8Array|null} [checksum] MsgStoreCodeResponse checksum
                  */
 
                 /**
@@ -6762,6 +9474,14 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 MsgStoreCodeResponse.prototype.code_id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
 
                 /**
+                 * MsgStoreCodeResponse checksum.
+                 * @member {Uint8Array} checksum
+                 * @memberof cosmwasm.wasm.v1.MsgStoreCodeResponse
+                 * @instance
+                 */
+                MsgStoreCodeResponse.prototype.checksum = $util.newBuffer([]);
+
+                /**
                  * Encodes the specified MsgStoreCodeResponse message. Does not implicitly {@link cosmwasm.wasm.v1.MsgStoreCodeResponse.verify|verify} messages.
                  * @function encode
                  * @memberof cosmwasm.wasm.v1.MsgStoreCodeResponse
@@ -6775,6 +9495,8 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         writer = $Writer.create();
                     if (message.code_id != null && Object.hasOwnProperty.call(message, "code_id"))
                         writer.uint32(/* id 1, wireType 0 =*/8).uint64(message.code_id);
+                    if (message.checksum != null && Object.hasOwnProperty.call(message, "checksum"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.checksum);
                     return writer;
                 };
 
@@ -6811,6 +9533,9 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         switch (tag >>> 3) {
                         case 1:
                             message.code_id = reader.uint64();
+                            break;
+                        case 2:
+                            message.checksum = reader.bytes();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -6850,6 +9575,9 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (message.code_id != null && message.hasOwnProperty("code_id"))
                         if (!$util.isInteger(message.code_id) && !(message.code_id && $util.isInteger(message.code_id.low) && $util.isInteger(message.code_id.high)))
                             return "code_id: integer|Long expected";
+                    if (message.checksum != null && message.hasOwnProperty("checksum"))
+                        if (!(message.checksum && typeof message.checksum.length === "number" || $util.isString(message.checksum)))
+                            return "checksum: buffer expected";
                     return null;
                 };
 
@@ -6874,6 +9602,11 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             message.code_id = object.code_id;
                         else if (typeof object.code_id === "object")
                             message.code_id = new $util.LongBits(object.code_id.low >>> 0, object.code_id.high >>> 0).toNumber(true);
+                    if (object.checksum != null)
+                        if (typeof object.checksum === "string")
+                            $util.base64.decode(object.checksum, message.checksum = $util.newBuffer($util.base64.length(object.checksum)), 0);
+                        else if (object.checksum.length)
+                            message.checksum = object.checksum;
                     return message;
                 };
 
@@ -6890,17 +9623,27 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (!options)
                         options = {};
                     let object = {};
-                    if (options.defaults)
+                    if (options.defaults) {
                         if ($util.Long) {
                             let long = new $util.Long(0, 0, true);
                             object.code_id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
                         } else
                             object.code_id = options.longs === String ? "0" : 0;
+                        if (options.bytes === String)
+                            object.checksum = "";
+                        else {
+                            object.checksum = [];
+                            if (options.bytes !== Array)
+                                object.checksum = $util.newBuffer(object.checksum);
+                        }
+                    }
                     if (message.code_id != null && message.hasOwnProperty("code_id"))
                         if (typeof message.code_id === "number")
                             object.code_id = options.longs === String ? String(message.code_id) : message.code_id;
                         else
                             object.code_id = options.longs === String ? $util.Long.prototype.toString.call(message.code_id) : options.longs === Number ? new $util.LongBits(message.code_id.low >>> 0, message.code_id.high >>> 0).toNumber(true) : message.code_id;
+                    if (message.checksum != null && message.hasOwnProperty("checksum"))
+                        object.checksum = options.bytes === String ? $util.base64.encode(message.checksum, 0, message.checksum.length) : options.bytes === Array ? Array.prototype.slice.call(message.checksum) : message.checksum;
                     return object;
                 };
 
@@ -7249,6 +9992,390 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 return MsgInstantiateContract;
             })();
 
+            v1.MsgInstantiateContract2 = (function() {
+
+                /**
+                 * Properties of a MsgInstantiateContract2.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMsgInstantiateContract2
+                 * @property {string|null} [sender] MsgInstantiateContract2 sender
+                 * @property {string|null} [admin] MsgInstantiateContract2 admin
+                 * @property {Long|null} [code_id] MsgInstantiateContract2 code_id
+                 * @property {string|null} [label] MsgInstantiateContract2 label
+                 * @property {Uint8Array|null} [msg] MsgInstantiateContract2 msg
+                 * @property {Array.<cosmos.base.v1beta1.ICoin>|null} [funds] MsgInstantiateContract2 funds
+                 * @property {Uint8Array|null} [salt] MsgInstantiateContract2 salt
+                 * @property {boolean|null} [fix_msg] MsgInstantiateContract2 fix_msg
+                 */
+
+                /**
+                 * Constructs a new MsgInstantiateContract2.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MsgInstantiateContract2.
+                 * @implements IMsgInstantiateContract2
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2=} [properties] Properties to set
+                 */
+                function MsgInstantiateContract2(properties) {
+                    this.funds = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * MsgInstantiateContract2 sender.
+                 * @member {string} sender
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.sender = "";
+
+                /**
+                 * MsgInstantiateContract2 admin.
+                 * @member {string} admin
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.admin = "";
+
+                /**
+                 * MsgInstantiateContract2 code_id.
+                 * @member {Long} code_id
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.code_id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * MsgInstantiateContract2 label.
+                 * @member {string} label
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.label = "";
+
+                /**
+                 * MsgInstantiateContract2 msg.
+                 * @member {Uint8Array} msg
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.msg = $util.newBuffer([]);
+
+                /**
+                 * MsgInstantiateContract2 funds.
+                 * @member {Array.<cosmos.base.v1beta1.ICoin>} funds
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.funds = $util.emptyArray;
+
+                /**
+                 * MsgInstantiateContract2 salt.
+                 * @member {Uint8Array} salt
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.salt = $util.newBuffer([]);
+
+                /**
+                 * MsgInstantiateContract2 fix_msg.
+                 * @member {boolean} fix_msg
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 */
+                MsgInstantiateContract2.prototype.fix_msg = false;
+
+                /**
+                 * Encodes the specified MsgInstantiateContract2 message. Does not implicitly {@link cosmwasm.wasm.v1.MsgInstantiateContract2.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2} message MsgInstantiateContract2 message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgInstantiateContract2.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.sender);
+                    if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.admin);
+                    if (message.code_id != null && Object.hasOwnProperty.call(message, "code_id"))
+                        writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.code_id);
+                    if (message.label != null && Object.hasOwnProperty.call(message, "label"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.label);
+                    if (message.msg != null && Object.hasOwnProperty.call(message, "msg"))
+                        writer.uint32(/* id 5, wireType 2 =*/42).bytes(message.msg);
+                    if (message.funds != null && message.funds.length)
+                        for (let i = 0; i < message.funds.length; ++i)
+                            $root.cosmos.base.v1beta1.Coin.encode(message.funds[i], writer.uint32(/* id 6, wireType 2 =*/50).fork()).ldelim();
+                    if (message.salt != null && Object.hasOwnProperty.call(message, "salt"))
+                        writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.salt);
+                    if (message.fix_msg != null && Object.hasOwnProperty.call(message, "fix_msg"))
+                        writer.uint32(/* id 8, wireType 0 =*/64).bool(message.fix_msg);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MsgInstantiateContract2 message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MsgInstantiateContract2.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2} message MsgInstantiateContract2 message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgInstantiateContract2.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MsgInstantiateContract2 message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2} MsgInstantiateContract2
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgInstantiateContract2.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MsgInstantiateContract2();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sender = reader.string();
+                            break;
+                        case 2:
+                            message.admin = reader.string();
+                            break;
+                        case 3:
+                            message.code_id = reader.uint64();
+                            break;
+                        case 4:
+                            message.label = reader.string();
+                            break;
+                        case 5:
+                            message.msg = reader.bytes();
+                            break;
+                        case 6:
+                            if (!(message.funds && message.funds.length))
+                                message.funds = [];
+                            message.funds.push($root.cosmos.base.v1beta1.Coin.decode(reader, reader.uint32()));
+                            break;
+                        case 7:
+                            message.salt = reader.bytes();
+                            break;
+                        case 8:
+                            message.fix_msg = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MsgInstantiateContract2 message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2} MsgInstantiateContract2
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgInstantiateContract2.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MsgInstantiateContract2 message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MsgInstantiateContract2.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sender != null && message.hasOwnProperty("sender"))
+                        if (!$util.isString(message.sender))
+                            return "sender: string expected";
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        if (!$util.isString(message.admin))
+                            return "admin: string expected";
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (!$util.isInteger(message.code_id) && !(message.code_id && $util.isInteger(message.code_id.low) && $util.isInteger(message.code_id.high)))
+                            return "code_id: integer|Long expected";
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        if (!$util.isString(message.label))
+                            return "label: string expected";
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        if (!(message.msg && typeof message.msg.length === "number" || $util.isString(message.msg)))
+                            return "msg: buffer expected";
+                    if (message.funds != null && message.hasOwnProperty("funds")) {
+                        if (!Array.isArray(message.funds))
+                            return "funds: array expected";
+                        for (let i = 0; i < message.funds.length; ++i) {
+                            let error = $root.cosmos.base.v1beta1.Coin.verify(message.funds[i]);
+                            if (error)
+                                return "funds." + error;
+                        }
+                    }
+                    if (message.salt != null && message.hasOwnProperty("salt"))
+                        if (!(message.salt && typeof message.salt.length === "number" || $util.isString(message.salt)))
+                            return "salt: buffer expected";
+                    if (message.fix_msg != null && message.hasOwnProperty("fix_msg"))
+                        if (typeof message.fix_msg !== "boolean")
+                            return "fix_msg: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a MsgInstantiateContract2 message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2} MsgInstantiateContract2
+                 */
+                MsgInstantiateContract2.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MsgInstantiateContract2)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.MsgInstantiateContract2();
+                    if (object.sender != null)
+                        message.sender = String(object.sender);
+                    if (object.admin != null)
+                        message.admin = String(object.admin);
+                    if (object.code_id != null)
+                        if ($util.Long)
+                            (message.code_id = $util.Long.fromValue(object.code_id)).unsigned = true;
+                        else if (typeof object.code_id === "string")
+                            message.code_id = parseInt(object.code_id, 10);
+                        else if (typeof object.code_id === "number")
+                            message.code_id = object.code_id;
+                        else if (typeof object.code_id === "object")
+                            message.code_id = new $util.LongBits(object.code_id.low >>> 0, object.code_id.high >>> 0).toNumber(true);
+                    if (object.label != null)
+                        message.label = String(object.label);
+                    if (object.msg != null)
+                        if (typeof object.msg === "string")
+                            $util.base64.decode(object.msg, message.msg = $util.newBuffer($util.base64.length(object.msg)), 0);
+                        else if (object.msg.length)
+                            message.msg = object.msg;
+                    if (object.funds) {
+                        if (!Array.isArray(object.funds))
+                            throw TypeError(".cosmwasm.wasm.v1.MsgInstantiateContract2.funds: array expected");
+                        message.funds = [];
+                        for (let i = 0; i < object.funds.length; ++i) {
+                            if (typeof object.funds[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.MsgInstantiateContract2.funds: object expected");
+                            message.funds[i] = $root.cosmos.base.v1beta1.Coin.fromObject(object.funds[i]);
+                        }
+                    }
+                    if (object.salt != null)
+                        if (typeof object.salt === "string")
+                            $util.base64.decode(object.salt, message.salt = $util.newBuffer($util.base64.length(object.salt)), 0);
+                        else if (object.salt.length)
+                            message.salt = object.salt;
+                    if (object.fix_msg != null)
+                        message.fix_msg = Boolean(object.fix_msg);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a MsgInstantiateContract2 message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MsgInstantiateContract2} message MsgInstantiateContract2
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MsgInstantiateContract2.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.funds = [];
+                    if (options.defaults) {
+                        object.sender = "";
+                        object.admin = "";
+                        if ($util.Long) {
+                            let long = new $util.Long(0, 0, true);
+                            object.code_id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.code_id = options.longs === String ? "0" : 0;
+                        object.label = "";
+                        if (options.bytes === String)
+                            object.msg = "";
+                        else {
+                            object.msg = [];
+                            if (options.bytes !== Array)
+                                object.msg = $util.newBuffer(object.msg);
+                        }
+                        if (options.bytes === String)
+                            object.salt = "";
+                        else {
+                            object.salt = [];
+                            if (options.bytes !== Array)
+                                object.salt = $util.newBuffer(object.salt);
+                        }
+                        object.fix_msg = false;
+                    }
+                    if (message.sender != null && message.hasOwnProperty("sender"))
+                        object.sender = message.sender;
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        object.admin = message.admin;
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (typeof message.code_id === "number")
+                            object.code_id = options.longs === String ? String(message.code_id) : message.code_id;
+                        else
+                            object.code_id = options.longs === String ? $util.Long.prototype.toString.call(message.code_id) : options.longs === Number ? new $util.LongBits(message.code_id.low >>> 0, message.code_id.high >>> 0).toNumber(true) : message.code_id;
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        object.label = message.label;
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        object.msg = options.bytes === String ? $util.base64.encode(message.msg, 0, message.msg.length) : options.bytes === Array ? Array.prototype.slice.call(message.msg) : message.msg;
+                    if (message.funds && message.funds.length) {
+                        object.funds = [];
+                        for (let j = 0; j < message.funds.length; ++j)
+                            object.funds[j] = $root.cosmos.base.v1beta1.Coin.toObject(message.funds[j], options);
+                    }
+                    if (message.salt != null && message.hasOwnProperty("salt"))
+                        object.salt = options.bytes === String ? $util.base64.encode(message.salt, 0, message.salt.length) : options.bytes === Array ? Array.prototype.slice.call(message.salt) : message.salt;
+                    if (message.fix_msg != null && message.hasOwnProperty("fix_msg"))
+                        object.fix_msg = message.fix_msg;
+                    return object;
+                };
+
+                /**
+                 * Converts this MsgInstantiateContract2 to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MsgInstantiateContract2.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MsgInstantiateContract2;
+            })();
+
             v1.MsgInstantiateContractResponse = (function() {
 
                 /**
@@ -7454,6 +10581,213 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 };
 
                 return MsgInstantiateContractResponse;
+            })();
+
+            v1.MsgInstantiateContract2Response = (function() {
+
+                /**
+                 * Properties of a MsgInstantiateContract2Response.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMsgInstantiateContract2Response
+                 * @property {string|null} [address] MsgInstantiateContract2Response address
+                 * @property {Uint8Array|null} [data] MsgInstantiateContract2Response data
+                 */
+
+                /**
+                 * Constructs a new MsgInstantiateContract2Response.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MsgInstantiateContract2Response.
+                 * @implements IMsgInstantiateContract2Response
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2Response=} [properties] Properties to set
+                 */
+                function MsgInstantiateContract2Response(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * MsgInstantiateContract2Response address.
+                 * @member {string} address
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @instance
+                 */
+                MsgInstantiateContract2Response.prototype.address = "";
+
+                /**
+                 * MsgInstantiateContract2Response data.
+                 * @member {Uint8Array} data
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @instance
+                 */
+                MsgInstantiateContract2Response.prototype.data = $util.newBuffer([]);
+
+                /**
+                 * Encodes the specified MsgInstantiateContract2Response message. Does not implicitly {@link cosmwasm.wasm.v1.MsgInstantiateContract2Response.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2Response} message MsgInstantiateContract2Response message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgInstantiateContract2Response.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.address != null && Object.hasOwnProperty.call(message, "address"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.address);
+                    if (message.data != null && Object.hasOwnProperty.call(message, "data"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).bytes(message.data);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MsgInstantiateContract2Response message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MsgInstantiateContract2Response.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgInstantiateContract2Response} message MsgInstantiateContract2Response message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgInstantiateContract2Response.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MsgInstantiateContract2Response message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2Response} MsgInstantiateContract2Response
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgInstantiateContract2Response.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MsgInstantiateContract2Response();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.address = reader.string();
+                            break;
+                        case 2:
+                            message.data = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MsgInstantiateContract2Response message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2Response} MsgInstantiateContract2Response
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgInstantiateContract2Response.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MsgInstantiateContract2Response message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MsgInstantiateContract2Response.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.address != null && message.hasOwnProperty("address"))
+                        if (!$util.isString(message.address))
+                            return "address: string expected";
+                    if (message.data != null && message.hasOwnProperty("data"))
+                        if (!(message.data && typeof message.data.length === "number" || $util.isString(message.data)))
+                            return "data: buffer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a MsgInstantiateContract2Response message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MsgInstantiateContract2Response} MsgInstantiateContract2Response
+                 */
+                MsgInstantiateContract2Response.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MsgInstantiateContract2Response)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.MsgInstantiateContract2Response();
+                    if (object.address != null)
+                        message.address = String(object.address);
+                    if (object.data != null)
+                        if (typeof object.data === "string")
+                            $util.base64.decode(object.data, message.data = $util.newBuffer($util.base64.length(object.data)), 0);
+                        else if (object.data.length)
+                            message.data = object.data;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a MsgInstantiateContract2Response message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MsgInstantiateContract2Response} message MsgInstantiateContract2Response
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MsgInstantiateContract2Response.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.address = "";
+                        if (options.bytes === String)
+                            object.data = "";
+                        else {
+                            object.data = [];
+                            if (options.bytes !== Array)
+                                object.data = $util.newBuffer(object.data);
+                        }
+                    }
+                    if (message.address != null && message.hasOwnProperty("address"))
+                        object.address = message.address;
+                    if (message.data != null && message.hasOwnProperty("data"))
+                        object.data = options.bytes === String ? $util.base64.encode(message.data, 0, message.data.length) : options.bytes === Array ? Array.prototype.slice.call(message.data) : message.data;
+                    return object;
+                };
+
+                /**
+                 * Converts this MsgInstantiateContract2Response to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MsgInstantiateContract2Response
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MsgInstantiateContract2Response.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MsgInstantiateContract2Response;
             })();
 
             v1.MsgExecuteContract = (function() {
@@ -9076,6 +12410,393 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 return MsgClearAdminResponse;
             })();
 
+            v1.MsgUpdateInstantiateConfig = (function() {
+
+                /**
+                 * Properties of a MsgUpdateInstantiateConfig.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMsgUpdateInstantiateConfig
+                 * @property {string|null} [sender] MsgUpdateInstantiateConfig sender
+                 * @property {Long|null} [code_id] MsgUpdateInstantiateConfig code_id
+                 * @property {cosmwasm.wasm.v1.IAccessConfig|null} [new_instantiate_permission] MsgUpdateInstantiateConfig new_instantiate_permission
+                 */
+
+                /**
+                 * Constructs a new MsgUpdateInstantiateConfig.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MsgUpdateInstantiateConfig.
+                 * @implements IMsgUpdateInstantiateConfig
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfig=} [properties] Properties to set
+                 */
+                function MsgUpdateInstantiateConfig(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * MsgUpdateInstantiateConfig sender.
+                 * @member {string} sender
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @instance
+                 */
+                MsgUpdateInstantiateConfig.prototype.sender = "";
+
+                /**
+                 * MsgUpdateInstantiateConfig code_id.
+                 * @member {Long} code_id
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @instance
+                 */
+                MsgUpdateInstantiateConfig.prototype.code_id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * MsgUpdateInstantiateConfig new_instantiate_permission.
+                 * @member {cosmwasm.wasm.v1.IAccessConfig|null|undefined} new_instantiate_permission
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @instance
+                 */
+                MsgUpdateInstantiateConfig.prototype.new_instantiate_permission = null;
+
+                /**
+                 * Encodes the specified MsgUpdateInstantiateConfig message. Does not implicitly {@link cosmwasm.wasm.v1.MsgUpdateInstantiateConfig.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfig} message MsgUpdateInstantiateConfig message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgUpdateInstantiateConfig.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.sender != null && Object.hasOwnProperty.call(message, "sender"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.sender);
+                    if (message.code_id != null && Object.hasOwnProperty.call(message, "code_id"))
+                        writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.code_id);
+                    if (message.new_instantiate_permission != null && Object.hasOwnProperty.call(message, "new_instantiate_permission"))
+                        $root.cosmwasm.wasm.v1.AccessConfig.encode(message.new_instantiate_permission, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MsgUpdateInstantiateConfig message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MsgUpdateInstantiateConfig.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfig} message MsgUpdateInstantiateConfig message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgUpdateInstantiateConfig.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MsgUpdateInstantiateConfig message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfig} MsgUpdateInstantiateConfig
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgUpdateInstantiateConfig.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfig();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.sender = reader.string();
+                            break;
+                        case 2:
+                            message.code_id = reader.uint64();
+                            break;
+                        case 3:
+                            message.new_instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.decode(reader, reader.uint32());
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MsgUpdateInstantiateConfig message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfig} MsgUpdateInstantiateConfig
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgUpdateInstantiateConfig.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MsgUpdateInstantiateConfig message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MsgUpdateInstantiateConfig.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.sender != null && message.hasOwnProperty("sender"))
+                        if (!$util.isString(message.sender))
+                            return "sender: string expected";
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (!$util.isInteger(message.code_id) && !(message.code_id && $util.isInteger(message.code_id.low) && $util.isInteger(message.code_id.high)))
+                            return "code_id: integer|Long expected";
+                    if (message.new_instantiate_permission != null && message.hasOwnProperty("new_instantiate_permission")) {
+                        let error = $root.cosmwasm.wasm.v1.AccessConfig.verify(message.new_instantiate_permission);
+                        if (error)
+                            return "new_instantiate_permission." + error;
+                    }
+                    return null;
+                };
+
+                /**
+                 * Creates a MsgUpdateInstantiateConfig message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfig} MsgUpdateInstantiateConfig
+                 */
+                MsgUpdateInstantiateConfig.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfig)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfig();
+                    if (object.sender != null)
+                        message.sender = String(object.sender);
+                    if (object.code_id != null)
+                        if ($util.Long)
+                            (message.code_id = $util.Long.fromValue(object.code_id)).unsigned = true;
+                        else if (typeof object.code_id === "string")
+                            message.code_id = parseInt(object.code_id, 10);
+                        else if (typeof object.code_id === "number")
+                            message.code_id = object.code_id;
+                        else if (typeof object.code_id === "object")
+                            message.code_id = new $util.LongBits(object.code_id.low >>> 0, object.code_id.high >>> 0).toNumber(true);
+                    if (object.new_instantiate_permission != null) {
+                        if (typeof object.new_instantiate_permission !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.MsgUpdateInstantiateConfig.new_instantiate_permission: object expected");
+                        message.new_instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.fromObject(object.new_instantiate_permission);
+                    }
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a MsgUpdateInstantiateConfig message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MsgUpdateInstantiateConfig} message MsgUpdateInstantiateConfig
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MsgUpdateInstantiateConfig.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.sender = "";
+                        if ($util.Long) {
+                            let long = new $util.Long(0, 0, true);
+                            object.code_id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.code_id = options.longs === String ? "0" : 0;
+                        object.new_instantiate_permission = null;
+                    }
+                    if (message.sender != null && message.hasOwnProperty("sender"))
+                        object.sender = message.sender;
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (typeof message.code_id === "number")
+                            object.code_id = options.longs === String ? String(message.code_id) : message.code_id;
+                        else
+                            object.code_id = options.longs === String ? $util.Long.prototype.toString.call(message.code_id) : options.longs === Number ? new $util.LongBits(message.code_id.low >>> 0, message.code_id.high >>> 0).toNumber(true) : message.code_id;
+                    if (message.new_instantiate_permission != null && message.hasOwnProperty("new_instantiate_permission"))
+                        object.new_instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.toObject(message.new_instantiate_permission, options);
+                    return object;
+                };
+
+                /**
+                 * Converts this MsgUpdateInstantiateConfig to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfig
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MsgUpdateInstantiateConfig.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MsgUpdateInstantiateConfig;
+            })();
+
+            v1.MsgUpdateInstantiateConfigResponse = (function() {
+
+                /**
+                 * Properties of a MsgUpdateInstantiateConfigResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IMsgUpdateInstantiateConfigResponse
+                 */
+
+                /**
+                 * Constructs a new MsgUpdateInstantiateConfigResponse.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a MsgUpdateInstantiateConfigResponse.
+                 * @implements IMsgUpdateInstantiateConfigResponse
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfigResponse=} [properties] Properties to set
+                 */
+                function MsgUpdateInstantiateConfigResponse(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Encodes the specified MsgUpdateInstantiateConfigResponse message. Does not implicitly {@link cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfigResponse} message MsgUpdateInstantiateConfigResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgUpdateInstantiateConfigResponse.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified MsgUpdateInstantiateConfigResponse message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IMsgUpdateInstantiateConfigResponse} message MsgUpdateInstantiateConfigResponse message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                MsgUpdateInstantiateConfigResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a MsgUpdateInstantiateConfigResponse message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse} MsgUpdateInstantiateConfigResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgUpdateInstantiateConfigResponse.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a MsgUpdateInstantiateConfigResponse message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse} MsgUpdateInstantiateConfigResponse
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                MsgUpdateInstantiateConfigResponse.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a MsgUpdateInstantiateConfigResponse message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                MsgUpdateInstantiateConfigResponse.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a MsgUpdateInstantiateConfigResponse message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse} MsgUpdateInstantiateConfigResponse
+                 */
+                MsgUpdateInstantiateConfigResponse.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse)
+                        return object;
+                    return new $root.cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse();
+                };
+
+                /**
+                 * Creates a plain object from a MsgUpdateInstantiateConfigResponse message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @static
+                 * @param {cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse} message MsgUpdateInstantiateConfigResponse
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                MsgUpdateInstantiateConfigResponse.toObject = function toObject() {
+                    return {};
+                };
+
+                /**
+                 * Converts this MsgUpdateInstantiateConfigResponse to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.MsgUpdateInstantiateConfigResponse
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                MsgUpdateInstantiateConfigResponse.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return MsgUpdateInstantiateConfigResponse;
+            })();
+
             v1.GenesisState = (function() {
 
                 /**
@@ -9086,7 +12807,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @property {Array.<cosmwasm.wasm.v1.ICode>|null} [codes] GenesisState codes
                  * @property {Array.<cosmwasm.wasm.v1.IContract>|null} [contracts] GenesisState contracts
                  * @property {Array.<cosmwasm.wasm.v1.ISequence>|null} [sequences] GenesisState sequences
-                 * @property {Array.<cosmwasm.wasm.v1.GenesisState.IGenMsgs>|null} [gen_msgs] GenesisState gen_msgs
                  */
 
                 /**
@@ -9101,7 +12821,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     this.codes = [];
                     this.contracts = [];
                     this.sequences = [];
-                    this.gen_msgs = [];
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -9141,14 +12860,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 GenesisState.prototype.sequences = $util.emptyArray;
 
                 /**
-                 * GenesisState gen_msgs.
-                 * @member {Array.<cosmwasm.wasm.v1.GenesisState.IGenMsgs>} gen_msgs
-                 * @memberof cosmwasm.wasm.v1.GenesisState
-                 * @instance
-                 */
-                GenesisState.prototype.gen_msgs = $util.emptyArray;
-
-                /**
                  * Encodes the specified GenesisState message. Does not implicitly {@link cosmwasm.wasm.v1.GenesisState.verify|verify} messages.
                  * @function encode
                  * @memberof cosmwasm.wasm.v1.GenesisState
@@ -9171,9 +12882,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (message.sequences != null && message.sequences.length)
                         for (let i = 0; i < message.sequences.length; ++i)
                             $root.cosmwasm.wasm.v1.Sequence.encode(message.sequences[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
-                    if (message.gen_msgs != null && message.gen_msgs.length)
-                        for (let i = 0; i < message.gen_msgs.length; ++i)
-                            $root.cosmwasm.wasm.v1.GenesisState.GenMsgs.encode(message.gen_msgs[i], writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
                     return writer;
                 };
 
@@ -9225,11 +12933,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             if (!(message.sequences && message.sequences.length))
                                 message.sequences = [];
                             message.sequences.push($root.cosmwasm.wasm.v1.Sequence.decode(reader, reader.uint32()));
-                            break;
-                        case 5:
-                            if (!(message.gen_msgs && message.gen_msgs.length))
-                                message.gen_msgs = [];
-                            message.gen_msgs.push($root.cosmwasm.wasm.v1.GenesisState.GenMsgs.decode(reader, reader.uint32()));
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -9298,15 +13001,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                                 return "sequences." + error;
                         }
                     }
-                    if (message.gen_msgs != null && message.hasOwnProperty("gen_msgs")) {
-                        if (!Array.isArray(message.gen_msgs))
-                            return "gen_msgs: array expected";
-                        for (let i = 0; i < message.gen_msgs.length; ++i) {
-                            let error = $root.cosmwasm.wasm.v1.GenesisState.GenMsgs.verify(message.gen_msgs[i]);
-                            if (error)
-                                return "gen_msgs." + error;
-                        }
-                    }
                     return null;
                 };
 
@@ -9357,16 +13051,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             message.sequences[i] = $root.cosmwasm.wasm.v1.Sequence.fromObject(object.sequences[i]);
                         }
                     }
-                    if (object.gen_msgs) {
-                        if (!Array.isArray(object.gen_msgs))
-                            throw TypeError(".cosmwasm.wasm.v1.GenesisState.gen_msgs: array expected");
-                        message.gen_msgs = [];
-                        for (let i = 0; i < object.gen_msgs.length; ++i) {
-                            if (typeof object.gen_msgs[i] !== "object")
-                                throw TypeError(".cosmwasm.wasm.v1.GenesisState.gen_msgs: object expected");
-                            message.gen_msgs[i] = $root.cosmwasm.wasm.v1.GenesisState.GenMsgs.fromObject(object.gen_msgs[i]);
-                        }
-                    }
                     return message;
                 };
 
@@ -9387,7 +13071,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         object.codes = [];
                         object.contracts = [];
                         object.sequences = [];
-                        object.gen_msgs = [];
                     }
                     if (options.defaults)
                         object.params = null;
@@ -9408,11 +13091,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         for (let j = 0; j < message.sequences.length; ++j)
                             object.sequences[j] = $root.cosmwasm.wasm.v1.Sequence.toObject(message.sequences[j], options);
                     }
-                    if (message.gen_msgs && message.gen_msgs.length) {
-                        object.gen_msgs = [];
-                        for (let j = 0; j < message.gen_msgs.length; ++j)
-                            object.gen_msgs[j] = $root.cosmwasm.wasm.v1.GenesisState.GenMsgs.toObject(message.gen_msgs[j], options);
-                    }
                     return object;
                 };
 
@@ -9426,273 +13104,6 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 GenesisState.prototype.toJSON = function toJSON() {
                     return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
                 };
-
-                GenesisState.GenMsgs = (function() {
-
-                    /**
-                     * Properties of a GenMsgs.
-                     * @memberof cosmwasm.wasm.v1.GenesisState
-                     * @interface IGenMsgs
-                     * @property {cosmwasm.wasm.v1.IMsgStoreCode|null} [store_code] GenMsgs store_code
-                     * @property {cosmwasm.wasm.v1.IMsgInstantiateContract|null} [instantiate_contract] GenMsgs instantiate_contract
-                     * @property {cosmwasm.wasm.v1.IMsgExecuteContract|null} [execute_contract] GenMsgs execute_contract
-                     */
-
-                    /**
-                     * Constructs a new GenMsgs.
-                     * @memberof cosmwasm.wasm.v1.GenesisState
-                     * @classdesc Represents a GenMsgs.
-                     * @implements IGenMsgs
-                     * @constructor
-                     * @param {cosmwasm.wasm.v1.GenesisState.IGenMsgs=} [properties] Properties to set
-                     */
-                    function GenMsgs(properties) {
-                        if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * GenMsgs store_code.
-                     * @member {cosmwasm.wasm.v1.IMsgStoreCode|null|undefined} store_code
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @instance
-                     */
-                    GenMsgs.prototype.store_code = null;
-
-                    /**
-                     * GenMsgs instantiate_contract.
-                     * @member {cosmwasm.wasm.v1.IMsgInstantiateContract|null|undefined} instantiate_contract
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @instance
-                     */
-                    GenMsgs.prototype.instantiate_contract = null;
-
-                    /**
-                     * GenMsgs execute_contract.
-                     * @member {cosmwasm.wasm.v1.IMsgExecuteContract|null|undefined} execute_contract
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @instance
-                     */
-                    GenMsgs.prototype.execute_contract = null;
-
-                    // OneOf field names bound to virtual getters and setters
-                    let $oneOfFields;
-
-                    /**
-                     * GenMsgs sum.
-                     * @member {"store_code"|"instantiate_contract"|"execute_contract"|undefined} sum
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @instance
-                     */
-                    Object.defineProperty(GenMsgs.prototype, "sum", {
-                        get: $util.oneOfGetter($oneOfFields = ["store_code", "instantiate_contract", "execute_contract"]),
-                        set: $util.oneOfSetter($oneOfFields)
-                    });
-
-                    /**
-                     * Encodes the specified GenMsgs message. Does not implicitly {@link cosmwasm.wasm.v1.GenesisState.GenMsgs.verify|verify} messages.
-                     * @function encode
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {cosmwasm.wasm.v1.GenesisState.IGenMsgs} message GenMsgs message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GenMsgs.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.store_code != null && Object.hasOwnProperty.call(message, "store_code"))
-                            $root.cosmwasm.wasm.v1.MsgStoreCode.encode(message.store_code, writer.uint32(/* id 1, wireType 2 =*/10).fork()).ldelim();
-                        if (message.instantiate_contract != null && Object.hasOwnProperty.call(message, "instantiate_contract"))
-                            $root.cosmwasm.wasm.v1.MsgInstantiateContract.encode(message.instantiate_contract, writer.uint32(/* id 2, wireType 2 =*/18).fork()).ldelim();
-                        if (message.execute_contract != null && Object.hasOwnProperty.call(message, "execute_contract"))
-                            $root.cosmwasm.wasm.v1.MsgExecuteContract.encode(message.execute_contract, writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified GenMsgs message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.GenesisState.GenMsgs.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {cosmwasm.wasm.v1.GenesisState.IGenMsgs} message GenMsgs message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    GenMsgs.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a GenMsgs message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {cosmwasm.wasm.v1.GenesisState.GenMsgs} GenMsgs
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GenMsgs.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.GenesisState.GenMsgs();
-                        while (reader.pos < end) {
-                            let tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.store_code = $root.cosmwasm.wasm.v1.MsgStoreCode.decode(reader, reader.uint32());
-                                break;
-                            case 2:
-                                message.instantiate_contract = $root.cosmwasm.wasm.v1.MsgInstantiateContract.decode(reader, reader.uint32());
-                                break;
-                            case 3:
-                                message.execute_contract = $root.cosmwasm.wasm.v1.MsgExecuteContract.decode(reader, reader.uint32());
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a GenMsgs message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {cosmwasm.wasm.v1.GenesisState.GenMsgs} GenMsgs
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    GenMsgs.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a GenMsgs message.
-                     * @function verify
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    GenMsgs.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        let properties = {};
-                        if (message.store_code != null && message.hasOwnProperty("store_code")) {
-                            properties.sum = 1;
-                            {
-                                let error = $root.cosmwasm.wasm.v1.MsgStoreCode.verify(message.store_code);
-                                if (error)
-                                    return "store_code." + error;
-                            }
-                        }
-                        if (message.instantiate_contract != null && message.hasOwnProperty("instantiate_contract")) {
-                            if (properties.sum === 1)
-                                return "sum: multiple values";
-                            properties.sum = 1;
-                            {
-                                let error = $root.cosmwasm.wasm.v1.MsgInstantiateContract.verify(message.instantiate_contract);
-                                if (error)
-                                    return "instantiate_contract." + error;
-                            }
-                        }
-                        if (message.execute_contract != null && message.hasOwnProperty("execute_contract")) {
-                            if (properties.sum === 1)
-                                return "sum: multiple values";
-                            properties.sum = 1;
-                            {
-                                let error = $root.cosmwasm.wasm.v1.MsgExecuteContract.verify(message.execute_contract);
-                                if (error)
-                                    return "execute_contract." + error;
-                            }
-                        }
-                        return null;
-                    };
-
-                    /**
-                     * Creates a GenMsgs message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {cosmwasm.wasm.v1.GenesisState.GenMsgs} GenMsgs
-                     */
-                    GenMsgs.fromObject = function fromObject(object) {
-                        if (object instanceof $root.cosmwasm.wasm.v1.GenesisState.GenMsgs)
-                            return object;
-                        let message = new $root.cosmwasm.wasm.v1.GenesisState.GenMsgs();
-                        if (object.store_code != null) {
-                            if (typeof object.store_code !== "object")
-                                throw TypeError(".cosmwasm.wasm.v1.GenesisState.GenMsgs.store_code: object expected");
-                            message.store_code = $root.cosmwasm.wasm.v1.MsgStoreCode.fromObject(object.store_code);
-                        }
-                        if (object.instantiate_contract != null) {
-                            if (typeof object.instantiate_contract !== "object")
-                                throw TypeError(".cosmwasm.wasm.v1.GenesisState.GenMsgs.instantiate_contract: object expected");
-                            message.instantiate_contract = $root.cosmwasm.wasm.v1.MsgInstantiateContract.fromObject(object.instantiate_contract);
-                        }
-                        if (object.execute_contract != null) {
-                            if (typeof object.execute_contract !== "object")
-                                throw TypeError(".cosmwasm.wasm.v1.GenesisState.GenMsgs.execute_contract: object expected");
-                            message.execute_contract = $root.cosmwasm.wasm.v1.MsgExecuteContract.fromObject(object.execute_contract);
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a GenMsgs message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @static
-                     * @param {cosmwasm.wasm.v1.GenesisState.GenMsgs} message GenMsgs
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    GenMsgs.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        let object = {};
-                        if (message.store_code != null && message.hasOwnProperty("store_code")) {
-                            object.store_code = $root.cosmwasm.wasm.v1.MsgStoreCode.toObject(message.store_code, options);
-                            if (options.oneofs)
-                                object.sum = "store_code";
-                        }
-                        if (message.instantiate_contract != null && message.hasOwnProperty("instantiate_contract")) {
-                            object.instantiate_contract = $root.cosmwasm.wasm.v1.MsgInstantiateContract.toObject(message.instantiate_contract, options);
-                            if (options.oneofs)
-                                object.sum = "instantiate_contract";
-                        }
-                        if (message.execute_contract != null && message.hasOwnProperty("execute_contract")) {
-                            object.execute_contract = $root.cosmwasm.wasm.v1.MsgExecuteContract.toObject(message.execute_contract, options);
-                            if (options.oneofs)
-                                object.sum = "execute_contract";
-                        }
-                        return object;
-                    };
-
-                    /**
-                     * Converts this GenMsgs to JSON.
-                     * @function toJSON
-                     * @memberof cosmwasm.wasm.v1.GenesisState.GenMsgs
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    GenMsgs.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return GenMsgs;
-                })();
 
                 return GenesisState;
             })();
@@ -9976,6 +13387,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @property {string|null} [contract_address] Contract contract_address
                  * @property {cosmwasm.wasm.v1.IContractInfo|null} [contract_info] Contract contract_info
                  * @property {Array.<cosmwasm.wasm.v1.IModel>|null} [contract_state] Contract contract_state
+                 * @property {Array.<cosmwasm.wasm.v1.IContractCodeHistoryEntry>|null} [contract_code_history] Contract contract_code_history
                  */
 
                 /**
@@ -9988,6 +13400,7 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  */
                 function Contract(properties) {
                     this.contract_state = [];
+                    this.contract_code_history = [];
                     if (properties)
                         for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                             if (properties[keys[i]] != null)
@@ -10019,6 +13432,14 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 Contract.prototype.contract_state = $util.emptyArray;
 
                 /**
+                 * Contract contract_code_history.
+                 * @member {Array.<cosmwasm.wasm.v1.IContractCodeHistoryEntry>} contract_code_history
+                 * @memberof cosmwasm.wasm.v1.Contract
+                 * @instance
+                 */
+                Contract.prototype.contract_code_history = $util.emptyArray;
+
+                /**
                  * Encodes the specified Contract message. Does not implicitly {@link cosmwasm.wasm.v1.Contract.verify|verify} messages.
                  * @function encode
                  * @memberof cosmwasm.wasm.v1.Contract
@@ -10037,6 +13458,9 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (message.contract_state != null && message.contract_state.length)
                         for (let i = 0; i < message.contract_state.length; ++i)
                             $root.cosmwasm.wasm.v1.Model.encode(message.contract_state[i], writer.uint32(/* id 3, wireType 2 =*/26).fork()).ldelim();
+                    if (message.contract_code_history != null && message.contract_code_history.length)
+                        for (let i = 0; i < message.contract_code_history.length; ++i)
+                            $root.cosmwasm.wasm.v1.ContractCodeHistoryEntry.encode(message.contract_code_history[i], writer.uint32(/* id 4, wireType 2 =*/34).fork()).ldelim();
                     return writer;
                 };
 
@@ -10081,6 +13505,11 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             if (!(message.contract_state && message.contract_state.length))
                                 message.contract_state = [];
                             message.contract_state.push($root.cosmwasm.wasm.v1.Model.decode(reader, reader.uint32()));
+                            break;
+                        case 4:
+                            if (!(message.contract_code_history && message.contract_code_history.length))
+                                message.contract_code_history = [];
+                            message.contract_code_history.push($root.cosmwasm.wasm.v1.ContractCodeHistoryEntry.decode(reader, reader.uint32()));
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -10134,6 +13563,15 @@ export const cosmwasm = $root.cosmwasm = (() => {
                                 return "contract_state." + error;
                         }
                     }
+                    if (message.contract_code_history != null && message.hasOwnProperty("contract_code_history")) {
+                        if (!Array.isArray(message.contract_code_history))
+                            return "contract_code_history: array expected";
+                        for (let i = 0; i < message.contract_code_history.length; ++i) {
+                            let error = $root.cosmwasm.wasm.v1.ContractCodeHistoryEntry.verify(message.contract_code_history[i]);
+                            if (error)
+                                return "contract_code_history." + error;
+                        }
+                    }
                     return null;
                 };
 
@@ -10166,6 +13604,16 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             message.contract_state[i] = $root.cosmwasm.wasm.v1.Model.fromObject(object.contract_state[i]);
                         }
                     }
+                    if (object.contract_code_history) {
+                        if (!Array.isArray(object.contract_code_history))
+                            throw TypeError(".cosmwasm.wasm.v1.Contract.contract_code_history: array expected");
+                        message.contract_code_history = [];
+                        for (let i = 0; i < object.contract_code_history.length; ++i) {
+                            if (typeof object.contract_code_history[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.Contract.contract_code_history: object expected");
+                            message.contract_code_history[i] = $root.cosmwasm.wasm.v1.ContractCodeHistoryEntry.fromObject(object.contract_code_history[i]);
+                        }
+                    }
                     return message;
                 };
 
@@ -10182,8 +13630,10 @@ export const cosmwasm = $root.cosmwasm = (() => {
                     if (!options)
                         options = {};
                     let object = {};
-                    if (options.arrays || options.defaults)
+                    if (options.arrays || options.defaults) {
                         object.contract_state = [];
+                        object.contract_code_history = [];
+                    }
                     if (options.defaults) {
                         object.contract_address = "";
                         object.contract_info = null;
@@ -10196,6 +13646,11 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         object.contract_state = [];
                         for (let j = 0; j < message.contract_state.length; ++j)
                             object.contract_state[j] = $root.cosmwasm.wasm.v1.Model.toObject(message.contract_state[j], options);
+                    }
+                    if (message.contract_code_history && message.contract_code_history.length) {
+                        object.contract_code_history = [];
+                        for (let j = 0; j < message.contract_code_history.length; ++j)
+                            object.contract_code_history[j] = $root.cosmwasm.wasm.v1.ContractCodeHistoryEntry.toObject(message.contract_code_history[j], options);
                     }
                     return object;
                 };
@@ -10446,6 +13901,10 @@ export const cosmwasm = $root.cosmwasm = (() => {
                  * @property {string|null} [run_as] StoreCodeProposal run_as
                  * @property {Uint8Array|null} [wasm_byte_code] StoreCodeProposal wasm_byte_code
                  * @property {cosmwasm.wasm.v1.IAccessConfig|null} [instantiate_permission] StoreCodeProposal instantiate_permission
+                 * @property {boolean|null} [unpin_code] StoreCodeProposal unpin_code
+                 * @property {string|null} [source] StoreCodeProposal source
+                 * @property {string|null} [builder] StoreCodeProposal builder
+                 * @property {Uint8Array|null} [code_hash] StoreCodeProposal code_hash
                  */
 
                 /**
@@ -10504,6 +13963,38 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 StoreCodeProposal.prototype.instantiate_permission = null;
 
                 /**
+                 * StoreCodeProposal unpin_code.
+                 * @member {boolean} unpin_code
+                 * @memberof cosmwasm.wasm.v1.StoreCodeProposal
+                 * @instance
+                 */
+                StoreCodeProposal.prototype.unpin_code = false;
+
+                /**
+                 * StoreCodeProposal source.
+                 * @member {string} source
+                 * @memberof cosmwasm.wasm.v1.StoreCodeProposal
+                 * @instance
+                 */
+                StoreCodeProposal.prototype.source = "";
+
+                /**
+                 * StoreCodeProposal builder.
+                 * @member {string} builder
+                 * @memberof cosmwasm.wasm.v1.StoreCodeProposal
+                 * @instance
+                 */
+                StoreCodeProposal.prototype.builder = "";
+
+                /**
+                 * StoreCodeProposal code_hash.
+                 * @member {Uint8Array} code_hash
+                 * @memberof cosmwasm.wasm.v1.StoreCodeProposal
+                 * @instance
+                 */
+                StoreCodeProposal.prototype.code_hash = $util.newBuffer([]);
+
+                /**
                  * Encodes the specified StoreCodeProposal message. Does not implicitly {@link cosmwasm.wasm.v1.StoreCodeProposal.verify|verify} messages.
                  * @function encode
                  * @memberof cosmwasm.wasm.v1.StoreCodeProposal
@@ -10525,6 +14016,14 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.wasm_byte_code);
                     if (message.instantiate_permission != null && Object.hasOwnProperty.call(message, "instantiate_permission"))
                         $root.cosmwasm.wasm.v1.AccessConfig.encode(message.instantiate_permission, writer.uint32(/* id 7, wireType 2 =*/58).fork()).ldelim();
+                    if (message.unpin_code != null && Object.hasOwnProperty.call(message, "unpin_code"))
+                        writer.uint32(/* id 8, wireType 0 =*/64).bool(message.unpin_code);
+                    if (message.source != null && Object.hasOwnProperty.call(message, "source"))
+                        writer.uint32(/* id 9, wireType 2 =*/74).string(message.source);
+                    if (message.builder != null && Object.hasOwnProperty.call(message, "builder"))
+                        writer.uint32(/* id 10, wireType 2 =*/82).string(message.builder);
+                    if (message.code_hash != null && Object.hasOwnProperty.call(message, "code_hash"))
+                        writer.uint32(/* id 11, wireType 2 =*/90).bytes(message.code_hash);
                     return writer;
                 };
 
@@ -10573,6 +14072,18 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             break;
                         case 7:
                             message.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.decode(reader, reader.uint32());
+                            break;
+                        case 8:
+                            message.unpin_code = reader.bool();
+                            break;
+                        case 9:
+                            message.source = reader.string();
+                            break;
+                        case 10:
+                            message.builder = reader.string();
+                            break;
+                        case 11:
+                            message.code_hash = reader.bytes();
                             break;
                         default:
                             reader.skipType(tag & 7);
@@ -10626,6 +14137,18 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         if (error)
                             return "instantiate_permission." + error;
                     }
+                    if (message.unpin_code != null && message.hasOwnProperty("unpin_code"))
+                        if (typeof message.unpin_code !== "boolean")
+                            return "unpin_code: boolean expected";
+                    if (message.source != null && message.hasOwnProperty("source"))
+                        if (!$util.isString(message.source))
+                            return "source: string expected";
+                    if (message.builder != null && message.hasOwnProperty("builder"))
+                        if (!$util.isString(message.builder))
+                            return "builder: string expected";
+                    if (message.code_hash != null && message.hasOwnProperty("code_hash"))
+                        if (!(message.code_hash && typeof message.code_hash.length === "number" || $util.isString(message.code_hash)))
+                            return "code_hash: buffer expected";
                     return null;
                 };
 
@@ -10657,6 +14180,17 @@ export const cosmwasm = $root.cosmwasm = (() => {
                             throw TypeError(".cosmwasm.wasm.v1.StoreCodeProposal.instantiate_permission: object expected");
                         message.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.fromObject(object.instantiate_permission);
                     }
+                    if (object.unpin_code != null)
+                        message.unpin_code = Boolean(object.unpin_code);
+                    if (object.source != null)
+                        message.source = String(object.source);
+                    if (object.builder != null)
+                        message.builder = String(object.builder);
+                    if (object.code_hash != null)
+                        if (typeof object.code_hash === "string")
+                            $util.base64.decode(object.code_hash, message.code_hash = $util.newBuffer($util.base64.length(object.code_hash)), 0);
+                        else if (object.code_hash.length)
+                            message.code_hash = object.code_hash;
                     return message;
                 };
 
@@ -10685,6 +14219,16 @@ export const cosmwasm = $root.cosmwasm = (() => {
                                 object.wasm_byte_code = $util.newBuffer(object.wasm_byte_code);
                         }
                         object.instantiate_permission = null;
+                        object.unpin_code = false;
+                        object.source = "";
+                        object.builder = "";
+                        if (options.bytes === String)
+                            object.code_hash = "";
+                        else {
+                            object.code_hash = [];
+                            if (options.bytes !== Array)
+                                object.code_hash = $util.newBuffer(object.code_hash);
+                        }
                     }
                     if (message.title != null && message.hasOwnProperty("title"))
                         object.title = message.title;
@@ -10696,6 +14240,14 @@ export const cosmwasm = $root.cosmwasm = (() => {
                         object.wasm_byte_code = options.bytes === String ? $util.base64.encode(message.wasm_byte_code, 0, message.wasm_byte_code.length) : options.bytes === Array ? Array.prototype.slice.call(message.wasm_byte_code) : message.wasm_byte_code;
                     if (message.instantiate_permission != null && message.hasOwnProperty("instantiate_permission"))
                         object.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.toObject(message.instantiate_permission, options);
+                    if (message.unpin_code != null && message.hasOwnProperty("unpin_code"))
+                        object.unpin_code = message.unpin_code;
+                    if (message.source != null && message.hasOwnProperty("source"))
+                        object.source = message.source;
+                    if (message.builder != null && message.hasOwnProperty("builder"))
+                        object.builder = message.builder;
+                    if (message.code_hash != null && message.hasOwnProperty("code_hash"))
+                        object.code_hash = options.bytes === String ? $util.base64.encode(message.code_hash, 0, message.code_hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.code_hash) : message.code_hash;
                     return object;
                 };
 
@@ -11086,6 +14638,434 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 };
 
                 return InstantiateContractProposal;
+            })();
+
+            v1.InstantiateContract2Proposal = (function() {
+
+                /**
+                 * Properties of an InstantiateContract2Proposal.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IInstantiateContract2Proposal
+                 * @property {string|null} [title] InstantiateContract2Proposal title
+                 * @property {string|null} [description] InstantiateContract2Proposal description
+                 * @property {string|null} [run_as] InstantiateContract2Proposal run_as
+                 * @property {string|null} [admin] InstantiateContract2Proposal admin
+                 * @property {Long|null} [code_id] InstantiateContract2Proposal code_id
+                 * @property {string|null} [label] InstantiateContract2Proposal label
+                 * @property {Uint8Array|null} [msg] InstantiateContract2Proposal msg
+                 * @property {Array.<cosmos.base.v1beta1.ICoin>|null} [funds] InstantiateContract2Proposal funds
+                 * @property {Uint8Array|null} [salt] InstantiateContract2Proposal salt
+                 * @property {boolean|null} [fix_msg] InstantiateContract2Proposal fix_msg
+                 */
+
+                /**
+                 * Constructs a new InstantiateContract2Proposal.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents an InstantiateContract2Proposal.
+                 * @implements IInstantiateContract2Proposal
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IInstantiateContract2Proposal=} [properties] Properties to set
+                 */
+                function InstantiateContract2Proposal(properties) {
+                    this.funds = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * InstantiateContract2Proposal title.
+                 * @member {string} title
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.title = "";
+
+                /**
+                 * InstantiateContract2Proposal description.
+                 * @member {string} description
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.description = "";
+
+                /**
+                 * InstantiateContract2Proposal run_as.
+                 * @member {string} run_as
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.run_as = "";
+
+                /**
+                 * InstantiateContract2Proposal admin.
+                 * @member {string} admin
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.admin = "";
+
+                /**
+                 * InstantiateContract2Proposal code_id.
+                 * @member {Long} code_id
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.code_id = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                /**
+                 * InstantiateContract2Proposal label.
+                 * @member {string} label
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.label = "";
+
+                /**
+                 * InstantiateContract2Proposal msg.
+                 * @member {Uint8Array} msg
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.msg = $util.newBuffer([]);
+
+                /**
+                 * InstantiateContract2Proposal funds.
+                 * @member {Array.<cosmos.base.v1beta1.ICoin>} funds
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.funds = $util.emptyArray;
+
+                /**
+                 * InstantiateContract2Proposal salt.
+                 * @member {Uint8Array} salt
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.salt = $util.newBuffer([]);
+
+                /**
+                 * InstantiateContract2Proposal fix_msg.
+                 * @member {boolean} fix_msg
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 */
+                InstantiateContract2Proposal.prototype.fix_msg = false;
+
+                /**
+                 * Encodes the specified InstantiateContract2Proposal message. Does not implicitly {@link cosmwasm.wasm.v1.InstantiateContract2Proposal.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IInstantiateContract2Proposal} message InstantiateContract2Proposal message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                InstantiateContract2Proposal.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.title != null && Object.hasOwnProperty.call(message, "title"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.title);
+                    if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.description);
+                    if (message.run_as != null && Object.hasOwnProperty.call(message, "run_as"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.run_as);
+                    if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).string(message.admin);
+                    if (message.code_id != null && Object.hasOwnProperty.call(message, "code_id"))
+                        writer.uint32(/* id 5, wireType 0 =*/40).uint64(message.code_id);
+                    if (message.label != null && Object.hasOwnProperty.call(message, "label"))
+                        writer.uint32(/* id 6, wireType 2 =*/50).string(message.label);
+                    if (message.msg != null && Object.hasOwnProperty.call(message, "msg"))
+                        writer.uint32(/* id 7, wireType 2 =*/58).bytes(message.msg);
+                    if (message.funds != null && message.funds.length)
+                        for (let i = 0; i < message.funds.length; ++i)
+                            $root.cosmos.base.v1beta1.Coin.encode(message.funds[i], writer.uint32(/* id 8, wireType 2 =*/66).fork()).ldelim();
+                    if (message.salt != null && Object.hasOwnProperty.call(message, "salt"))
+                        writer.uint32(/* id 9, wireType 2 =*/74).bytes(message.salt);
+                    if (message.fix_msg != null && Object.hasOwnProperty.call(message, "fix_msg"))
+                        writer.uint32(/* id 10, wireType 0 =*/80).bool(message.fix_msg);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified InstantiateContract2Proposal message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.InstantiateContract2Proposal.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IInstantiateContract2Proposal} message InstantiateContract2Proposal message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                InstantiateContract2Proposal.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an InstantiateContract2Proposal message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.InstantiateContract2Proposal} InstantiateContract2Proposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                InstantiateContract2Proposal.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.InstantiateContract2Proposal();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.title = reader.string();
+                            break;
+                        case 2:
+                            message.description = reader.string();
+                            break;
+                        case 3:
+                            message.run_as = reader.string();
+                            break;
+                        case 4:
+                            message.admin = reader.string();
+                            break;
+                        case 5:
+                            message.code_id = reader.uint64();
+                            break;
+                        case 6:
+                            message.label = reader.string();
+                            break;
+                        case 7:
+                            message.msg = reader.bytes();
+                            break;
+                        case 8:
+                            if (!(message.funds && message.funds.length))
+                                message.funds = [];
+                            message.funds.push($root.cosmos.base.v1beta1.Coin.decode(reader, reader.uint32()));
+                            break;
+                        case 9:
+                            message.salt = reader.bytes();
+                            break;
+                        case 10:
+                            message.fix_msg = reader.bool();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an InstantiateContract2Proposal message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.InstantiateContract2Proposal} InstantiateContract2Proposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                InstantiateContract2Proposal.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an InstantiateContract2Proposal message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                InstantiateContract2Proposal.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.title != null && message.hasOwnProperty("title"))
+                        if (!$util.isString(message.title))
+                            return "title: string expected";
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        if (!$util.isString(message.description))
+                            return "description: string expected";
+                    if (message.run_as != null && message.hasOwnProperty("run_as"))
+                        if (!$util.isString(message.run_as))
+                            return "run_as: string expected";
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        if (!$util.isString(message.admin))
+                            return "admin: string expected";
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (!$util.isInteger(message.code_id) && !(message.code_id && $util.isInteger(message.code_id.low) && $util.isInteger(message.code_id.high)))
+                            return "code_id: integer|Long expected";
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        if (!$util.isString(message.label))
+                            return "label: string expected";
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        if (!(message.msg && typeof message.msg.length === "number" || $util.isString(message.msg)))
+                            return "msg: buffer expected";
+                    if (message.funds != null && message.hasOwnProperty("funds")) {
+                        if (!Array.isArray(message.funds))
+                            return "funds: array expected";
+                        for (let i = 0; i < message.funds.length; ++i) {
+                            let error = $root.cosmos.base.v1beta1.Coin.verify(message.funds[i]);
+                            if (error)
+                                return "funds." + error;
+                        }
+                    }
+                    if (message.salt != null && message.hasOwnProperty("salt"))
+                        if (!(message.salt && typeof message.salt.length === "number" || $util.isString(message.salt)))
+                            return "salt: buffer expected";
+                    if (message.fix_msg != null && message.hasOwnProperty("fix_msg"))
+                        if (typeof message.fix_msg !== "boolean")
+                            return "fix_msg: boolean expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an InstantiateContract2Proposal message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.InstantiateContract2Proposal} InstantiateContract2Proposal
+                 */
+                InstantiateContract2Proposal.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.InstantiateContract2Proposal)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.InstantiateContract2Proposal();
+                    if (object.title != null)
+                        message.title = String(object.title);
+                    if (object.description != null)
+                        message.description = String(object.description);
+                    if (object.run_as != null)
+                        message.run_as = String(object.run_as);
+                    if (object.admin != null)
+                        message.admin = String(object.admin);
+                    if (object.code_id != null)
+                        if ($util.Long)
+                            (message.code_id = $util.Long.fromValue(object.code_id)).unsigned = true;
+                        else if (typeof object.code_id === "string")
+                            message.code_id = parseInt(object.code_id, 10);
+                        else if (typeof object.code_id === "number")
+                            message.code_id = object.code_id;
+                        else if (typeof object.code_id === "object")
+                            message.code_id = new $util.LongBits(object.code_id.low >>> 0, object.code_id.high >>> 0).toNumber(true);
+                    if (object.label != null)
+                        message.label = String(object.label);
+                    if (object.msg != null)
+                        if (typeof object.msg === "string")
+                            $util.base64.decode(object.msg, message.msg = $util.newBuffer($util.base64.length(object.msg)), 0);
+                        else if (object.msg.length)
+                            message.msg = object.msg;
+                    if (object.funds) {
+                        if (!Array.isArray(object.funds))
+                            throw TypeError(".cosmwasm.wasm.v1.InstantiateContract2Proposal.funds: array expected");
+                        message.funds = [];
+                        for (let i = 0; i < object.funds.length; ++i) {
+                            if (typeof object.funds[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.InstantiateContract2Proposal.funds: object expected");
+                            message.funds[i] = $root.cosmos.base.v1beta1.Coin.fromObject(object.funds[i]);
+                        }
+                    }
+                    if (object.salt != null)
+                        if (typeof object.salt === "string")
+                            $util.base64.decode(object.salt, message.salt = $util.newBuffer($util.base64.length(object.salt)), 0);
+                        else if (object.salt.length)
+                            message.salt = object.salt;
+                    if (object.fix_msg != null)
+                        message.fix_msg = Boolean(object.fix_msg);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an InstantiateContract2Proposal message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.InstantiateContract2Proposal} message InstantiateContract2Proposal
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                InstantiateContract2Proposal.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.funds = [];
+                    if (options.defaults) {
+                        object.title = "";
+                        object.description = "";
+                        object.run_as = "";
+                        object.admin = "";
+                        if ($util.Long) {
+                            let long = new $util.Long(0, 0, true);
+                            object.code_id = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                        } else
+                            object.code_id = options.longs === String ? "0" : 0;
+                        object.label = "";
+                        if (options.bytes === String)
+                            object.msg = "";
+                        else {
+                            object.msg = [];
+                            if (options.bytes !== Array)
+                                object.msg = $util.newBuffer(object.msg);
+                        }
+                        if (options.bytes === String)
+                            object.salt = "";
+                        else {
+                            object.salt = [];
+                            if (options.bytes !== Array)
+                                object.salt = $util.newBuffer(object.salt);
+                        }
+                        object.fix_msg = false;
+                    }
+                    if (message.title != null && message.hasOwnProperty("title"))
+                        object.title = message.title;
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        object.description = message.description;
+                    if (message.run_as != null && message.hasOwnProperty("run_as"))
+                        object.run_as = message.run_as;
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        object.admin = message.admin;
+                    if (message.code_id != null && message.hasOwnProperty("code_id"))
+                        if (typeof message.code_id === "number")
+                            object.code_id = options.longs === String ? String(message.code_id) : message.code_id;
+                        else
+                            object.code_id = options.longs === String ? $util.Long.prototype.toString.call(message.code_id) : options.longs === Number ? new $util.LongBits(message.code_id.low >>> 0, message.code_id.high >>> 0).toNumber(true) : message.code_id;
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        object.label = message.label;
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        object.msg = options.bytes === String ? $util.base64.encode(message.msg, 0, message.msg.length) : options.bytes === Array ? Array.prototype.slice.call(message.msg) : message.msg;
+                    if (message.funds && message.funds.length) {
+                        object.funds = [];
+                        for (let j = 0; j < message.funds.length; ++j)
+                            object.funds[j] = $root.cosmos.base.v1beta1.Coin.toObject(message.funds[j], options);
+                    }
+                    if (message.salt != null && message.hasOwnProperty("salt"))
+                        object.salt = options.bytes === String ? $util.base64.encode(message.salt, 0, message.salt.length) : options.bytes === Array ? Array.prototype.slice.call(message.salt) : message.salt;
+                    if (message.fix_msg != null && message.hasOwnProperty("fix_msg"))
+                        object.fix_msg = message.fix_msg;
+                    return object;
+                };
+
+                /**
+                 * Converts this InstantiateContract2Proposal to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.InstantiateContract2Proposal
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                InstantiateContract2Proposal.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return InstantiateContract2Proposal;
             })();
 
             v1.MigrateContractProposal = (function() {
@@ -13374,6 +17354,500 @@ export const cosmwasm = $root.cosmwasm = (() => {
                 return UpdateInstantiateConfigProposal;
             })();
 
+            v1.StoreAndInstantiateContractProposal = (function() {
+
+                /**
+                 * Properties of a StoreAndInstantiateContractProposal.
+                 * @memberof cosmwasm.wasm.v1
+                 * @interface IStoreAndInstantiateContractProposal
+                 * @property {string|null} [title] StoreAndInstantiateContractProposal title
+                 * @property {string|null} [description] StoreAndInstantiateContractProposal description
+                 * @property {string|null} [run_as] StoreAndInstantiateContractProposal run_as
+                 * @property {Uint8Array|null} [wasm_byte_code] StoreAndInstantiateContractProposal wasm_byte_code
+                 * @property {cosmwasm.wasm.v1.IAccessConfig|null} [instantiate_permission] StoreAndInstantiateContractProposal instantiate_permission
+                 * @property {boolean|null} [unpin_code] StoreAndInstantiateContractProposal unpin_code
+                 * @property {string|null} [admin] StoreAndInstantiateContractProposal admin
+                 * @property {string|null} [label] StoreAndInstantiateContractProposal label
+                 * @property {Uint8Array|null} [msg] StoreAndInstantiateContractProposal msg
+                 * @property {Array.<cosmos.base.v1beta1.ICoin>|null} [funds] StoreAndInstantiateContractProposal funds
+                 * @property {string|null} [source] StoreAndInstantiateContractProposal source
+                 * @property {string|null} [builder] StoreAndInstantiateContractProposal builder
+                 * @property {Uint8Array|null} [code_hash] StoreAndInstantiateContractProposal code_hash
+                 */
+
+                /**
+                 * Constructs a new StoreAndInstantiateContractProposal.
+                 * @memberof cosmwasm.wasm.v1
+                 * @classdesc Represents a StoreAndInstantiateContractProposal.
+                 * @implements IStoreAndInstantiateContractProposal
+                 * @constructor
+                 * @param {cosmwasm.wasm.v1.IStoreAndInstantiateContractProposal=} [properties] Properties to set
+                 */
+                function StoreAndInstantiateContractProposal(properties) {
+                    this.funds = [];
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * StoreAndInstantiateContractProposal title.
+                 * @member {string} title
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.title = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal description.
+                 * @member {string} description
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.description = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal run_as.
+                 * @member {string} run_as
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.run_as = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal wasm_byte_code.
+                 * @member {Uint8Array} wasm_byte_code
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.wasm_byte_code = $util.newBuffer([]);
+
+                /**
+                 * StoreAndInstantiateContractProposal instantiate_permission.
+                 * @member {cosmwasm.wasm.v1.IAccessConfig|null|undefined} instantiate_permission
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.instantiate_permission = null;
+
+                /**
+                 * StoreAndInstantiateContractProposal unpin_code.
+                 * @member {boolean} unpin_code
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.unpin_code = false;
+
+                /**
+                 * StoreAndInstantiateContractProposal admin.
+                 * @member {string} admin
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.admin = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal label.
+                 * @member {string} label
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.label = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal msg.
+                 * @member {Uint8Array} msg
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.msg = $util.newBuffer([]);
+
+                /**
+                 * StoreAndInstantiateContractProposal funds.
+                 * @member {Array.<cosmos.base.v1beta1.ICoin>} funds
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.funds = $util.emptyArray;
+
+                /**
+                 * StoreAndInstantiateContractProposal source.
+                 * @member {string} source
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.source = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal builder.
+                 * @member {string} builder
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.builder = "";
+
+                /**
+                 * StoreAndInstantiateContractProposal code_hash.
+                 * @member {Uint8Array} code_hash
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 */
+                StoreAndInstantiateContractProposal.prototype.code_hash = $util.newBuffer([]);
+
+                /**
+                 * Encodes the specified StoreAndInstantiateContractProposal message. Does not implicitly {@link cosmwasm.wasm.v1.StoreAndInstantiateContractProposal.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IStoreAndInstantiateContractProposal} message StoreAndInstantiateContractProposal message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                StoreAndInstantiateContractProposal.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.title != null && Object.hasOwnProperty.call(message, "title"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.title);
+                    if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.description);
+                    if (message.run_as != null && Object.hasOwnProperty.call(message, "run_as"))
+                        writer.uint32(/* id 3, wireType 2 =*/26).string(message.run_as);
+                    if (message.wasm_byte_code != null && Object.hasOwnProperty.call(message, "wasm_byte_code"))
+                        writer.uint32(/* id 4, wireType 2 =*/34).bytes(message.wasm_byte_code);
+                    if (message.instantiate_permission != null && Object.hasOwnProperty.call(message, "instantiate_permission"))
+                        $root.cosmwasm.wasm.v1.AccessConfig.encode(message.instantiate_permission, writer.uint32(/* id 5, wireType 2 =*/42).fork()).ldelim();
+                    if (message.unpin_code != null && Object.hasOwnProperty.call(message, "unpin_code"))
+                        writer.uint32(/* id 6, wireType 0 =*/48).bool(message.unpin_code);
+                    if (message.admin != null && Object.hasOwnProperty.call(message, "admin"))
+                        writer.uint32(/* id 7, wireType 2 =*/58).string(message.admin);
+                    if (message.label != null && Object.hasOwnProperty.call(message, "label"))
+                        writer.uint32(/* id 8, wireType 2 =*/66).string(message.label);
+                    if (message.msg != null && Object.hasOwnProperty.call(message, "msg"))
+                        writer.uint32(/* id 9, wireType 2 =*/74).bytes(message.msg);
+                    if (message.funds != null && message.funds.length)
+                        for (let i = 0; i < message.funds.length; ++i)
+                            $root.cosmos.base.v1beta1.Coin.encode(message.funds[i], writer.uint32(/* id 10, wireType 2 =*/82).fork()).ldelim();
+                    if (message.source != null && Object.hasOwnProperty.call(message, "source"))
+                        writer.uint32(/* id 11, wireType 2 =*/90).string(message.source);
+                    if (message.builder != null && Object.hasOwnProperty.call(message, "builder"))
+                        writer.uint32(/* id 12, wireType 2 =*/98).string(message.builder);
+                    if (message.code_hash != null && Object.hasOwnProperty.call(message, "code_hash"))
+                        writer.uint32(/* id 13, wireType 2 =*/106).bytes(message.code_hash);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified StoreAndInstantiateContractProposal message, length delimited. Does not implicitly {@link cosmwasm.wasm.v1.StoreAndInstantiateContractProposal.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.IStoreAndInstantiateContractProposal} message StoreAndInstantiateContractProposal message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                StoreAndInstantiateContractProposal.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a StoreAndInstantiateContractProposal message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmwasm.wasm.v1.StoreAndInstantiateContractProposal} StoreAndInstantiateContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                StoreAndInstantiateContractProposal.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmwasm.wasm.v1.StoreAndInstantiateContractProposal();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.title = reader.string();
+                            break;
+                        case 2:
+                            message.description = reader.string();
+                            break;
+                        case 3:
+                            message.run_as = reader.string();
+                            break;
+                        case 4:
+                            message.wasm_byte_code = reader.bytes();
+                            break;
+                        case 5:
+                            message.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.decode(reader, reader.uint32());
+                            break;
+                        case 6:
+                            message.unpin_code = reader.bool();
+                            break;
+                        case 7:
+                            message.admin = reader.string();
+                            break;
+                        case 8:
+                            message.label = reader.string();
+                            break;
+                        case 9:
+                            message.msg = reader.bytes();
+                            break;
+                        case 10:
+                            if (!(message.funds && message.funds.length))
+                                message.funds = [];
+                            message.funds.push($root.cosmos.base.v1beta1.Coin.decode(reader, reader.uint32()));
+                            break;
+                        case 11:
+                            message.source = reader.string();
+                            break;
+                        case 12:
+                            message.builder = reader.string();
+                            break;
+                        case 13:
+                            message.code_hash = reader.bytes();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a StoreAndInstantiateContractProposal message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmwasm.wasm.v1.StoreAndInstantiateContractProposal} StoreAndInstantiateContractProposal
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                StoreAndInstantiateContractProposal.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a StoreAndInstantiateContractProposal message.
+                 * @function verify
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                StoreAndInstantiateContractProposal.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.title != null && message.hasOwnProperty("title"))
+                        if (!$util.isString(message.title))
+                            return "title: string expected";
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        if (!$util.isString(message.description))
+                            return "description: string expected";
+                    if (message.run_as != null && message.hasOwnProperty("run_as"))
+                        if (!$util.isString(message.run_as))
+                            return "run_as: string expected";
+                    if (message.wasm_byte_code != null && message.hasOwnProperty("wasm_byte_code"))
+                        if (!(message.wasm_byte_code && typeof message.wasm_byte_code.length === "number" || $util.isString(message.wasm_byte_code)))
+                            return "wasm_byte_code: buffer expected";
+                    if (message.instantiate_permission != null && message.hasOwnProperty("instantiate_permission")) {
+                        let error = $root.cosmwasm.wasm.v1.AccessConfig.verify(message.instantiate_permission);
+                        if (error)
+                            return "instantiate_permission." + error;
+                    }
+                    if (message.unpin_code != null && message.hasOwnProperty("unpin_code"))
+                        if (typeof message.unpin_code !== "boolean")
+                            return "unpin_code: boolean expected";
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        if (!$util.isString(message.admin))
+                            return "admin: string expected";
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        if (!$util.isString(message.label))
+                            return "label: string expected";
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        if (!(message.msg && typeof message.msg.length === "number" || $util.isString(message.msg)))
+                            return "msg: buffer expected";
+                    if (message.funds != null && message.hasOwnProperty("funds")) {
+                        if (!Array.isArray(message.funds))
+                            return "funds: array expected";
+                        for (let i = 0; i < message.funds.length; ++i) {
+                            let error = $root.cosmos.base.v1beta1.Coin.verify(message.funds[i]);
+                            if (error)
+                                return "funds." + error;
+                        }
+                    }
+                    if (message.source != null && message.hasOwnProperty("source"))
+                        if (!$util.isString(message.source))
+                            return "source: string expected";
+                    if (message.builder != null && message.hasOwnProperty("builder"))
+                        if (!$util.isString(message.builder))
+                            return "builder: string expected";
+                    if (message.code_hash != null && message.hasOwnProperty("code_hash"))
+                        if (!(message.code_hash && typeof message.code_hash.length === "number" || $util.isString(message.code_hash)))
+                            return "code_hash: buffer expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a StoreAndInstantiateContractProposal message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmwasm.wasm.v1.StoreAndInstantiateContractProposal} StoreAndInstantiateContractProposal
+                 */
+                StoreAndInstantiateContractProposal.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmwasm.wasm.v1.StoreAndInstantiateContractProposal)
+                        return object;
+                    let message = new $root.cosmwasm.wasm.v1.StoreAndInstantiateContractProposal();
+                    if (object.title != null)
+                        message.title = String(object.title);
+                    if (object.description != null)
+                        message.description = String(object.description);
+                    if (object.run_as != null)
+                        message.run_as = String(object.run_as);
+                    if (object.wasm_byte_code != null)
+                        if (typeof object.wasm_byte_code === "string")
+                            $util.base64.decode(object.wasm_byte_code, message.wasm_byte_code = $util.newBuffer($util.base64.length(object.wasm_byte_code)), 0);
+                        else if (object.wasm_byte_code.length)
+                            message.wasm_byte_code = object.wasm_byte_code;
+                    if (object.instantiate_permission != null) {
+                        if (typeof object.instantiate_permission !== "object")
+                            throw TypeError(".cosmwasm.wasm.v1.StoreAndInstantiateContractProposal.instantiate_permission: object expected");
+                        message.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.fromObject(object.instantiate_permission);
+                    }
+                    if (object.unpin_code != null)
+                        message.unpin_code = Boolean(object.unpin_code);
+                    if (object.admin != null)
+                        message.admin = String(object.admin);
+                    if (object.label != null)
+                        message.label = String(object.label);
+                    if (object.msg != null)
+                        if (typeof object.msg === "string")
+                            $util.base64.decode(object.msg, message.msg = $util.newBuffer($util.base64.length(object.msg)), 0);
+                        else if (object.msg.length)
+                            message.msg = object.msg;
+                    if (object.funds) {
+                        if (!Array.isArray(object.funds))
+                            throw TypeError(".cosmwasm.wasm.v1.StoreAndInstantiateContractProposal.funds: array expected");
+                        message.funds = [];
+                        for (let i = 0; i < object.funds.length; ++i) {
+                            if (typeof object.funds[i] !== "object")
+                                throw TypeError(".cosmwasm.wasm.v1.StoreAndInstantiateContractProposal.funds: object expected");
+                            message.funds[i] = $root.cosmos.base.v1beta1.Coin.fromObject(object.funds[i]);
+                        }
+                    }
+                    if (object.source != null)
+                        message.source = String(object.source);
+                    if (object.builder != null)
+                        message.builder = String(object.builder);
+                    if (object.code_hash != null)
+                        if (typeof object.code_hash === "string")
+                            $util.base64.decode(object.code_hash, message.code_hash = $util.newBuffer($util.base64.length(object.code_hash)), 0);
+                        else if (object.code_hash.length)
+                            message.code_hash = object.code_hash;
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a StoreAndInstantiateContractProposal message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @static
+                 * @param {cosmwasm.wasm.v1.StoreAndInstantiateContractProposal} message StoreAndInstantiateContractProposal
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                StoreAndInstantiateContractProposal.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.arrays || options.defaults)
+                        object.funds = [];
+                    if (options.defaults) {
+                        object.title = "";
+                        object.description = "";
+                        object.run_as = "";
+                        if (options.bytes === String)
+                            object.wasm_byte_code = "";
+                        else {
+                            object.wasm_byte_code = [];
+                            if (options.bytes !== Array)
+                                object.wasm_byte_code = $util.newBuffer(object.wasm_byte_code);
+                        }
+                        object.instantiate_permission = null;
+                        object.unpin_code = false;
+                        object.admin = "";
+                        object.label = "";
+                        if (options.bytes === String)
+                            object.msg = "";
+                        else {
+                            object.msg = [];
+                            if (options.bytes !== Array)
+                                object.msg = $util.newBuffer(object.msg);
+                        }
+                        object.source = "";
+                        object.builder = "";
+                        if (options.bytes === String)
+                            object.code_hash = "";
+                        else {
+                            object.code_hash = [];
+                            if (options.bytes !== Array)
+                                object.code_hash = $util.newBuffer(object.code_hash);
+                        }
+                    }
+                    if (message.title != null && message.hasOwnProperty("title"))
+                        object.title = message.title;
+                    if (message.description != null && message.hasOwnProperty("description"))
+                        object.description = message.description;
+                    if (message.run_as != null && message.hasOwnProperty("run_as"))
+                        object.run_as = message.run_as;
+                    if (message.wasm_byte_code != null && message.hasOwnProperty("wasm_byte_code"))
+                        object.wasm_byte_code = options.bytes === String ? $util.base64.encode(message.wasm_byte_code, 0, message.wasm_byte_code.length) : options.bytes === Array ? Array.prototype.slice.call(message.wasm_byte_code) : message.wasm_byte_code;
+                    if (message.instantiate_permission != null && message.hasOwnProperty("instantiate_permission"))
+                        object.instantiate_permission = $root.cosmwasm.wasm.v1.AccessConfig.toObject(message.instantiate_permission, options);
+                    if (message.unpin_code != null && message.hasOwnProperty("unpin_code"))
+                        object.unpin_code = message.unpin_code;
+                    if (message.admin != null && message.hasOwnProperty("admin"))
+                        object.admin = message.admin;
+                    if (message.label != null && message.hasOwnProperty("label"))
+                        object.label = message.label;
+                    if (message.msg != null && message.hasOwnProperty("msg"))
+                        object.msg = options.bytes === String ? $util.base64.encode(message.msg, 0, message.msg.length) : options.bytes === Array ? Array.prototype.slice.call(message.msg) : message.msg;
+                    if (message.funds && message.funds.length) {
+                        object.funds = [];
+                        for (let j = 0; j < message.funds.length; ++j)
+                            object.funds[j] = $root.cosmos.base.v1beta1.Coin.toObject(message.funds[j], options);
+                    }
+                    if (message.source != null && message.hasOwnProperty("source"))
+                        object.source = message.source;
+                    if (message.builder != null && message.hasOwnProperty("builder"))
+                        object.builder = message.builder;
+                    if (message.code_hash != null && message.hasOwnProperty("code_hash"))
+                        object.code_hash = options.bytes === String ? $util.base64.encode(message.code_hash, 0, message.code_hash.length) : options.bytes === Array ? Array.prototype.slice.call(message.code_hash) : message.code_hash;
+                    return object;
+                };
+
+                /**
+                 * Converts this StoreAndInstantiateContractProposal to JSON.
+                 * @function toJSON
+                 * @memberof cosmwasm.wasm.v1.StoreAndInstantiateContractProposal
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                StoreAndInstantiateContractProposal.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return StoreAndInstantiateContractProposal;
+            })();
+
             v1.MsgIBCSend = (function() {
 
                 /**
@@ -13858,7 +18332,1814 @@ export const cosmos_proto = $root.cosmos_proto = (() => {
      */
     const cosmos_proto = {};
 
+    cosmos_proto.InterfaceDescriptor = (function() {
+
+        /**
+         * Properties of an InterfaceDescriptor.
+         * @memberof cosmos_proto
+         * @interface IInterfaceDescriptor
+         * @property {string|null} [name] InterfaceDescriptor name
+         * @property {string|null} [description] InterfaceDescriptor description
+         */
+
+        /**
+         * Constructs a new InterfaceDescriptor.
+         * @memberof cosmos_proto
+         * @classdesc Represents an InterfaceDescriptor.
+         * @implements IInterfaceDescriptor
+         * @constructor
+         * @param {cosmos_proto.IInterfaceDescriptor=} [properties] Properties to set
+         */
+        function InterfaceDescriptor(properties) {
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * InterfaceDescriptor name.
+         * @member {string} name
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @instance
+         */
+        InterfaceDescriptor.prototype.name = "";
+
+        /**
+         * InterfaceDescriptor description.
+         * @member {string} description
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @instance
+         */
+        InterfaceDescriptor.prototype.description = "";
+
+        /**
+         * Encodes the specified InterfaceDescriptor message. Does not implicitly {@link cosmos_proto.InterfaceDescriptor.verify|verify} messages.
+         * @function encode
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {cosmos_proto.IInterfaceDescriptor} message InterfaceDescriptor message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InterfaceDescriptor.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.description);
+            return writer;
+        };
+
+        /**
+         * Encodes the specified InterfaceDescriptor message, length delimited. Does not implicitly {@link cosmos_proto.InterfaceDescriptor.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {cosmos_proto.IInterfaceDescriptor} message InterfaceDescriptor message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        InterfaceDescriptor.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes an InterfaceDescriptor message from the specified reader or buffer.
+         * @function decode
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {cosmos_proto.InterfaceDescriptor} InterfaceDescriptor
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InterfaceDescriptor.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos_proto.InterfaceDescriptor();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.name = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes an InterfaceDescriptor message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {cosmos_proto.InterfaceDescriptor} InterfaceDescriptor
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        InterfaceDescriptor.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies an InterfaceDescriptor message.
+         * @function verify
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        InterfaceDescriptor.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            return null;
+        };
+
+        /**
+         * Creates an InterfaceDescriptor message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {cosmos_proto.InterfaceDescriptor} InterfaceDescriptor
+         */
+        InterfaceDescriptor.fromObject = function fromObject(object) {
+            if (object instanceof $root.cosmos_proto.InterfaceDescriptor)
+                return object;
+            let message = new $root.cosmos_proto.InterfaceDescriptor();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.description != null)
+                message.description = String(object.description);
+            return message;
+        };
+
+        /**
+         * Creates a plain object from an InterfaceDescriptor message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @static
+         * @param {cosmos_proto.InterfaceDescriptor} message InterfaceDescriptor
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        InterfaceDescriptor.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.defaults) {
+                object.name = "";
+                object.description = "";
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            return object;
+        };
+
+        /**
+         * Converts this InterfaceDescriptor to JSON.
+         * @function toJSON
+         * @memberof cosmos_proto.InterfaceDescriptor
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        InterfaceDescriptor.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return InterfaceDescriptor;
+    })();
+
+    cosmos_proto.ScalarDescriptor = (function() {
+
+        /**
+         * Properties of a ScalarDescriptor.
+         * @memberof cosmos_proto
+         * @interface IScalarDescriptor
+         * @property {string|null} [name] ScalarDescriptor name
+         * @property {string|null} [description] ScalarDescriptor description
+         * @property {Array.<cosmos_proto.ScalarType>|null} [field_type] ScalarDescriptor field_type
+         */
+
+        /**
+         * Constructs a new ScalarDescriptor.
+         * @memberof cosmos_proto
+         * @classdesc Represents a ScalarDescriptor.
+         * @implements IScalarDescriptor
+         * @constructor
+         * @param {cosmos_proto.IScalarDescriptor=} [properties] Properties to set
+         */
+        function ScalarDescriptor(properties) {
+            this.field_type = [];
+            if (properties)
+                for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                    if (properties[keys[i]] != null)
+                        this[keys[i]] = properties[keys[i]];
+        }
+
+        /**
+         * ScalarDescriptor name.
+         * @member {string} name
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @instance
+         */
+        ScalarDescriptor.prototype.name = "";
+
+        /**
+         * ScalarDescriptor description.
+         * @member {string} description
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @instance
+         */
+        ScalarDescriptor.prototype.description = "";
+
+        /**
+         * ScalarDescriptor field_type.
+         * @member {Array.<cosmos_proto.ScalarType>} field_type
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @instance
+         */
+        ScalarDescriptor.prototype.field_type = $util.emptyArray;
+
+        /**
+         * Encodes the specified ScalarDescriptor message. Does not implicitly {@link cosmos_proto.ScalarDescriptor.verify|verify} messages.
+         * @function encode
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {cosmos_proto.IScalarDescriptor} message ScalarDescriptor message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ScalarDescriptor.encode = function encode(message, writer) {
+            if (!writer)
+                writer = $Writer.create();
+            if (message.name != null && Object.hasOwnProperty.call(message, "name"))
+                writer.uint32(/* id 1, wireType 2 =*/10).string(message.name);
+            if (message.description != null && Object.hasOwnProperty.call(message, "description"))
+                writer.uint32(/* id 2, wireType 2 =*/18).string(message.description);
+            if (message.field_type != null && message.field_type.length) {
+                writer.uint32(/* id 3, wireType 2 =*/26).fork();
+                for (let i = 0; i < message.field_type.length; ++i)
+                    writer.int32(message.field_type[i]);
+                writer.ldelim();
+            }
+            return writer;
+        };
+
+        /**
+         * Encodes the specified ScalarDescriptor message, length delimited. Does not implicitly {@link cosmos_proto.ScalarDescriptor.verify|verify} messages.
+         * @function encodeDelimited
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {cosmos_proto.IScalarDescriptor} message ScalarDescriptor message or plain object to encode
+         * @param {$protobuf.Writer} [writer] Writer to encode to
+         * @returns {$protobuf.Writer} Writer
+         */
+        ScalarDescriptor.encodeDelimited = function encodeDelimited(message, writer) {
+            return this.encode(message, writer).ldelim();
+        };
+
+        /**
+         * Decodes a ScalarDescriptor message from the specified reader or buffer.
+         * @function decode
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @param {number} [length] Message length if known beforehand
+         * @returns {cosmos_proto.ScalarDescriptor} ScalarDescriptor
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ScalarDescriptor.decode = function decode(reader, length) {
+            if (!(reader instanceof $Reader))
+                reader = $Reader.create(reader);
+            let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos_proto.ScalarDescriptor();
+            while (reader.pos < end) {
+                let tag = reader.uint32();
+                switch (tag >>> 3) {
+                case 1:
+                    message.name = reader.string();
+                    break;
+                case 2:
+                    message.description = reader.string();
+                    break;
+                case 3:
+                    if (!(message.field_type && message.field_type.length))
+                        message.field_type = [];
+                    if ((tag & 7) === 2) {
+                        let end2 = reader.uint32() + reader.pos;
+                        while (reader.pos < end2)
+                            message.field_type.push(reader.int32());
+                    } else
+                        message.field_type.push(reader.int32());
+                    break;
+                default:
+                    reader.skipType(tag & 7);
+                    break;
+                }
+            }
+            return message;
+        };
+
+        /**
+         * Decodes a ScalarDescriptor message from the specified reader or buffer, length delimited.
+         * @function decodeDelimited
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+         * @returns {cosmos_proto.ScalarDescriptor} ScalarDescriptor
+         * @throws {Error} If the payload is not a reader or valid buffer
+         * @throws {$protobuf.util.ProtocolError} If required fields are missing
+         */
+        ScalarDescriptor.decodeDelimited = function decodeDelimited(reader) {
+            if (!(reader instanceof $Reader))
+                reader = new $Reader(reader);
+            return this.decode(reader, reader.uint32());
+        };
+
+        /**
+         * Verifies a ScalarDescriptor message.
+         * @function verify
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {Object.<string,*>} message Plain object to verify
+         * @returns {string|null} `null` if valid, otherwise the reason why it is not
+         */
+        ScalarDescriptor.verify = function verify(message) {
+            if (typeof message !== "object" || message === null)
+                return "object expected";
+            if (message.name != null && message.hasOwnProperty("name"))
+                if (!$util.isString(message.name))
+                    return "name: string expected";
+            if (message.description != null && message.hasOwnProperty("description"))
+                if (!$util.isString(message.description))
+                    return "description: string expected";
+            if (message.field_type != null && message.hasOwnProperty("field_type")) {
+                if (!Array.isArray(message.field_type))
+                    return "field_type: array expected";
+                for (let i = 0; i < message.field_type.length; ++i)
+                    switch (message.field_type[i]) {
+                    default:
+                        return "field_type: enum value[] expected";
+                    case 0:
+                    case 1:
+                    case 2:
+                        break;
+                    }
+            }
+            return null;
+        };
+
+        /**
+         * Creates a ScalarDescriptor message from a plain object. Also converts values to their respective internal types.
+         * @function fromObject
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {Object.<string,*>} object Plain object
+         * @returns {cosmos_proto.ScalarDescriptor} ScalarDescriptor
+         */
+        ScalarDescriptor.fromObject = function fromObject(object) {
+            if (object instanceof $root.cosmos_proto.ScalarDescriptor)
+                return object;
+            let message = new $root.cosmos_proto.ScalarDescriptor();
+            if (object.name != null)
+                message.name = String(object.name);
+            if (object.description != null)
+                message.description = String(object.description);
+            if (object.field_type) {
+                if (!Array.isArray(object.field_type))
+                    throw TypeError(".cosmos_proto.ScalarDescriptor.field_type: array expected");
+                message.field_type = [];
+                for (let i = 0; i < object.field_type.length; ++i)
+                    switch (object.field_type[i]) {
+                    default:
+                    case "SCALAR_TYPE_UNSPECIFIED":
+                    case 0:
+                        message.field_type[i] = 0;
+                        break;
+                    case "SCALAR_TYPE_STRING":
+                    case 1:
+                        message.field_type[i] = 1;
+                        break;
+                    case "SCALAR_TYPE_BYTES":
+                    case 2:
+                        message.field_type[i] = 2;
+                        break;
+                    }
+            }
+            return message;
+        };
+
+        /**
+         * Creates a plain object from a ScalarDescriptor message. Also converts values to other types if specified.
+         * @function toObject
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @static
+         * @param {cosmos_proto.ScalarDescriptor} message ScalarDescriptor
+         * @param {$protobuf.IConversionOptions} [options] Conversion options
+         * @returns {Object.<string,*>} Plain object
+         */
+        ScalarDescriptor.toObject = function toObject(message, options) {
+            if (!options)
+                options = {};
+            let object = {};
+            if (options.arrays || options.defaults)
+                object.field_type = [];
+            if (options.defaults) {
+                object.name = "";
+                object.description = "";
+            }
+            if (message.name != null && message.hasOwnProperty("name"))
+                object.name = message.name;
+            if (message.description != null && message.hasOwnProperty("description"))
+                object.description = message.description;
+            if (message.field_type && message.field_type.length) {
+                object.field_type = [];
+                for (let j = 0; j < message.field_type.length; ++j)
+                    object.field_type[j] = options.enums === String ? $root.cosmos_proto.ScalarType[message.field_type[j]] : message.field_type[j];
+            }
+            return object;
+        };
+
+        /**
+         * Converts this ScalarDescriptor to JSON.
+         * @function toJSON
+         * @memberof cosmos_proto.ScalarDescriptor
+         * @instance
+         * @returns {Object.<string,*>} JSON object
+         */
+        ScalarDescriptor.prototype.toJSON = function toJSON() {
+            return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+        };
+
+        return ScalarDescriptor;
+    })();
+
+    /**
+     * ScalarType enum.
+     * @name cosmos_proto.ScalarType
+     * @enum {number}
+     * @property {number} SCALAR_TYPE_UNSPECIFIED=0 SCALAR_TYPE_UNSPECIFIED value
+     * @property {number} SCALAR_TYPE_STRING=1 SCALAR_TYPE_STRING value
+     * @property {number} SCALAR_TYPE_BYTES=2 SCALAR_TYPE_BYTES value
+     */
+    cosmos_proto.ScalarType = (function() {
+        const valuesById = {}, values = Object.create(valuesById);
+        values[valuesById[0] = "SCALAR_TYPE_UNSPECIFIED"] = 0;
+        values[valuesById[1] = "SCALAR_TYPE_STRING"] = 1;
+        values[valuesById[2] = "SCALAR_TYPE_BYTES"] = 2;
+        return values;
+    })();
+
     return cosmos_proto;
+})();
+
+export const cosmos = $root.cosmos = (() => {
+
+    /**
+     * Namespace cosmos.
+     * @exports cosmos
+     * @namespace
+     */
+    const cosmos = {};
+
+    cosmos.base = (function() {
+
+        /**
+         * Namespace base.
+         * @memberof cosmos
+         * @namespace
+         */
+        const base = {};
+
+        base.v1beta1 = (function() {
+
+            /**
+             * Namespace v1beta1.
+             * @memberof cosmos.base
+             * @namespace
+             */
+            const v1beta1 = {};
+
+            v1beta1.Coin = (function() {
+
+                /**
+                 * Properties of a Coin.
+                 * @memberof cosmos.base.v1beta1
+                 * @interface ICoin
+                 * @property {string|null} [denom] Coin denom
+                 * @property {string|null} [amount] Coin amount
+                 */
+
+                /**
+                 * Constructs a new Coin.
+                 * @memberof cosmos.base.v1beta1
+                 * @classdesc Represents a Coin.
+                 * @implements ICoin
+                 * @constructor
+                 * @param {cosmos.base.v1beta1.ICoin=} [properties] Properties to set
+                 */
+                function Coin(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * Coin denom.
+                 * @member {string} denom
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @instance
+                 */
+                Coin.prototype.denom = "";
+
+                /**
+                 * Coin amount.
+                 * @member {string} amount
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @instance
+                 */
+                Coin.prototype.amount = "";
+
+                /**
+                 * Encodes the specified Coin message. Does not implicitly {@link cosmos.base.v1beta1.Coin.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {cosmos.base.v1beta1.ICoin} message Coin message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Coin.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.denom);
+                    if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.amount);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified Coin message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.Coin.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {cosmos.base.v1beta1.ICoin} message Coin message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                Coin.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a Coin message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmos.base.v1beta1.Coin} Coin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Coin.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.Coin();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.denom = reader.string();
+                            break;
+                        case 2:
+                            message.amount = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a Coin message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmos.base.v1beta1.Coin} Coin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                Coin.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a Coin message.
+                 * @function verify
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                Coin.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.denom != null && message.hasOwnProperty("denom"))
+                        if (!$util.isString(message.denom))
+                            return "denom: string expected";
+                    if (message.amount != null && message.hasOwnProperty("amount"))
+                        if (!$util.isString(message.amount))
+                            return "amount: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a Coin message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmos.base.v1beta1.Coin} Coin
+                 */
+                Coin.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmos.base.v1beta1.Coin)
+                        return object;
+                    let message = new $root.cosmos.base.v1beta1.Coin();
+                    if (object.denom != null)
+                        message.denom = String(object.denom);
+                    if (object.amount != null)
+                        message.amount = String(object.amount);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a Coin message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @static
+                 * @param {cosmos.base.v1beta1.Coin} message Coin
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                Coin.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.denom = "";
+                        object.amount = "";
+                    }
+                    if (message.denom != null && message.hasOwnProperty("denom"))
+                        object.denom = message.denom;
+                    if (message.amount != null && message.hasOwnProperty("amount"))
+                        object.amount = message.amount;
+                    return object;
+                };
+
+                /**
+                 * Converts this Coin to JSON.
+                 * @function toJSON
+                 * @memberof cosmos.base.v1beta1.Coin
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                Coin.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return Coin;
+            })();
+
+            v1beta1.DecCoin = (function() {
+
+                /**
+                 * Properties of a DecCoin.
+                 * @memberof cosmos.base.v1beta1
+                 * @interface IDecCoin
+                 * @property {string|null} [denom] DecCoin denom
+                 * @property {string|null} [amount] DecCoin amount
+                 */
+
+                /**
+                 * Constructs a new DecCoin.
+                 * @memberof cosmos.base.v1beta1
+                 * @classdesc Represents a DecCoin.
+                 * @implements IDecCoin
+                 * @constructor
+                 * @param {cosmos.base.v1beta1.IDecCoin=} [properties] Properties to set
+                 */
+                function DecCoin(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * DecCoin denom.
+                 * @member {string} denom
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @instance
+                 */
+                DecCoin.prototype.denom = "";
+
+                /**
+                 * DecCoin amount.
+                 * @member {string} amount
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @instance
+                 */
+                DecCoin.prototype.amount = "";
+
+                /**
+                 * Encodes the specified DecCoin message. Does not implicitly {@link cosmos.base.v1beta1.DecCoin.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {cosmos.base.v1beta1.IDecCoin} message DecCoin message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DecCoin.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.denom);
+                    if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
+                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.amount);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified DecCoin message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.DecCoin.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {cosmos.base.v1beta1.IDecCoin} message DecCoin message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DecCoin.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a DecCoin message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DecCoin.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.DecCoin();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.denom = reader.string();
+                            break;
+                        case 2:
+                            message.amount = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a DecCoin message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DecCoin.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a DecCoin message.
+                 * @function verify
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DecCoin.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.denom != null && message.hasOwnProperty("denom"))
+                        if (!$util.isString(message.denom))
+                            return "denom: string expected";
+                    if (message.amount != null && message.hasOwnProperty("amount"))
+                        if (!$util.isString(message.amount))
+                            return "amount: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a DecCoin message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
+                 */
+                DecCoin.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmos.base.v1beta1.DecCoin)
+                        return object;
+                    let message = new $root.cosmos.base.v1beta1.DecCoin();
+                    if (object.denom != null)
+                        message.denom = String(object.denom);
+                    if (object.amount != null)
+                        message.amount = String(object.amount);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a DecCoin message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @static
+                 * @param {cosmos.base.v1beta1.DecCoin} message DecCoin
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DecCoin.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults) {
+                        object.denom = "";
+                        object.amount = "";
+                    }
+                    if (message.denom != null && message.hasOwnProperty("denom"))
+                        object.denom = message.denom;
+                    if (message.amount != null && message.hasOwnProperty("amount"))
+                        object.amount = message.amount;
+                    return object;
+                };
+
+                /**
+                 * Converts this DecCoin to JSON.
+                 * @function toJSON
+                 * @memberof cosmos.base.v1beta1.DecCoin
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DecCoin.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return DecCoin;
+            })();
+
+            v1beta1.IntProto = (function() {
+
+                /**
+                 * Properties of an IntProto.
+                 * @memberof cosmos.base.v1beta1
+                 * @interface IIntProto
+                 * @property {string|null} [int] IntProto int
+                 */
+
+                /**
+                 * Constructs a new IntProto.
+                 * @memberof cosmos.base.v1beta1
+                 * @classdesc Represents an IntProto.
+                 * @implements IIntProto
+                 * @constructor
+                 * @param {cosmos.base.v1beta1.IIntProto=} [properties] Properties to set
+                 */
+                function IntProto(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * IntProto int.
+                 * @member {string} int
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @instance
+                 */
+                IntProto.prototype.int = "";
+
+                /**
+                 * Encodes the specified IntProto message. Does not implicitly {@link cosmos.base.v1beta1.IntProto.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.IIntProto} message IntProto message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                IntProto.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.int != null && Object.hasOwnProperty.call(message, "int"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.int);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified IntProto message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.IntProto.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.IIntProto} message IntProto message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                IntProto.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes an IntProto message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                IntProto.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.IntProto();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.int = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes an IntProto message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                IntProto.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies an IntProto message.
+                 * @function verify
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                IntProto.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.int != null && message.hasOwnProperty("int"))
+                        if (!$util.isString(message.int))
+                            return "int: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates an IntProto message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
+                 */
+                IntProto.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmos.base.v1beta1.IntProto)
+                        return object;
+                    let message = new $root.cosmos.base.v1beta1.IntProto();
+                    if (object.int != null)
+                        message.int = String(object.int);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from an IntProto message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.IntProto} message IntProto
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                IntProto.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults)
+                        object.int = "";
+                    if (message.int != null && message.hasOwnProperty("int"))
+                        object.int = message.int;
+                    return object;
+                };
+
+                /**
+                 * Converts this IntProto to JSON.
+                 * @function toJSON
+                 * @memberof cosmos.base.v1beta1.IntProto
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                IntProto.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return IntProto;
+            })();
+
+            v1beta1.DecProto = (function() {
+
+                /**
+                 * Properties of a DecProto.
+                 * @memberof cosmos.base.v1beta1
+                 * @interface IDecProto
+                 * @property {string|null} [dec] DecProto dec
+                 */
+
+                /**
+                 * Constructs a new DecProto.
+                 * @memberof cosmos.base.v1beta1
+                 * @classdesc Represents a DecProto.
+                 * @implements IDecProto
+                 * @constructor
+                 * @param {cosmos.base.v1beta1.IDecProto=} [properties] Properties to set
+                 */
+                function DecProto(properties) {
+                    if (properties)
+                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                            if (properties[keys[i]] != null)
+                                this[keys[i]] = properties[keys[i]];
+                }
+
+                /**
+                 * DecProto dec.
+                 * @member {string} dec
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @instance
+                 */
+                DecProto.prototype.dec = "";
+
+                /**
+                 * Encodes the specified DecProto message. Does not implicitly {@link cosmos.base.v1beta1.DecProto.verify|verify} messages.
+                 * @function encode
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.IDecProto} message DecProto message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DecProto.encode = function encode(message, writer) {
+                    if (!writer)
+                        writer = $Writer.create();
+                    if (message.dec != null && Object.hasOwnProperty.call(message, "dec"))
+                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.dec);
+                    return writer;
+                };
+
+                /**
+                 * Encodes the specified DecProto message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.DecProto.verify|verify} messages.
+                 * @function encodeDelimited
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.IDecProto} message DecProto message or plain object to encode
+                 * @param {$protobuf.Writer} [writer] Writer to encode to
+                 * @returns {$protobuf.Writer} Writer
+                 */
+                DecProto.encodeDelimited = function encodeDelimited(message, writer) {
+                    return this.encode(message, writer).ldelim();
+                };
+
+                /**
+                 * Decodes a DecProto message from the specified reader or buffer.
+                 * @function decode
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @param {number} [length] Message length if known beforehand
+                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DecProto.decode = function decode(reader, length) {
+                    if (!(reader instanceof $Reader))
+                        reader = $Reader.create(reader);
+                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.DecProto();
+                    while (reader.pos < end) {
+                        let tag = reader.uint32();
+                        switch (tag >>> 3) {
+                        case 1:
+                            message.dec = reader.string();
+                            break;
+                        default:
+                            reader.skipType(tag & 7);
+                            break;
+                        }
+                    }
+                    return message;
+                };
+
+                /**
+                 * Decodes a DecProto message from the specified reader or buffer, length delimited.
+                 * @function decodeDelimited
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
+                 * @throws {Error} If the payload is not a reader or valid buffer
+                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                 */
+                DecProto.decodeDelimited = function decodeDelimited(reader) {
+                    if (!(reader instanceof $Reader))
+                        reader = new $Reader(reader);
+                    return this.decode(reader, reader.uint32());
+                };
+
+                /**
+                 * Verifies a DecProto message.
+                 * @function verify
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {Object.<string,*>} message Plain object to verify
+                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                 */
+                DecProto.verify = function verify(message) {
+                    if (typeof message !== "object" || message === null)
+                        return "object expected";
+                    if (message.dec != null && message.hasOwnProperty("dec"))
+                        if (!$util.isString(message.dec))
+                            return "dec: string expected";
+                    return null;
+                };
+
+                /**
+                 * Creates a DecProto message from a plain object. Also converts values to their respective internal types.
+                 * @function fromObject
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {Object.<string,*>} object Plain object
+                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
+                 */
+                DecProto.fromObject = function fromObject(object) {
+                    if (object instanceof $root.cosmos.base.v1beta1.DecProto)
+                        return object;
+                    let message = new $root.cosmos.base.v1beta1.DecProto();
+                    if (object.dec != null)
+                        message.dec = String(object.dec);
+                    return message;
+                };
+
+                /**
+                 * Creates a plain object from a DecProto message. Also converts values to other types if specified.
+                 * @function toObject
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @static
+                 * @param {cosmos.base.v1beta1.DecProto} message DecProto
+                 * @param {$protobuf.IConversionOptions} [options] Conversion options
+                 * @returns {Object.<string,*>} Plain object
+                 */
+                DecProto.toObject = function toObject(message, options) {
+                    if (!options)
+                        options = {};
+                    let object = {};
+                    if (options.defaults)
+                        object.dec = "";
+                    if (message.dec != null && message.hasOwnProperty("dec"))
+                        object.dec = message.dec;
+                    return object;
+                };
+
+                /**
+                 * Converts this DecProto to JSON.
+                 * @function toJSON
+                 * @memberof cosmos.base.v1beta1.DecProto
+                 * @instance
+                 * @returns {Object.<string,*>} JSON object
+                 */
+                DecProto.prototype.toJSON = function toJSON() {
+                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                };
+
+                return DecProto;
+            })();
+
+            return v1beta1;
+        })();
+
+        base.query = (function() {
+
+            /**
+             * Namespace query.
+             * @memberof cosmos.base
+             * @namespace
+             */
+            const query = {};
+
+            query.v1beta1 = (function() {
+
+                /**
+                 * Namespace v1beta1.
+                 * @memberof cosmos.base.query
+                 * @namespace
+                 */
+                const v1beta1 = {};
+
+                v1beta1.PageRequest = (function() {
+
+                    /**
+                     * Properties of a PageRequest.
+                     * @memberof cosmos.base.query.v1beta1
+                     * @interface IPageRequest
+                     * @property {Uint8Array|null} [key] PageRequest key
+                     * @property {Long|null} [offset] PageRequest offset
+                     * @property {Long|null} [limit] PageRequest limit
+                     * @property {boolean|null} [count_total] PageRequest count_total
+                     * @property {boolean|null} [reverse] PageRequest reverse
+                     */
+
+                    /**
+                     * Constructs a new PageRequest.
+                     * @memberof cosmos.base.query.v1beta1
+                     * @classdesc Represents a PageRequest.
+                     * @implements IPageRequest
+                     * @constructor
+                     * @param {cosmos.base.query.v1beta1.IPageRequest=} [properties] Properties to set
+                     */
+                    function PageRequest(properties) {
+                        if (properties)
+                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * PageRequest key.
+                     * @member {Uint8Array} key
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     */
+                    PageRequest.prototype.key = $util.newBuffer([]);
+
+                    /**
+                     * PageRequest offset.
+                     * @member {Long} offset
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     */
+                    PageRequest.prototype.offset = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                    /**
+                     * PageRequest limit.
+                     * @member {Long} limit
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     */
+                    PageRequest.prototype.limit = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                    /**
+                     * PageRequest count_total.
+                     * @member {boolean} count_total
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     */
+                    PageRequest.prototype.count_total = false;
+
+                    /**
+                     * PageRequest reverse.
+                     * @member {boolean} reverse
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     */
+                    PageRequest.prototype.reverse = false;
+
+                    /**
+                     * Encodes the specified PageRequest message. Does not implicitly {@link cosmos.base.query.v1beta1.PageRequest.verify|verify} messages.
+                     * @function encode
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.IPageRequest} message PageRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    PageRequest.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.key != null && Object.hasOwnProperty.call(message, "key"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.key);
+                        if (message.offset != null && Object.hasOwnProperty.call(message, "offset"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.offset);
+                        if (message.limit != null && Object.hasOwnProperty.call(message, "limit"))
+                            writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.limit);
+                        if (message.count_total != null && Object.hasOwnProperty.call(message, "count_total"))
+                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.count_total);
+                        if (message.reverse != null && Object.hasOwnProperty.call(message, "reverse"))
+                            writer.uint32(/* id 5, wireType 0 =*/40).bool(message.reverse);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified PageRequest message, length delimited. Does not implicitly {@link cosmos.base.query.v1beta1.PageRequest.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.IPageRequest} message PageRequest message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    PageRequest.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a PageRequest message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    PageRequest.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.query.v1beta1.PageRequest();
+                        while (reader.pos < end) {
+                            let tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.key = reader.bytes();
+                                break;
+                            case 2:
+                                message.offset = reader.uint64();
+                                break;
+                            case 3:
+                                message.limit = reader.uint64();
+                                break;
+                            case 4:
+                                message.count_total = reader.bool();
+                                break;
+                            case 5:
+                                message.reverse = reader.bool();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a PageRequest message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    PageRequest.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a PageRequest message.
+                     * @function verify
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    PageRequest.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.key != null && message.hasOwnProperty("key"))
+                            if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
+                                return "key: buffer expected";
+                        if (message.offset != null && message.hasOwnProperty("offset"))
+                            if (!$util.isInteger(message.offset) && !(message.offset && $util.isInteger(message.offset.low) && $util.isInteger(message.offset.high)))
+                                return "offset: integer|Long expected";
+                        if (message.limit != null && message.hasOwnProperty("limit"))
+                            if (!$util.isInteger(message.limit) && !(message.limit && $util.isInteger(message.limit.low) && $util.isInteger(message.limit.high)))
+                                return "limit: integer|Long expected";
+                        if (message.count_total != null && message.hasOwnProperty("count_total"))
+                            if (typeof message.count_total !== "boolean")
+                                return "count_total: boolean expected";
+                        if (message.reverse != null && message.hasOwnProperty("reverse"))
+                            if (typeof message.reverse !== "boolean")
+                                return "reverse: boolean expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a PageRequest message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
+                     */
+                    PageRequest.fromObject = function fromObject(object) {
+                        if (object instanceof $root.cosmos.base.query.v1beta1.PageRequest)
+                            return object;
+                        let message = new $root.cosmos.base.query.v1beta1.PageRequest();
+                        if (object.key != null)
+                            if (typeof object.key === "string")
+                                $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
+                            else if (object.key.length)
+                                message.key = object.key;
+                        if (object.offset != null)
+                            if ($util.Long)
+                                (message.offset = $util.Long.fromValue(object.offset)).unsigned = true;
+                            else if (typeof object.offset === "string")
+                                message.offset = parseInt(object.offset, 10);
+                            else if (typeof object.offset === "number")
+                                message.offset = object.offset;
+                            else if (typeof object.offset === "object")
+                                message.offset = new $util.LongBits(object.offset.low >>> 0, object.offset.high >>> 0).toNumber(true);
+                        if (object.limit != null)
+                            if ($util.Long)
+                                (message.limit = $util.Long.fromValue(object.limit)).unsigned = true;
+                            else if (typeof object.limit === "string")
+                                message.limit = parseInt(object.limit, 10);
+                            else if (typeof object.limit === "number")
+                                message.limit = object.limit;
+                            else if (typeof object.limit === "object")
+                                message.limit = new $util.LongBits(object.limit.low >>> 0, object.limit.high >>> 0).toNumber(true);
+                        if (object.count_total != null)
+                            message.count_total = Boolean(object.count_total);
+                        if (object.reverse != null)
+                            message.reverse = Boolean(object.reverse);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a PageRequest message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.PageRequest} message PageRequest
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    PageRequest.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        let object = {};
+                        if (options.defaults) {
+                            if (options.bytes === String)
+                                object.key = "";
+                            else {
+                                object.key = [];
+                                if (options.bytes !== Array)
+                                    object.key = $util.newBuffer(object.key);
+                            }
+                            if ($util.Long) {
+                                let long = new $util.Long(0, 0, true);
+                                object.offset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.offset = options.longs === String ? "0" : 0;
+                            if ($util.Long) {
+                                let long = new $util.Long(0, 0, true);
+                                object.limit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.limit = options.longs === String ? "0" : 0;
+                            object.count_total = false;
+                            object.reverse = false;
+                        }
+                        if (message.key != null && message.hasOwnProperty("key"))
+                            object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
+                        if (message.offset != null && message.hasOwnProperty("offset"))
+                            if (typeof message.offset === "number")
+                                object.offset = options.longs === String ? String(message.offset) : message.offset;
+                            else
+                                object.offset = options.longs === String ? $util.Long.prototype.toString.call(message.offset) : options.longs === Number ? new $util.LongBits(message.offset.low >>> 0, message.offset.high >>> 0).toNumber(true) : message.offset;
+                        if (message.limit != null && message.hasOwnProperty("limit"))
+                            if (typeof message.limit === "number")
+                                object.limit = options.longs === String ? String(message.limit) : message.limit;
+                            else
+                                object.limit = options.longs === String ? $util.Long.prototype.toString.call(message.limit) : options.longs === Number ? new $util.LongBits(message.limit.low >>> 0, message.limit.high >>> 0).toNumber(true) : message.limit;
+                        if (message.count_total != null && message.hasOwnProperty("count_total"))
+                            object.count_total = message.count_total;
+                        if (message.reverse != null && message.hasOwnProperty("reverse"))
+                            object.reverse = message.reverse;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this PageRequest to JSON.
+                     * @function toJSON
+                     * @memberof cosmos.base.query.v1beta1.PageRequest
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    PageRequest.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return PageRequest;
+                })();
+
+                v1beta1.PageResponse = (function() {
+
+                    /**
+                     * Properties of a PageResponse.
+                     * @memberof cosmos.base.query.v1beta1
+                     * @interface IPageResponse
+                     * @property {Uint8Array|null} [next_key] PageResponse next_key
+                     * @property {Long|null} [total] PageResponse total
+                     */
+
+                    /**
+                     * Constructs a new PageResponse.
+                     * @memberof cosmos.base.query.v1beta1
+                     * @classdesc Represents a PageResponse.
+                     * @implements IPageResponse
+                     * @constructor
+                     * @param {cosmos.base.query.v1beta1.IPageResponse=} [properties] Properties to set
+                     */
+                    function PageResponse(properties) {
+                        if (properties)
+                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
+                                if (properties[keys[i]] != null)
+                                    this[keys[i]] = properties[keys[i]];
+                    }
+
+                    /**
+                     * PageResponse next_key.
+                     * @member {Uint8Array} next_key
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @instance
+                     */
+                    PageResponse.prototype.next_key = $util.newBuffer([]);
+
+                    /**
+                     * PageResponse total.
+                     * @member {Long} total
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @instance
+                     */
+                    PageResponse.prototype.total = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
+
+                    /**
+                     * Encodes the specified PageResponse message. Does not implicitly {@link cosmos.base.query.v1beta1.PageResponse.verify|verify} messages.
+                     * @function encode
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.IPageResponse} message PageResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    PageResponse.encode = function encode(message, writer) {
+                        if (!writer)
+                            writer = $Writer.create();
+                        if (message.next_key != null && Object.hasOwnProperty.call(message, "next_key"))
+                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.next_key);
+                        if (message.total != null && Object.hasOwnProperty.call(message, "total"))
+                            writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.total);
+                        return writer;
+                    };
+
+                    /**
+                     * Encodes the specified PageResponse message, length delimited. Does not implicitly {@link cosmos.base.query.v1beta1.PageResponse.verify|verify} messages.
+                     * @function encodeDelimited
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.IPageResponse} message PageResponse message or plain object to encode
+                     * @param {$protobuf.Writer} [writer] Writer to encode to
+                     * @returns {$protobuf.Writer} Writer
+                     */
+                    PageResponse.encodeDelimited = function encodeDelimited(message, writer) {
+                        return this.encode(message, writer).ldelim();
+                    };
+
+                    /**
+                     * Decodes a PageResponse message from the specified reader or buffer.
+                     * @function decode
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @param {number} [length] Message length if known beforehand
+                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    PageResponse.decode = function decode(reader, length) {
+                        if (!(reader instanceof $Reader))
+                            reader = $Reader.create(reader);
+                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.query.v1beta1.PageResponse();
+                        while (reader.pos < end) {
+                            let tag = reader.uint32();
+                            switch (tag >>> 3) {
+                            case 1:
+                                message.next_key = reader.bytes();
+                                break;
+                            case 2:
+                                message.total = reader.uint64();
+                                break;
+                            default:
+                                reader.skipType(tag & 7);
+                                break;
+                            }
+                        }
+                        return message;
+                    };
+
+                    /**
+                     * Decodes a PageResponse message from the specified reader or buffer, length delimited.
+                     * @function decodeDelimited
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
+                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
+                     * @throws {Error} If the payload is not a reader or valid buffer
+                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
+                     */
+                    PageResponse.decodeDelimited = function decodeDelimited(reader) {
+                        if (!(reader instanceof $Reader))
+                            reader = new $Reader(reader);
+                        return this.decode(reader, reader.uint32());
+                    };
+
+                    /**
+                     * Verifies a PageResponse message.
+                     * @function verify
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {Object.<string,*>} message Plain object to verify
+                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
+                     */
+                    PageResponse.verify = function verify(message) {
+                        if (typeof message !== "object" || message === null)
+                            return "object expected";
+                        if (message.next_key != null && message.hasOwnProperty("next_key"))
+                            if (!(message.next_key && typeof message.next_key.length === "number" || $util.isString(message.next_key)))
+                                return "next_key: buffer expected";
+                        if (message.total != null && message.hasOwnProperty("total"))
+                            if (!$util.isInteger(message.total) && !(message.total && $util.isInteger(message.total.low) && $util.isInteger(message.total.high)))
+                                return "total: integer|Long expected";
+                        return null;
+                    };
+
+                    /**
+                     * Creates a PageResponse message from a plain object. Also converts values to their respective internal types.
+                     * @function fromObject
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {Object.<string,*>} object Plain object
+                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
+                     */
+                    PageResponse.fromObject = function fromObject(object) {
+                        if (object instanceof $root.cosmos.base.query.v1beta1.PageResponse)
+                            return object;
+                        let message = new $root.cosmos.base.query.v1beta1.PageResponse();
+                        if (object.next_key != null)
+                            if (typeof object.next_key === "string")
+                                $util.base64.decode(object.next_key, message.next_key = $util.newBuffer($util.base64.length(object.next_key)), 0);
+                            else if (object.next_key.length)
+                                message.next_key = object.next_key;
+                        if (object.total != null)
+                            if ($util.Long)
+                                (message.total = $util.Long.fromValue(object.total)).unsigned = true;
+                            else if (typeof object.total === "string")
+                                message.total = parseInt(object.total, 10);
+                            else if (typeof object.total === "number")
+                                message.total = object.total;
+                            else if (typeof object.total === "object")
+                                message.total = new $util.LongBits(object.total.low >>> 0, object.total.high >>> 0).toNumber(true);
+                        return message;
+                    };
+
+                    /**
+                     * Creates a plain object from a PageResponse message. Also converts values to other types if specified.
+                     * @function toObject
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @static
+                     * @param {cosmos.base.query.v1beta1.PageResponse} message PageResponse
+                     * @param {$protobuf.IConversionOptions} [options] Conversion options
+                     * @returns {Object.<string,*>} Plain object
+                     */
+                    PageResponse.toObject = function toObject(message, options) {
+                        if (!options)
+                            options = {};
+                        let object = {};
+                        if (options.defaults) {
+                            if (options.bytes === String)
+                                object.next_key = "";
+                            else {
+                                object.next_key = [];
+                                if (options.bytes !== Array)
+                                    object.next_key = $util.newBuffer(object.next_key);
+                            }
+                            if ($util.Long) {
+                                let long = new $util.Long(0, 0, true);
+                                object.total = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
+                            } else
+                                object.total = options.longs === String ? "0" : 0;
+                        }
+                        if (message.next_key != null && message.hasOwnProperty("next_key"))
+                            object.next_key = options.bytes === String ? $util.base64.encode(message.next_key, 0, message.next_key.length) : options.bytes === Array ? Array.prototype.slice.call(message.next_key) : message.next_key;
+                        if (message.total != null && message.hasOwnProperty("total"))
+                            if (typeof message.total === "number")
+                                object.total = options.longs === String ? String(message.total) : message.total;
+                            else
+                                object.total = options.longs === String ? $util.Long.prototype.toString.call(message.total) : options.longs === Number ? new $util.LongBits(message.total.low >>> 0, message.total.high >>> 0).toNumber(true) : message.total;
+                        return object;
+                    };
+
+                    /**
+                     * Converts this PageResponse to JSON.
+                     * @function toJSON
+                     * @memberof cosmos.base.query.v1beta1.PageResponse
+                     * @instance
+                     * @returns {Object.<string,*>} JSON object
+                     */
+                    PageResponse.prototype.toJSON = function toJSON() {
+                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
+                    };
+
+                    return PageResponse;
+                })();
+
+                return v1beta1;
+            })();
+
+            return query;
+        })();
+
+        return base;
+    })();
+
+    return cosmos;
 })();
 
 export const google = $root.google = (() => {
@@ -17405,6 +23686,8 @@ export const google = $root.google = (() => {
              * @property {boolean|null} [".gogoproto.messagename_all"] FileOptions .gogoproto.messagename_all
              * @property {boolean|null} [".gogoproto.goproto_sizecache_all"] FileOptions .gogoproto.goproto_sizecache_all
              * @property {boolean|null} [".gogoproto.goproto_unkeyed_all"] FileOptions .gogoproto.goproto_unkeyed_all
+             * @property {Array.<cosmos_proto.IInterfaceDescriptor>|null} [".cosmos_proto.declare_interface"] FileOptions .cosmos_proto.declare_interface
+             * @property {Array.<cosmos_proto.IScalarDescriptor>|null} [".cosmos_proto.declare_scalar"] FileOptions .cosmos_proto.declare_scalar
              */
 
             /**
@@ -17417,6 +23700,8 @@ export const google = $root.google = (() => {
              */
             function FileOptions(properties) {
                 this.uninterpreted_option = [];
+                this[".cosmos_proto.declare_interface"] = [];
+                this[".cosmos_proto.declare_scalar"] = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -17800,6 +24085,22 @@ export const google = $root.google = (() => {
             FileOptions.prototype[".gogoproto.goproto_unkeyed_all"] = false;
 
             /**
+             * FileOptions .cosmos_proto.declare_interface.
+             * @member {Array.<cosmos_proto.IInterfaceDescriptor>} .cosmos_proto.declare_interface
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype[".cosmos_proto.declare_interface"] = $util.emptyArray;
+
+            /**
+             * FileOptions .cosmos_proto.declare_scalar.
+             * @member {Array.<cosmos_proto.IScalarDescriptor>} .cosmos_proto.declare_scalar
+             * @memberof google.protobuf.FileOptions
+             * @instance
+             */
+            FileOptions.prototype[".cosmos_proto.declare_scalar"] = $util.emptyArray;
+
+            /**
              * Encodes the specified FileOptions message. Does not implicitly {@link google.protobuf.FileOptions.verify|verify} messages.
              * @function encode
              * @memberof google.protobuf.FileOptions
@@ -17906,6 +24207,12 @@ export const google = $root.google = (() => {
                     writer.uint32(/* id 63034, wireType 0 =*/504272).bool(message[".gogoproto.goproto_sizecache_all"]);
                 if (message[".gogoproto.goproto_unkeyed_all"] != null && Object.hasOwnProperty.call(message, ".gogoproto.goproto_unkeyed_all"))
                     writer.uint32(/* id 63035, wireType 0 =*/504280).bool(message[".gogoproto.goproto_unkeyed_all"]);
+                if (message[".cosmos_proto.declare_interface"] != null && message[".cosmos_proto.declare_interface"].length)
+                    for (let i = 0; i < message[".cosmos_proto.declare_interface"].length; ++i)
+                        $root.cosmos_proto.InterfaceDescriptor.encode(message[".cosmos_proto.declare_interface"][i], writer.uint32(/* id 793021, wireType 2 =*/6344170).fork()).ldelim();
+                if (message[".cosmos_proto.declare_scalar"] != null && message[".cosmos_proto.declare_scalar"].length)
+                    for (let i = 0; i < message[".cosmos_proto.declare_scalar"].length; ++i)
+                        $root.cosmos_proto.ScalarDescriptor.encode(message[".cosmos_proto.declare_scalar"][i], writer.uint32(/* id 793022, wireType 2 =*/6344178).fork()).ldelim();
                 return writer;
             };
 
@@ -18082,6 +24389,16 @@ export const google = $root.google = (() => {
                         break;
                     case 63035:
                         message[".gogoproto.goproto_unkeyed_all"] = reader.bool();
+                        break;
+                    case 793021:
+                        if (!(message[".cosmos_proto.declare_interface"] && message[".cosmos_proto.declare_interface"].length))
+                            message[".cosmos_proto.declare_interface"] = [];
+                        message[".cosmos_proto.declare_interface"].push($root.cosmos_proto.InterfaceDescriptor.decode(reader, reader.uint32()));
+                        break;
+                    case 793022:
+                        if (!(message[".cosmos_proto.declare_scalar"] && message[".cosmos_proto.declare_scalar"].length))
+                            message[".cosmos_proto.declare_scalar"] = [];
+                        message[".cosmos_proto.declare_scalar"].push($root.cosmos_proto.ScalarDescriptor.decode(reader, reader.uint32()));
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -18271,6 +24588,24 @@ export const google = $root.google = (() => {
                 if (message[".gogoproto.goproto_unkeyed_all"] != null && message.hasOwnProperty(".gogoproto.goproto_unkeyed_all"))
                     if (typeof message[".gogoproto.goproto_unkeyed_all"] !== "boolean")
                         return ".gogoproto.goproto_unkeyed_all: boolean expected";
+                if (message[".cosmos_proto.declare_interface"] != null && message.hasOwnProperty(".cosmos_proto.declare_interface")) {
+                    if (!Array.isArray(message[".cosmos_proto.declare_interface"]))
+                        return ".cosmos_proto.declare_interface: array expected";
+                    for (let i = 0; i < message[".cosmos_proto.declare_interface"].length; ++i) {
+                        let error = $root.cosmos_proto.InterfaceDescriptor.verify(message[".cosmos_proto.declare_interface"][i]);
+                        if (error)
+                            return ".cosmos_proto.declare_interface." + error;
+                    }
+                }
+                if (message[".cosmos_proto.declare_scalar"] != null && message.hasOwnProperty(".cosmos_proto.declare_scalar")) {
+                    if (!Array.isArray(message[".cosmos_proto.declare_scalar"]))
+                        return ".cosmos_proto.declare_scalar: array expected";
+                    for (let i = 0; i < message[".cosmos_proto.declare_scalar"].length; ++i) {
+                        let error = $root.cosmos_proto.ScalarDescriptor.verify(message[".cosmos_proto.declare_scalar"][i]);
+                        if (error)
+                            return ".cosmos_proto.declare_scalar." + error;
+                    }
+                }
                 return null;
             };
 
@@ -18400,6 +24735,26 @@ export const google = $root.google = (() => {
                     message[".gogoproto.goproto_sizecache_all"] = Boolean(object[".gogoproto.goproto_sizecache_all"]);
                 if (object[".gogoproto.goproto_unkeyed_all"] != null)
                     message[".gogoproto.goproto_unkeyed_all"] = Boolean(object[".gogoproto.goproto_unkeyed_all"]);
+                if (object[".cosmos_proto.declare_interface"]) {
+                    if (!Array.isArray(object[".cosmos_proto.declare_interface"]))
+                        throw TypeError(".google.protobuf.FileOptions..cosmos_proto.declare_interface: array expected");
+                    message[".cosmos_proto.declare_interface"] = [];
+                    for (let i = 0; i < object[".cosmos_proto.declare_interface"].length; ++i) {
+                        if (typeof object[".cosmos_proto.declare_interface"][i] !== "object")
+                            throw TypeError(".google.protobuf.FileOptions..cosmos_proto.declare_interface: object expected");
+                        message[".cosmos_proto.declare_interface"][i] = $root.cosmos_proto.InterfaceDescriptor.fromObject(object[".cosmos_proto.declare_interface"][i]);
+                    }
+                }
+                if (object[".cosmos_proto.declare_scalar"]) {
+                    if (!Array.isArray(object[".cosmos_proto.declare_scalar"]))
+                        throw TypeError(".google.protobuf.FileOptions..cosmos_proto.declare_scalar: array expected");
+                    message[".cosmos_proto.declare_scalar"] = [];
+                    for (let i = 0; i < object[".cosmos_proto.declare_scalar"].length; ++i) {
+                        if (typeof object[".cosmos_proto.declare_scalar"][i] !== "object")
+                            throw TypeError(".google.protobuf.FileOptions..cosmos_proto.declare_scalar: object expected");
+                        message[".cosmos_proto.declare_scalar"][i] = $root.cosmos_proto.ScalarDescriptor.fromObject(object[".cosmos_proto.declare_scalar"][i]);
+                    }
+                }
                 return message;
             };
 
@@ -18416,8 +24771,11 @@ export const google = $root.google = (() => {
                 if (!options)
                     options = {};
                 let object = {};
-                if (options.arrays || options.defaults)
+                if (options.arrays || options.defaults) {
                     object.uninterpreted_option = [];
+                    object[".cosmos_proto.declare_interface"] = [];
+                    object[".cosmos_proto.declare_scalar"] = [];
+                }
                 if (options.defaults) {
                     object.java_package = "";
                     object.java_outer_classname = "";
@@ -18563,6 +24921,16 @@ export const google = $root.google = (() => {
                     object[".gogoproto.goproto_sizecache_all"] = message[".gogoproto.goproto_sizecache_all"];
                 if (message[".gogoproto.goproto_unkeyed_all"] != null && message.hasOwnProperty(".gogoproto.goproto_unkeyed_all"))
                     object[".gogoproto.goproto_unkeyed_all"] = message[".gogoproto.goproto_unkeyed_all"];
+                if (message[".cosmos_proto.declare_interface"] && message[".cosmos_proto.declare_interface"].length) {
+                    object[".cosmos_proto.declare_interface"] = [];
+                    for (let j = 0; j < message[".cosmos_proto.declare_interface"].length; ++j)
+                        object[".cosmos_proto.declare_interface"][j] = $root.cosmos_proto.InterfaceDescriptor.toObject(message[".cosmos_proto.declare_interface"][j], options);
+                }
+                if (message[".cosmos_proto.declare_scalar"] && message[".cosmos_proto.declare_scalar"].length) {
+                    object[".cosmos_proto.declare_scalar"] = [];
+                    for (let j = 0; j < message[".cosmos_proto.declare_scalar"].length; ++j)
+                        object[".cosmos_proto.declare_scalar"][j] = $root.cosmos_proto.ScalarDescriptor.toObject(message[".cosmos_proto.declare_scalar"][j], options);
+                }
                 return object;
             };
 
@@ -18633,8 +25001,7 @@ export const google = $root.google = (() => {
              * @property {boolean|null} [".gogoproto.messagename"] MessageOptions .gogoproto.messagename
              * @property {boolean|null} [".gogoproto.goproto_sizecache"] MessageOptions .gogoproto.goproto_sizecache
              * @property {boolean|null} [".gogoproto.goproto_unkeyed"] MessageOptions .gogoproto.goproto_unkeyed
-             * @property {string|null} [".cosmos_proto.interface_type"] MessageOptions .cosmos_proto.interface_type
-             * @property {string|null} [".cosmos_proto.implements_interface"] MessageOptions .cosmos_proto.implements_interface
+             * @property {Array.<string>|null} [".cosmos_proto.implements_interface"] MessageOptions .cosmos_proto.implements_interface
              */
 
             /**
@@ -18647,6 +25014,7 @@ export const google = $root.google = (() => {
              */
             function MessageOptions(properties) {
                 this.uninterpreted_option = [];
+                this[".cosmos_proto.implements_interface"] = [];
                 if (properties)
                     for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
                         if (properties[keys[i]] != null)
@@ -18902,20 +25270,12 @@ export const google = $root.google = (() => {
             MessageOptions.prototype[".gogoproto.goproto_unkeyed"] = false;
 
             /**
-             * MessageOptions .cosmos_proto.interface_type.
-             * @member {string} .cosmos_proto.interface_type
-             * @memberof google.protobuf.MessageOptions
-             * @instance
-             */
-            MessageOptions.prototype[".cosmos_proto.interface_type"] = "";
-
-            /**
              * MessageOptions .cosmos_proto.implements_interface.
-             * @member {string} .cosmos_proto.implements_interface
+             * @member {Array.<string>} .cosmos_proto.implements_interface
              * @memberof google.protobuf.MessageOptions
              * @instance
              */
-            MessageOptions.prototype[".cosmos_proto.implements_interface"] = "";
+            MessageOptions.prototype[".cosmos_proto.implements_interface"] = $util.emptyArray;
 
             /**
              * Encodes the specified MessageOptions message. Does not implicitly {@link google.protobuf.MessageOptions.verify|verify} messages.
@@ -18992,10 +25352,9 @@ export const google = $root.google = (() => {
                     writer.uint32(/* id 64035, wireType 0 =*/512280).bool(message[".gogoproto.goproto_unkeyed"]);
                 if (message[".gogoproto.stringer"] != null && Object.hasOwnProperty.call(message, ".gogoproto.stringer"))
                     writer.uint32(/* id 67008, wireType 0 =*/536064).bool(message[".gogoproto.stringer"]);
-                if (message[".cosmos_proto.interface_type"] != null && Object.hasOwnProperty.call(message, ".cosmos_proto.interface_type"))
-                    writer.uint32(/* id 93001, wireType 2 =*/744010).string(message[".cosmos_proto.interface_type"]);
-                if (message[".cosmos_proto.implements_interface"] != null && Object.hasOwnProperty.call(message, ".cosmos_proto.implements_interface"))
-                    writer.uint32(/* id 93002, wireType 2 =*/744018).string(message[".cosmos_proto.implements_interface"]);
+                if (message[".cosmos_proto.implements_interface"] != null && message[".cosmos_proto.implements_interface"].length)
+                    for (let i = 0; i < message[".cosmos_proto.implements_interface"].length; ++i)
+                        writer.uint32(/* id 93001, wireType 2 =*/744010).string(message[".cosmos_proto.implements_interface"][i]);
                 return writer;
             };
 
@@ -19126,10 +25485,9 @@ export const google = $root.google = (() => {
                         message[".gogoproto.goproto_unkeyed"] = reader.bool();
                         break;
                     case 93001:
-                        message[".cosmos_proto.interface_type"] = reader.string();
-                        break;
-                    case 93002:
-                        message[".cosmos_proto.implements_interface"] = reader.string();
+                        if (!(message[".cosmos_proto.implements_interface"] && message[".cosmos_proto.implements_interface"].length))
+                            message[".cosmos_proto.implements_interface"] = [];
+                        message[".cosmos_proto.implements_interface"].push(reader.string());
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -19265,12 +25623,13 @@ export const google = $root.google = (() => {
                 if (message[".gogoproto.goproto_unkeyed"] != null && message.hasOwnProperty(".gogoproto.goproto_unkeyed"))
                     if (typeof message[".gogoproto.goproto_unkeyed"] !== "boolean")
                         return ".gogoproto.goproto_unkeyed: boolean expected";
-                if (message[".cosmos_proto.interface_type"] != null && message.hasOwnProperty(".cosmos_proto.interface_type"))
-                    if (!$util.isString(message[".cosmos_proto.interface_type"]))
-                        return ".cosmos_proto.interface_type: string expected";
-                if (message[".cosmos_proto.implements_interface"] != null && message.hasOwnProperty(".cosmos_proto.implements_interface"))
-                    if (!$util.isString(message[".cosmos_proto.implements_interface"]))
-                        return ".cosmos_proto.implements_interface: string expected";
+                if (message[".cosmos_proto.implements_interface"] != null && message.hasOwnProperty(".cosmos_proto.implements_interface")) {
+                    if (!Array.isArray(message[".cosmos_proto.implements_interface"]))
+                        return ".cosmos_proto.implements_interface: array expected";
+                    for (let i = 0; i < message[".cosmos_proto.implements_interface"].length; ++i)
+                        if (!$util.isString(message[".cosmos_proto.implements_interface"][i]))
+                            return ".cosmos_proto.implements_interface: string[] expected";
+                }
                 return null;
             };
 
@@ -19356,10 +25715,13 @@ export const google = $root.google = (() => {
                     message[".gogoproto.goproto_sizecache"] = Boolean(object[".gogoproto.goproto_sizecache"]);
                 if (object[".gogoproto.goproto_unkeyed"] != null)
                     message[".gogoproto.goproto_unkeyed"] = Boolean(object[".gogoproto.goproto_unkeyed"]);
-                if (object[".cosmos_proto.interface_type"] != null)
-                    message[".cosmos_proto.interface_type"] = String(object[".cosmos_proto.interface_type"]);
-                if (object[".cosmos_proto.implements_interface"] != null)
-                    message[".cosmos_proto.implements_interface"] = String(object[".cosmos_proto.implements_interface"]);
+                if (object[".cosmos_proto.implements_interface"]) {
+                    if (!Array.isArray(object[".cosmos_proto.implements_interface"]))
+                        throw TypeError(".google.protobuf.MessageOptions..cosmos_proto.implements_interface: array expected");
+                    message[".cosmos_proto.implements_interface"] = [];
+                    for (let i = 0; i < object[".cosmos_proto.implements_interface"].length; ++i)
+                        message[".cosmos_proto.implements_interface"][i] = String(object[".cosmos_proto.implements_interface"][i]);
+                }
                 return message;
             };
 
@@ -19376,8 +25738,10 @@ export const google = $root.google = (() => {
                 if (!options)
                     options = {};
                 let object = {};
-                if (options.arrays || options.defaults)
+                if (options.arrays || options.defaults) {
                     object.uninterpreted_option = [];
+                    object[".cosmos_proto.implements_interface"] = [];
+                }
                 if (options.defaults) {
                     object.message_set_wire_format = false;
                     object.no_standard_descriptor_accessor = false;
@@ -19409,8 +25773,6 @@ export const google = $root.google = (() => {
                     object[".gogoproto.goproto_sizecache"] = false;
                     object[".gogoproto.goproto_unkeyed"] = false;
                     object[".gogoproto.stringer"] = false;
-                    object[".cosmos_proto.interface_type"] = "";
-                    object[".cosmos_proto.implements_interface"] = "";
                 }
                 if (message.message_set_wire_format != null && message.hasOwnProperty("message_set_wire_format"))
                     object.message_set_wire_format = message.message_set_wire_format;
@@ -19477,10 +25839,11 @@ export const google = $root.google = (() => {
                     object[".gogoproto.goproto_unkeyed"] = message[".gogoproto.goproto_unkeyed"];
                 if (message[".gogoproto.stringer"] != null && message.hasOwnProperty(".gogoproto.stringer"))
                     object[".gogoproto.stringer"] = message[".gogoproto.stringer"];
-                if (message[".cosmos_proto.interface_type"] != null && message.hasOwnProperty(".cosmos_proto.interface_type"))
-                    object[".cosmos_proto.interface_type"] = message[".cosmos_proto.interface_type"];
-                if (message[".cosmos_proto.implements_interface"] != null && message.hasOwnProperty(".cosmos_proto.implements_interface"))
-                    object[".cosmos_proto.implements_interface"] = message[".cosmos_proto.implements_interface"];
+                if (message[".cosmos_proto.implements_interface"] && message[".cosmos_proto.implements_interface"].length) {
+                    object[".cosmos_proto.implements_interface"] = [];
+                    for (let j = 0; j < message[".cosmos_proto.implements_interface"].length; ++j)
+                        object[".cosmos_proto.implements_interface"][j] = message[".cosmos_proto.implements_interface"][j];
+                }
                 return object;
             };
 
@@ -19525,6 +25888,7 @@ export const google = $root.google = (() => {
              * @property {boolean|null} [".gogoproto.wktpointer"] FieldOptions .gogoproto.wktpointer
              * @property {string|null} [".gogoproto.castrepeated"] FieldOptions .gogoproto.castrepeated
              * @property {string|null} [".cosmos_proto.accepts_interface"] FieldOptions .cosmos_proto.accepts_interface
+             * @property {string|null} [".cosmos_proto.scalar"] FieldOptions .cosmos_proto.scalar
              */
 
             /**
@@ -19712,6 +26076,14 @@ export const google = $root.google = (() => {
             FieldOptions.prototype[".cosmos_proto.accepts_interface"] = "";
 
             /**
+             * FieldOptions .cosmos_proto.scalar.
+             * @member {string} .cosmos_proto.scalar
+             * @memberof google.protobuf.FieldOptions
+             * @instance
+             */
+            FieldOptions.prototype[".cosmos_proto.scalar"] = "";
+
+            /**
              * Encodes the specified FieldOptions message. Does not implicitly {@link google.protobuf.FieldOptions.verify|verify} messages.
              * @function encode
              * @memberof google.protobuf.FieldOptions
@@ -19766,6 +26138,8 @@ export const google = $root.google = (() => {
                     writer.uint32(/* id 65013, wireType 2 =*/520106).string(message[".gogoproto.castrepeated"]);
                 if (message[".cosmos_proto.accepts_interface"] != null && Object.hasOwnProperty.call(message, ".cosmos_proto.accepts_interface"))
                     writer.uint32(/* id 93001, wireType 2 =*/744010).string(message[".cosmos_proto.accepts_interface"]);
+                if (message[".cosmos_proto.scalar"] != null && Object.hasOwnProperty.call(message, ".cosmos_proto.scalar"))
+                    writer.uint32(/* id 93002, wireType 2 =*/744018).string(message[".cosmos_proto.scalar"]);
                 return writer;
             };
 
@@ -19864,6 +26238,9 @@ export const google = $root.google = (() => {
                         break;
                     case 93001:
                         message[".cosmos_proto.accepts_interface"] = reader.string();
+                        break;
+                    case 93002:
+                        message[".cosmos_proto.scalar"] = reader.string();
                         break;
                     default:
                         reader.skipType(tag & 7);
@@ -19981,6 +26358,9 @@ export const google = $root.google = (() => {
                 if (message[".cosmos_proto.accepts_interface"] != null && message.hasOwnProperty(".cosmos_proto.accepts_interface"))
                     if (!$util.isString(message[".cosmos_proto.accepts_interface"]))
                         return ".cosmos_proto.accepts_interface: string expected";
+                if (message[".cosmos_proto.scalar"] != null && message.hasOwnProperty(".cosmos_proto.scalar"))
+                    if (!$util.isString(message[".cosmos_proto.scalar"]))
+                        return ".cosmos_proto.scalar: string expected";
                 return null;
             };
 
@@ -20070,6 +26450,8 @@ export const google = $root.google = (() => {
                     message[".gogoproto.castrepeated"] = String(object[".gogoproto.castrepeated"]);
                 if (object[".cosmos_proto.accepts_interface"] != null)
                     message[".cosmos_proto.accepts_interface"] = String(object[".cosmos_proto.accepts_interface"]);
+                if (object[".cosmos_proto.scalar"] != null)
+                    message[".cosmos_proto.scalar"] = String(object[".cosmos_proto.scalar"]);
                 return message;
             };
 
@@ -20109,6 +26491,7 @@ export const google = $root.google = (() => {
                     object[".gogoproto.wktpointer"] = false;
                     object[".gogoproto.castrepeated"] = "";
                     object[".cosmos_proto.accepts_interface"] = "";
+                    object[".cosmos_proto.scalar"] = "";
                 }
                 if (message.ctype != null && message.hasOwnProperty("ctype"))
                     object.ctype = options.enums === String ? $root.google.protobuf.FieldOptions.CType[message.ctype] : message.ctype;
@@ -20155,6 +26538,8 @@ export const google = $root.google = (() => {
                     object[".gogoproto.castrepeated"] = message[".gogoproto.castrepeated"];
                 if (message[".cosmos_proto.accepts_interface"] != null && message.hasOwnProperty(".cosmos_proto.accepts_interface"))
                     object[".cosmos_proto.accepts_interface"] = message[".cosmos_proto.accepts_interface"];
+                if (message[".cosmos_proto.scalar"] != null && message.hasOwnProperty(".cosmos_proto.scalar"))
+                    object[".cosmos_proto.scalar"] = message[".cosmos_proto.scalar"];
                 return object;
             };
 
@@ -24105,1334 +30490,6 @@ export const google = $root.google = (() => {
     })();
 
     return google;
-})();
-
-export const cosmos = $root.cosmos = (() => {
-
-    /**
-     * Namespace cosmos.
-     * @exports cosmos
-     * @namespace
-     */
-    const cosmos = {};
-
-    cosmos.base = (function() {
-
-        /**
-         * Namespace base.
-         * @memberof cosmos
-         * @namespace
-         */
-        const base = {};
-
-        base.query = (function() {
-
-            /**
-             * Namespace query.
-             * @memberof cosmos.base
-             * @namespace
-             */
-            const query = {};
-
-            query.v1beta1 = (function() {
-
-                /**
-                 * Namespace v1beta1.
-                 * @memberof cosmos.base.query
-                 * @namespace
-                 */
-                const v1beta1 = {};
-
-                v1beta1.PageRequest = (function() {
-
-                    /**
-                     * Properties of a PageRequest.
-                     * @memberof cosmos.base.query.v1beta1
-                     * @interface IPageRequest
-                     * @property {Uint8Array|null} [key] PageRequest key
-                     * @property {Long|null} [offset] PageRequest offset
-                     * @property {Long|null} [limit] PageRequest limit
-                     * @property {boolean|null} [count_total] PageRequest count_total
-                     * @property {boolean|null} [reverse] PageRequest reverse
-                     */
-
-                    /**
-                     * Constructs a new PageRequest.
-                     * @memberof cosmos.base.query.v1beta1
-                     * @classdesc Represents a PageRequest.
-                     * @implements IPageRequest
-                     * @constructor
-                     * @param {cosmos.base.query.v1beta1.IPageRequest=} [properties] Properties to set
-                     */
-                    function PageRequest(properties) {
-                        if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * PageRequest key.
-                     * @member {Uint8Array} key
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     */
-                    PageRequest.prototype.key = $util.newBuffer([]);
-
-                    /**
-                     * PageRequest offset.
-                     * @member {Long} offset
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     */
-                    PageRequest.prototype.offset = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-                    /**
-                     * PageRequest limit.
-                     * @member {Long} limit
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     */
-                    PageRequest.prototype.limit = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-                    /**
-                     * PageRequest count_total.
-                     * @member {boolean} count_total
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     */
-                    PageRequest.prototype.count_total = false;
-
-                    /**
-                     * PageRequest reverse.
-                     * @member {boolean} reverse
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     */
-                    PageRequest.prototype.reverse = false;
-
-                    /**
-                     * Encodes the specified PageRequest message. Does not implicitly {@link cosmos.base.query.v1beta1.PageRequest.verify|verify} messages.
-                     * @function encode
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.IPageRequest} message PageRequest message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    PageRequest.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.key != null && Object.hasOwnProperty.call(message, "key"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.key);
-                        if (message.offset != null && Object.hasOwnProperty.call(message, "offset"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.offset);
-                        if (message.limit != null && Object.hasOwnProperty.call(message, "limit"))
-                            writer.uint32(/* id 3, wireType 0 =*/24).uint64(message.limit);
-                        if (message.count_total != null && Object.hasOwnProperty.call(message, "count_total"))
-                            writer.uint32(/* id 4, wireType 0 =*/32).bool(message.count_total);
-                        if (message.reverse != null && Object.hasOwnProperty.call(message, "reverse"))
-                            writer.uint32(/* id 5, wireType 0 =*/40).bool(message.reverse);
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified PageRequest message, length delimited. Does not implicitly {@link cosmos.base.query.v1beta1.PageRequest.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.IPageRequest} message PageRequest message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    PageRequest.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a PageRequest message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    PageRequest.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.query.v1beta1.PageRequest();
-                        while (reader.pos < end) {
-                            let tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.key = reader.bytes();
-                                break;
-                            case 2:
-                                message.offset = reader.uint64();
-                                break;
-                            case 3:
-                                message.limit = reader.uint64();
-                                break;
-                            case 4:
-                                message.count_total = reader.bool();
-                                break;
-                            case 5:
-                                message.reverse = reader.bool();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a PageRequest message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    PageRequest.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a PageRequest message.
-                     * @function verify
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    PageRequest.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        if (message.key != null && message.hasOwnProperty("key"))
-                            if (!(message.key && typeof message.key.length === "number" || $util.isString(message.key)))
-                                return "key: buffer expected";
-                        if (message.offset != null && message.hasOwnProperty("offset"))
-                            if (!$util.isInteger(message.offset) && !(message.offset && $util.isInteger(message.offset.low) && $util.isInteger(message.offset.high)))
-                                return "offset: integer|Long expected";
-                        if (message.limit != null && message.hasOwnProperty("limit"))
-                            if (!$util.isInteger(message.limit) && !(message.limit && $util.isInteger(message.limit.low) && $util.isInteger(message.limit.high)))
-                                return "limit: integer|Long expected";
-                        if (message.count_total != null && message.hasOwnProperty("count_total"))
-                            if (typeof message.count_total !== "boolean")
-                                return "count_total: boolean expected";
-                        if (message.reverse != null && message.hasOwnProperty("reverse"))
-                            if (typeof message.reverse !== "boolean")
-                                return "reverse: boolean expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a PageRequest message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {cosmos.base.query.v1beta1.PageRequest} PageRequest
-                     */
-                    PageRequest.fromObject = function fromObject(object) {
-                        if (object instanceof $root.cosmos.base.query.v1beta1.PageRequest)
-                            return object;
-                        let message = new $root.cosmos.base.query.v1beta1.PageRequest();
-                        if (object.key != null)
-                            if (typeof object.key === "string")
-                                $util.base64.decode(object.key, message.key = $util.newBuffer($util.base64.length(object.key)), 0);
-                            else if (object.key.length)
-                                message.key = object.key;
-                        if (object.offset != null)
-                            if ($util.Long)
-                                (message.offset = $util.Long.fromValue(object.offset)).unsigned = true;
-                            else if (typeof object.offset === "string")
-                                message.offset = parseInt(object.offset, 10);
-                            else if (typeof object.offset === "number")
-                                message.offset = object.offset;
-                            else if (typeof object.offset === "object")
-                                message.offset = new $util.LongBits(object.offset.low >>> 0, object.offset.high >>> 0).toNumber(true);
-                        if (object.limit != null)
-                            if ($util.Long)
-                                (message.limit = $util.Long.fromValue(object.limit)).unsigned = true;
-                            else if (typeof object.limit === "string")
-                                message.limit = parseInt(object.limit, 10);
-                            else if (typeof object.limit === "number")
-                                message.limit = object.limit;
-                            else if (typeof object.limit === "object")
-                                message.limit = new $util.LongBits(object.limit.low >>> 0, object.limit.high >>> 0).toNumber(true);
-                        if (object.count_total != null)
-                            message.count_total = Boolean(object.count_total);
-                        if (object.reverse != null)
-                            message.reverse = Boolean(object.reverse);
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a PageRequest message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.PageRequest} message PageRequest
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    PageRequest.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        let object = {};
-                        if (options.defaults) {
-                            if (options.bytes === String)
-                                object.key = "";
-                            else {
-                                object.key = [];
-                                if (options.bytes !== Array)
-                                    object.key = $util.newBuffer(object.key);
-                            }
-                            if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
-                                object.offset = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.offset = options.longs === String ? "0" : 0;
-                            if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
-                                object.limit = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.limit = options.longs === String ? "0" : 0;
-                            object.count_total = false;
-                            object.reverse = false;
-                        }
-                        if (message.key != null && message.hasOwnProperty("key"))
-                            object.key = options.bytes === String ? $util.base64.encode(message.key, 0, message.key.length) : options.bytes === Array ? Array.prototype.slice.call(message.key) : message.key;
-                        if (message.offset != null && message.hasOwnProperty("offset"))
-                            if (typeof message.offset === "number")
-                                object.offset = options.longs === String ? String(message.offset) : message.offset;
-                            else
-                                object.offset = options.longs === String ? $util.Long.prototype.toString.call(message.offset) : options.longs === Number ? new $util.LongBits(message.offset.low >>> 0, message.offset.high >>> 0).toNumber(true) : message.offset;
-                        if (message.limit != null && message.hasOwnProperty("limit"))
-                            if (typeof message.limit === "number")
-                                object.limit = options.longs === String ? String(message.limit) : message.limit;
-                            else
-                                object.limit = options.longs === String ? $util.Long.prototype.toString.call(message.limit) : options.longs === Number ? new $util.LongBits(message.limit.low >>> 0, message.limit.high >>> 0).toNumber(true) : message.limit;
-                        if (message.count_total != null && message.hasOwnProperty("count_total"))
-                            object.count_total = message.count_total;
-                        if (message.reverse != null && message.hasOwnProperty("reverse"))
-                            object.reverse = message.reverse;
-                        return object;
-                    };
-
-                    /**
-                     * Converts this PageRequest to JSON.
-                     * @function toJSON
-                     * @memberof cosmos.base.query.v1beta1.PageRequest
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    PageRequest.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return PageRequest;
-                })();
-
-                v1beta1.PageResponse = (function() {
-
-                    /**
-                     * Properties of a PageResponse.
-                     * @memberof cosmos.base.query.v1beta1
-                     * @interface IPageResponse
-                     * @property {Uint8Array|null} [next_key] PageResponse next_key
-                     * @property {Long|null} [total] PageResponse total
-                     */
-
-                    /**
-                     * Constructs a new PageResponse.
-                     * @memberof cosmos.base.query.v1beta1
-                     * @classdesc Represents a PageResponse.
-                     * @implements IPageResponse
-                     * @constructor
-                     * @param {cosmos.base.query.v1beta1.IPageResponse=} [properties] Properties to set
-                     */
-                    function PageResponse(properties) {
-                        if (properties)
-                            for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                                if (properties[keys[i]] != null)
-                                    this[keys[i]] = properties[keys[i]];
-                    }
-
-                    /**
-                     * PageResponse next_key.
-                     * @member {Uint8Array} next_key
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @instance
-                     */
-                    PageResponse.prototype.next_key = $util.newBuffer([]);
-
-                    /**
-                     * PageResponse total.
-                     * @member {Long} total
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @instance
-                     */
-                    PageResponse.prototype.total = $util.Long ? $util.Long.fromBits(0,0,true) : 0;
-
-                    /**
-                     * Encodes the specified PageResponse message. Does not implicitly {@link cosmos.base.query.v1beta1.PageResponse.verify|verify} messages.
-                     * @function encode
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.IPageResponse} message PageResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    PageResponse.encode = function encode(message, writer) {
-                        if (!writer)
-                            writer = $Writer.create();
-                        if (message.next_key != null && Object.hasOwnProperty.call(message, "next_key"))
-                            writer.uint32(/* id 1, wireType 2 =*/10).bytes(message.next_key);
-                        if (message.total != null && Object.hasOwnProperty.call(message, "total"))
-                            writer.uint32(/* id 2, wireType 0 =*/16).uint64(message.total);
-                        return writer;
-                    };
-
-                    /**
-                     * Encodes the specified PageResponse message, length delimited. Does not implicitly {@link cosmos.base.query.v1beta1.PageResponse.verify|verify} messages.
-                     * @function encodeDelimited
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.IPageResponse} message PageResponse message or plain object to encode
-                     * @param {$protobuf.Writer} [writer] Writer to encode to
-                     * @returns {$protobuf.Writer} Writer
-                     */
-                    PageResponse.encodeDelimited = function encodeDelimited(message, writer) {
-                        return this.encode(message, writer).ldelim();
-                    };
-
-                    /**
-                     * Decodes a PageResponse message from the specified reader or buffer.
-                     * @function decode
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @param {number} [length] Message length if known beforehand
-                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    PageResponse.decode = function decode(reader, length) {
-                        if (!(reader instanceof $Reader))
-                            reader = $Reader.create(reader);
-                        let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.query.v1beta1.PageResponse();
-                        while (reader.pos < end) {
-                            let tag = reader.uint32();
-                            switch (tag >>> 3) {
-                            case 1:
-                                message.next_key = reader.bytes();
-                                break;
-                            case 2:
-                                message.total = reader.uint64();
-                                break;
-                            default:
-                                reader.skipType(tag & 7);
-                                break;
-                            }
-                        }
-                        return message;
-                    };
-
-                    /**
-                     * Decodes a PageResponse message from the specified reader or buffer, length delimited.
-                     * @function decodeDelimited
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
-                     * @throws {Error} If the payload is not a reader or valid buffer
-                     * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                     */
-                    PageResponse.decodeDelimited = function decodeDelimited(reader) {
-                        if (!(reader instanceof $Reader))
-                            reader = new $Reader(reader);
-                        return this.decode(reader, reader.uint32());
-                    };
-
-                    /**
-                     * Verifies a PageResponse message.
-                     * @function verify
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {Object.<string,*>} message Plain object to verify
-                     * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                     */
-                    PageResponse.verify = function verify(message) {
-                        if (typeof message !== "object" || message === null)
-                            return "object expected";
-                        if (message.next_key != null && message.hasOwnProperty("next_key"))
-                            if (!(message.next_key && typeof message.next_key.length === "number" || $util.isString(message.next_key)))
-                                return "next_key: buffer expected";
-                        if (message.total != null && message.hasOwnProperty("total"))
-                            if (!$util.isInteger(message.total) && !(message.total && $util.isInteger(message.total.low) && $util.isInteger(message.total.high)))
-                                return "total: integer|Long expected";
-                        return null;
-                    };
-
-                    /**
-                     * Creates a PageResponse message from a plain object. Also converts values to their respective internal types.
-                     * @function fromObject
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {Object.<string,*>} object Plain object
-                     * @returns {cosmos.base.query.v1beta1.PageResponse} PageResponse
-                     */
-                    PageResponse.fromObject = function fromObject(object) {
-                        if (object instanceof $root.cosmos.base.query.v1beta1.PageResponse)
-                            return object;
-                        let message = new $root.cosmos.base.query.v1beta1.PageResponse();
-                        if (object.next_key != null)
-                            if (typeof object.next_key === "string")
-                                $util.base64.decode(object.next_key, message.next_key = $util.newBuffer($util.base64.length(object.next_key)), 0);
-                            else if (object.next_key.length)
-                                message.next_key = object.next_key;
-                        if (object.total != null)
-                            if ($util.Long)
-                                (message.total = $util.Long.fromValue(object.total)).unsigned = true;
-                            else if (typeof object.total === "string")
-                                message.total = parseInt(object.total, 10);
-                            else if (typeof object.total === "number")
-                                message.total = object.total;
-                            else if (typeof object.total === "object")
-                                message.total = new $util.LongBits(object.total.low >>> 0, object.total.high >>> 0).toNumber(true);
-                        return message;
-                    };
-
-                    /**
-                     * Creates a plain object from a PageResponse message. Also converts values to other types if specified.
-                     * @function toObject
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @static
-                     * @param {cosmos.base.query.v1beta1.PageResponse} message PageResponse
-                     * @param {$protobuf.IConversionOptions} [options] Conversion options
-                     * @returns {Object.<string,*>} Plain object
-                     */
-                    PageResponse.toObject = function toObject(message, options) {
-                        if (!options)
-                            options = {};
-                        let object = {};
-                        if (options.defaults) {
-                            if (options.bytes === String)
-                                object.next_key = "";
-                            else {
-                                object.next_key = [];
-                                if (options.bytes !== Array)
-                                    object.next_key = $util.newBuffer(object.next_key);
-                            }
-                            if ($util.Long) {
-                                let long = new $util.Long(0, 0, true);
-                                object.total = options.longs === String ? long.toString() : options.longs === Number ? long.toNumber() : long;
-                            } else
-                                object.total = options.longs === String ? "0" : 0;
-                        }
-                        if (message.next_key != null && message.hasOwnProperty("next_key"))
-                            object.next_key = options.bytes === String ? $util.base64.encode(message.next_key, 0, message.next_key.length) : options.bytes === Array ? Array.prototype.slice.call(message.next_key) : message.next_key;
-                        if (message.total != null && message.hasOwnProperty("total"))
-                            if (typeof message.total === "number")
-                                object.total = options.longs === String ? String(message.total) : message.total;
-                            else
-                                object.total = options.longs === String ? $util.Long.prototype.toString.call(message.total) : options.longs === Number ? new $util.LongBits(message.total.low >>> 0, message.total.high >>> 0).toNumber(true) : message.total;
-                        return object;
-                    };
-
-                    /**
-                     * Converts this PageResponse to JSON.
-                     * @function toJSON
-                     * @memberof cosmos.base.query.v1beta1.PageResponse
-                     * @instance
-                     * @returns {Object.<string,*>} JSON object
-                     */
-                    PageResponse.prototype.toJSON = function toJSON() {
-                        return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                    };
-
-                    return PageResponse;
-                })();
-
-                return v1beta1;
-            })();
-
-            return query;
-        })();
-
-        base.v1beta1 = (function() {
-
-            /**
-             * Namespace v1beta1.
-             * @memberof cosmos.base
-             * @namespace
-             */
-            const v1beta1 = {};
-
-            v1beta1.Coin = (function() {
-
-                /**
-                 * Properties of a Coin.
-                 * @memberof cosmos.base.v1beta1
-                 * @interface ICoin
-                 * @property {string|null} [denom] Coin denom
-                 * @property {string|null} [amount] Coin amount
-                 */
-
-                /**
-                 * Constructs a new Coin.
-                 * @memberof cosmos.base.v1beta1
-                 * @classdesc Represents a Coin.
-                 * @implements ICoin
-                 * @constructor
-                 * @param {cosmos.base.v1beta1.ICoin=} [properties] Properties to set
-                 */
-                function Coin(properties) {
-                    if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * Coin denom.
-                 * @member {string} denom
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @instance
-                 */
-                Coin.prototype.denom = "";
-
-                /**
-                 * Coin amount.
-                 * @member {string} amount
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @instance
-                 */
-                Coin.prototype.amount = "";
-
-                /**
-                 * Encodes the specified Coin message. Does not implicitly {@link cosmos.base.v1beta1.Coin.verify|verify} messages.
-                 * @function encode
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {cosmos.base.v1beta1.ICoin} message Coin message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                Coin.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.denom);
-                    if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.amount);
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified Coin message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.Coin.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {cosmos.base.v1beta1.ICoin} message Coin message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                Coin.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes a Coin message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {cosmos.base.v1beta1.Coin} Coin
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                Coin.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.Coin();
-                    while (reader.pos < end) {
-                        let tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.denom = reader.string();
-                            break;
-                        case 2:
-                            message.amount = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes a Coin message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {cosmos.base.v1beta1.Coin} Coin
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                Coin.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies a Coin message.
-                 * @function verify
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                Coin.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    if (message.denom != null && message.hasOwnProperty("denom"))
-                        if (!$util.isString(message.denom))
-                            return "denom: string expected";
-                    if (message.amount != null && message.hasOwnProperty("amount"))
-                        if (!$util.isString(message.amount))
-                            return "amount: string expected";
-                    return null;
-                };
-
-                /**
-                 * Creates a Coin message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {cosmos.base.v1beta1.Coin} Coin
-                 */
-                Coin.fromObject = function fromObject(object) {
-                    if (object instanceof $root.cosmos.base.v1beta1.Coin)
-                        return object;
-                    let message = new $root.cosmos.base.v1beta1.Coin();
-                    if (object.denom != null)
-                        message.denom = String(object.denom);
-                    if (object.amount != null)
-                        message.amount = String(object.amount);
-                    return message;
-                };
-
-                /**
-                 * Creates a plain object from a Coin message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @static
-                 * @param {cosmos.base.v1beta1.Coin} message Coin
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                Coin.toObject = function toObject(message, options) {
-                    if (!options)
-                        options = {};
-                    let object = {};
-                    if (options.defaults) {
-                        object.denom = "";
-                        object.amount = "";
-                    }
-                    if (message.denom != null && message.hasOwnProperty("denom"))
-                        object.denom = message.denom;
-                    if (message.amount != null && message.hasOwnProperty("amount"))
-                        object.amount = message.amount;
-                    return object;
-                };
-
-                /**
-                 * Converts this Coin to JSON.
-                 * @function toJSON
-                 * @memberof cosmos.base.v1beta1.Coin
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                Coin.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return Coin;
-            })();
-
-            v1beta1.DecCoin = (function() {
-
-                /**
-                 * Properties of a DecCoin.
-                 * @memberof cosmos.base.v1beta1
-                 * @interface IDecCoin
-                 * @property {string|null} [denom] DecCoin denom
-                 * @property {string|null} [amount] DecCoin amount
-                 */
-
-                /**
-                 * Constructs a new DecCoin.
-                 * @memberof cosmos.base.v1beta1
-                 * @classdesc Represents a DecCoin.
-                 * @implements IDecCoin
-                 * @constructor
-                 * @param {cosmos.base.v1beta1.IDecCoin=} [properties] Properties to set
-                 */
-                function DecCoin(properties) {
-                    if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * DecCoin denom.
-                 * @member {string} denom
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @instance
-                 */
-                DecCoin.prototype.denom = "";
-
-                /**
-                 * DecCoin amount.
-                 * @member {string} amount
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @instance
-                 */
-                DecCoin.prototype.amount = "";
-
-                /**
-                 * Encodes the specified DecCoin message. Does not implicitly {@link cosmos.base.v1beta1.DecCoin.verify|verify} messages.
-                 * @function encode
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {cosmos.base.v1beta1.IDecCoin} message DecCoin message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DecCoin.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.denom != null && Object.hasOwnProperty.call(message, "denom"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.denom);
-                    if (message.amount != null && Object.hasOwnProperty.call(message, "amount"))
-                        writer.uint32(/* id 2, wireType 2 =*/18).string(message.amount);
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified DecCoin message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.DecCoin.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {cosmos.base.v1beta1.IDecCoin} message DecCoin message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DecCoin.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes a DecCoin message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DecCoin.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.DecCoin();
-                    while (reader.pos < end) {
-                        let tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.denom = reader.string();
-                            break;
-                        case 2:
-                            message.amount = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes a DecCoin message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DecCoin.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies a DecCoin message.
-                 * @function verify
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                DecCoin.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    if (message.denom != null && message.hasOwnProperty("denom"))
-                        if (!$util.isString(message.denom))
-                            return "denom: string expected";
-                    if (message.amount != null && message.hasOwnProperty("amount"))
-                        if (!$util.isString(message.amount))
-                            return "amount: string expected";
-                    return null;
-                };
-
-                /**
-                 * Creates a DecCoin message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {cosmos.base.v1beta1.DecCoin} DecCoin
-                 */
-                DecCoin.fromObject = function fromObject(object) {
-                    if (object instanceof $root.cosmos.base.v1beta1.DecCoin)
-                        return object;
-                    let message = new $root.cosmos.base.v1beta1.DecCoin();
-                    if (object.denom != null)
-                        message.denom = String(object.denom);
-                    if (object.amount != null)
-                        message.amount = String(object.amount);
-                    return message;
-                };
-
-                /**
-                 * Creates a plain object from a DecCoin message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @static
-                 * @param {cosmos.base.v1beta1.DecCoin} message DecCoin
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                DecCoin.toObject = function toObject(message, options) {
-                    if (!options)
-                        options = {};
-                    let object = {};
-                    if (options.defaults) {
-                        object.denom = "";
-                        object.amount = "";
-                    }
-                    if (message.denom != null && message.hasOwnProperty("denom"))
-                        object.denom = message.denom;
-                    if (message.amount != null && message.hasOwnProperty("amount"))
-                        object.amount = message.amount;
-                    return object;
-                };
-
-                /**
-                 * Converts this DecCoin to JSON.
-                 * @function toJSON
-                 * @memberof cosmos.base.v1beta1.DecCoin
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                DecCoin.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return DecCoin;
-            })();
-
-            v1beta1.IntProto = (function() {
-
-                /**
-                 * Properties of an IntProto.
-                 * @memberof cosmos.base.v1beta1
-                 * @interface IIntProto
-                 * @property {string|null} [int] IntProto int
-                 */
-
-                /**
-                 * Constructs a new IntProto.
-                 * @memberof cosmos.base.v1beta1
-                 * @classdesc Represents an IntProto.
-                 * @implements IIntProto
-                 * @constructor
-                 * @param {cosmos.base.v1beta1.IIntProto=} [properties] Properties to set
-                 */
-                function IntProto(properties) {
-                    if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * IntProto int.
-                 * @member {string} int
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @instance
-                 */
-                IntProto.prototype.int = "";
-
-                /**
-                 * Encodes the specified IntProto message. Does not implicitly {@link cosmos.base.v1beta1.IntProto.verify|verify} messages.
-                 * @function encode
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.IIntProto} message IntProto message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                IntProto.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.int != null && Object.hasOwnProperty.call(message, "int"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.int);
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified IntProto message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.IntProto.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.IIntProto} message IntProto message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                IntProto.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes an IntProto message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                IntProto.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.IntProto();
-                    while (reader.pos < end) {
-                        let tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.int = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes an IntProto message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                IntProto.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies an IntProto message.
-                 * @function verify
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                IntProto.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    if (message.int != null && message.hasOwnProperty("int"))
-                        if (!$util.isString(message.int))
-                            return "int: string expected";
-                    return null;
-                };
-
-                /**
-                 * Creates an IntProto message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {cosmos.base.v1beta1.IntProto} IntProto
-                 */
-                IntProto.fromObject = function fromObject(object) {
-                    if (object instanceof $root.cosmos.base.v1beta1.IntProto)
-                        return object;
-                    let message = new $root.cosmos.base.v1beta1.IntProto();
-                    if (object.int != null)
-                        message.int = String(object.int);
-                    return message;
-                };
-
-                /**
-                 * Creates a plain object from an IntProto message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.IntProto} message IntProto
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                IntProto.toObject = function toObject(message, options) {
-                    if (!options)
-                        options = {};
-                    let object = {};
-                    if (options.defaults)
-                        object.int = "";
-                    if (message.int != null && message.hasOwnProperty("int"))
-                        object.int = message.int;
-                    return object;
-                };
-
-                /**
-                 * Converts this IntProto to JSON.
-                 * @function toJSON
-                 * @memberof cosmos.base.v1beta1.IntProto
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                IntProto.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return IntProto;
-            })();
-
-            v1beta1.DecProto = (function() {
-
-                /**
-                 * Properties of a DecProto.
-                 * @memberof cosmos.base.v1beta1
-                 * @interface IDecProto
-                 * @property {string|null} [dec] DecProto dec
-                 */
-
-                /**
-                 * Constructs a new DecProto.
-                 * @memberof cosmos.base.v1beta1
-                 * @classdesc Represents a DecProto.
-                 * @implements IDecProto
-                 * @constructor
-                 * @param {cosmos.base.v1beta1.IDecProto=} [properties] Properties to set
-                 */
-                function DecProto(properties) {
-                    if (properties)
-                        for (let keys = Object.keys(properties), i = 0; i < keys.length; ++i)
-                            if (properties[keys[i]] != null)
-                                this[keys[i]] = properties[keys[i]];
-                }
-
-                /**
-                 * DecProto dec.
-                 * @member {string} dec
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @instance
-                 */
-                DecProto.prototype.dec = "";
-
-                /**
-                 * Encodes the specified DecProto message. Does not implicitly {@link cosmos.base.v1beta1.DecProto.verify|verify} messages.
-                 * @function encode
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.IDecProto} message DecProto message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DecProto.encode = function encode(message, writer) {
-                    if (!writer)
-                        writer = $Writer.create();
-                    if (message.dec != null && Object.hasOwnProperty.call(message, "dec"))
-                        writer.uint32(/* id 1, wireType 2 =*/10).string(message.dec);
-                    return writer;
-                };
-
-                /**
-                 * Encodes the specified DecProto message, length delimited. Does not implicitly {@link cosmos.base.v1beta1.DecProto.verify|verify} messages.
-                 * @function encodeDelimited
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.IDecProto} message DecProto message or plain object to encode
-                 * @param {$protobuf.Writer} [writer] Writer to encode to
-                 * @returns {$protobuf.Writer} Writer
-                 */
-                DecProto.encodeDelimited = function encodeDelimited(message, writer) {
-                    return this.encode(message, writer).ldelim();
-                };
-
-                /**
-                 * Decodes a DecProto message from the specified reader or buffer.
-                 * @function decode
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @param {number} [length] Message length if known beforehand
-                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DecProto.decode = function decode(reader, length) {
-                    if (!(reader instanceof $Reader))
-                        reader = $Reader.create(reader);
-                    let end = length === undefined ? reader.len : reader.pos + length, message = new $root.cosmos.base.v1beta1.DecProto();
-                    while (reader.pos < end) {
-                        let tag = reader.uint32();
-                        switch (tag >>> 3) {
-                        case 1:
-                            message.dec = reader.string();
-                            break;
-                        default:
-                            reader.skipType(tag & 7);
-                            break;
-                        }
-                    }
-                    return message;
-                };
-
-                /**
-                 * Decodes a DecProto message from the specified reader or buffer, length delimited.
-                 * @function decodeDelimited
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {$protobuf.Reader|Uint8Array} reader Reader or buffer to decode from
-                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
-                 * @throws {Error} If the payload is not a reader or valid buffer
-                 * @throws {$protobuf.util.ProtocolError} If required fields are missing
-                 */
-                DecProto.decodeDelimited = function decodeDelimited(reader) {
-                    if (!(reader instanceof $Reader))
-                        reader = new $Reader(reader);
-                    return this.decode(reader, reader.uint32());
-                };
-
-                /**
-                 * Verifies a DecProto message.
-                 * @function verify
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {Object.<string,*>} message Plain object to verify
-                 * @returns {string|null} `null` if valid, otherwise the reason why it is not
-                 */
-                DecProto.verify = function verify(message) {
-                    if (typeof message !== "object" || message === null)
-                        return "object expected";
-                    if (message.dec != null && message.hasOwnProperty("dec"))
-                        if (!$util.isString(message.dec))
-                            return "dec: string expected";
-                    return null;
-                };
-
-                /**
-                 * Creates a DecProto message from a plain object. Also converts values to their respective internal types.
-                 * @function fromObject
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {Object.<string,*>} object Plain object
-                 * @returns {cosmos.base.v1beta1.DecProto} DecProto
-                 */
-                DecProto.fromObject = function fromObject(object) {
-                    if (object instanceof $root.cosmos.base.v1beta1.DecProto)
-                        return object;
-                    let message = new $root.cosmos.base.v1beta1.DecProto();
-                    if (object.dec != null)
-                        message.dec = String(object.dec);
-                    return message;
-                };
-
-                /**
-                 * Creates a plain object from a DecProto message. Also converts values to other types if specified.
-                 * @function toObject
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @static
-                 * @param {cosmos.base.v1beta1.DecProto} message DecProto
-                 * @param {$protobuf.IConversionOptions} [options] Conversion options
-                 * @returns {Object.<string,*>} Plain object
-                 */
-                DecProto.toObject = function toObject(message, options) {
-                    if (!options)
-                        options = {};
-                    let object = {};
-                    if (options.defaults)
-                        object.dec = "";
-                    if (message.dec != null && message.hasOwnProperty("dec"))
-                        object.dec = message.dec;
-                    return object;
-                };
-
-                /**
-                 * Converts this DecProto to JSON.
-                 * @function toJSON
-                 * @memberof cosmos.base.v1beta1.DecProto
-                 * @instance
-                 * @returns {Object.<string,*>} JSON object
-                 */
-                DecProto.prototype.toJSON = function toJSON() {
-                    return this.constructor.toObject(this, $protobuf.util.toJSONOptions);
-                };
-
-                return DecProto;
-            })();
-
-            return v1beta1;
-        })();
-
-        return base;
-    })();
-
-    return cosmos;
 })();
 
 export { $root as default };

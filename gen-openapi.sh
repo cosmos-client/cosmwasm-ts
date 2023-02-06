@@ -1,31 +1,16 @@
 #!/usr/bin/env bash
 # npm i -g swagger-combine
-git submodule update --init --recursive
 
 rm -r swagger.yaml
-rm -r ./proto
-rm -r ./proto-thirdparty
+rm -r ./proto/cosmwasm
 
 # Copy proto
-cp -r ./chain/proto ./proto
-cp -r ./chain/third_party/proto ./proto-thirdparty
+buf export buf.build/cosmwasm/wasmd --exclude-imports --output ./proto
 
 mkdir -p ./tmp-swagger-gen
-proto_dirs=$(find ./proto -path -prune -o -name '*.proto' -print0 | xargs -0 -n1 dirname | sort | uniq)
 
-for dir in $proto_dirs; do
-
-  # generate swagger files (filter query files)
-  query_file=$(find "${dir}" -maxdepth 1 \( -name 'query.proto' -o -name 'service.proto' \))
-  if [[ ! -z "$query_file" ]]; then
-    buf protoc  \
-    -I "proto" \
-    -I "proto-thirdparty" \
-    "$query_file" \
-    --swagger_out=./tmp-swagger-gen \
-    --swagger_opt=logtostderr=true --swagger_opt=fqn_for_swagger_name=true --swagger_opt=simple_operation_ids=true
-  fi
-done
+# generate swagger files (filter query files)
+buf generate --template ./proto/buf.gen.swagger.yaml
 
 # combine swagger files
 # uses nodejs package `swagger-combine`.
@@ -35,8 +20,7 @@ swagger-combine ./configs/config.json -o ./tmp-swagger-gen/swagger.yaml -f yaml 
 cp ./tmp-swagger-gen/swagger.yaml ./swagger.yaml
 
 # clean swagger files
-rm -r ./proto
-rm -r ./proto-thirdparty
+rm -r ./proto/cosmwasm
 rm -r ./tmp-swagger-gen
 
 # generate openapi
