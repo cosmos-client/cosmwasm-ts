@@ -1,7 +1,7 @@
 {
   "name": "@cosmos-client/cosmwasm",
   "description": "REST API client for Cosmos SDK CosmWasm module",
-  "version": "0.28.1",
+  "version": "0.40.1",
   "author": "CauchyE, Inc.",
   "bugs": {
     "url": "https://github.com/cosmos-client/cosmwasm-ts/issues"
@@ -23,8 +23,8 @@
     "bech32": "^1.1.4",
     "bip32": "^2.0.6",
     "bip39": "^3.0.4",
-    "protobufjs": "^6.11.2",
     "process": "^0.11.10",
+    "protobufjs": "^6.11.2",
     "rxjs": "^7.4.0",
     "tiny-secp256k1": "^2.0.1",
     "tweetnacl": "^1.0.3"
