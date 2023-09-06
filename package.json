@@ -1,7 +1,7 @@
 {
   "name": "@cosmos-client/cosmwasm",
   "description": "REST API client for Cosmos SDK CosmWasm module",
-  "version": "0.40.1",
+  "version": "0.40.2",
   "author": "CauchyE, Inc.",
   "bugs": {
     "url": "https://github.com/cosmos-client/cosmwasm-ts/issues"
@@ -62,7 +62,7 @@
     "webpack-cli": "^4.10.0"
   },
   "peerDependencies": {
-    "@cosmos-client/core": "^0.46.0"
+    "@cosmos-client/core": "^0.47.1"
   },
   "homepage": "https://github.com/cosmos-client/cosmwasm-ts#readme",
   "keywords": [
